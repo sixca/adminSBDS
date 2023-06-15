@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kbstar.mapper.NoticeMapper">
+    <select id="select" parameterType="Integer" resultType="notice">
+        SELECT * FROM notice WHERE id=#{id}
+    </select>
+
+    <select id="selectall" resultType="notice">
+        SELECT * FROM notice
+    </select>
+
+    <insert id="insert" parameterType="notice">
+        INSERT INTO notice (id, adm_id, title, writer, img, hit, rdate) VALUES (notice_seq.NEXTVAL, #{admId}, #{title}, #{writer}, #{img}, 0, SYSTIMESTAMP)
+    </insert>
+
+    <update id="update" parameterType="notice">
+        UPDATE notice SET adm_id=#{admId}, title=#{title}, writer=#{writer}, img=#{img}, hit=#{hit}, rdate=SYSDATE WHERE id=#{id}
+    </update>
+
+    <delete id="delete" parameterType="Integer">
+        DELETE FROM notice WHERE id=#{id}
+    </delete>
+</mapper>

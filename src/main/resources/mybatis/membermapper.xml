@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kbstar.mapper.MemberMapper">
+    <select id="select" parameterType="Integer" resultType="member">
+        SELECT * FROM member WHERE id=#{id}
+    </select>
+    <select id="selectall" resultType="member">
+        SELECT * FROM member
+    </select>
+    <insert id="insert" parameterType="member">
+        INSERT INTO member VALUES (member_seq.NEXTVAL,#{email},#{name},#{password},#{birth},#{tel},#{addr},#{img},#{valid})
+    </insert>
+    <update id="update" parameterType="member">
+        UPDATE member SET email=#{email},name=#{name},password=#{password}, birth=#{birth}, tel=#{tel}, addr=#{addr}, img=#{img}, valid=#{valid} WHERE id=#{id}
+    </update>
+    <delete id="delete" parameterType="Integer">
+        DELETE FROM member WHERE id=#{id}
+    </delete>
+</mapper>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+                "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kbstar.mapper.ItemReviewMapper">
+    <select id="select" parameterType="Integer" resultType="ItemReview">
+        SELECT * FROM item_review WHERE id=#{id}
+    </select>
+    <select id="selectall" resultType="ItemReview">
+        SELECT * FROM item_review
+    </select>
+    <delete id="delete" parameterType="Integer">
+        DELETE FROM item_review WHERE id=#{id}
+    </delete>
+</mapper>

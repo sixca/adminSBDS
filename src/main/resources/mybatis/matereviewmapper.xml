@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+                "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kbstar.mapper.MateReviewMapper">
+
+    <select id="mateRate" resultType="MateReviewRate">
+        SELECT m.id AS mateId , AVG(r.rate) AS rate
+        FROM mate m LEFT JOIN mate_review r
+        ON m.id = r.mate_id
+        GROUP BY m.id
+        HAVING m.id = #{mateId}
+    </select>
+    <select id="mateRateAll" resultType="MateReviewRate">
+        SELECT m.id AS mateId , AVG(r.rate) AS rate
+        FROM mate m LEFT JOIN mate_review r
+        ON m.id = r.mate_id
+        GROUP BY m.id
+    </select>
+    <select id="getByMateId" resultType="MateReview">
+        SELECT * FROM mate_review
+        WHERE mate_id=#{mateId}
+    </select>
+    <select id="select" parameterType="Integer" resultType="MateReview">
+        SELECT * FROM mate_review WHERE id=#{id}
+    </select>
+
+    <select id="selectall" resultType="MateReview">
+        SELECT * FROM mate_review
+    </select>
+
+    <delete id="delete" parameterType="Integer">
+        DELETE FROM mate_review WHERE id=#{id}
+    </delete>
+
+</mapper>

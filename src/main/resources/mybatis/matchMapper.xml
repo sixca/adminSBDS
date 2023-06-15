@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kbstar.mapper.MatchMapper">
+    <select id="getCntToMatched" resultType="java.lang.Integer">
+        SELECT COUNT(*) AS CNT
+        FROM MATCH
+        WHERE STATUS IN ('매칭완료', '결제완료', '정산완료', '결제대기')
+    </select>
+    <select id="select" parameterType="Integer" resultType="Match">
+        SELECT * FROM match WHERE id=#{id}
+    </select>
+
+    <select id="selectall" resultType="match">
+        SELECT * FROM match
+    </select>
+
+    <insert id="insert" parameterType="match">
+        INSERT INTO match (id, member_id, num, amount, adm_comment) VALUES (match_seq.NEXTVAL, #{memberId}, #{num}, #{amount}, #{admComment})
+    </insert>
+
+    <update id="update" parameterType="match">
+        UPDATE match SET member_id=#{memberId}, num=#{num}, amount=#{amount}, adm_comment=#{admComment} WHERE id=#{id}
+    </update>
+
+    <delete id="delete" parameterType="Integer">
+        DELETE FROM match WHERE id=#{id}
+    </delete>
+</mapper>

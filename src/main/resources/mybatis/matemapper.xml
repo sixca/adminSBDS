@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kbstar.mapper.MateMapper">
+    <select id="select" parameterType="Integer" resultType="mate">
+        SELECT * FROM mate WHERE id=#{id}
+    </select>
+    <select id="selectall" resultType="mate">
+        SELECT * FROM mate
+    </select>
+    <insert id="insert" parameterType="mate">
+        INSERT INTO mate (id, email, name, password, area, job_period, license, img, valid)
+        VALUES (mate_seq.NEXTVAL, #{email}, #{name}, #{password}, #{area}, #{jobPeriod}, #{license}, #{img}, UPPER(#{valid}))
+    </insert>
+    <update id="update" parameterType="mate">
+        UPDATE mate SET email=#{email},name=#{name}, area=#{area}, job_period=#{jobPeriod}, license=#{license}, img=#{img}, valid=#{valid} WHERE id=#{id}
+    </update>
+    <delete id="delete" parameterType="Integer">
+        DELETE FROM mate WHERE id=#{id}
+    </delete>
+</mapper>
