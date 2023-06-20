@@ -9,4 +9,16 @@ import org.springframework.stereotype.Repository;
 @Mapper
 public interface MatchMapper extends SBDSMapper<Integer, Match> {
     int getCntToMatched();
+    int getCntWaiting();
+
+    int getTotalPrice();
+
+    int getCancelledCnt();
+
+    int getConfirmPercent();
+
+    int getPayDoneCnt();
+
+
+
 }

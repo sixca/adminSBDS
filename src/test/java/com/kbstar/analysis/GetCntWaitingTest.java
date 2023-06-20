@@ -1,4 +1,4 @@
-package com.kbstar.match;
+package com.kbstar.analysis;
 
 import com.kbstar.service.MatchService;
 import lombok.extern.slf4j.Slf4j;
@@ -8,7 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @Slf4j
 @SpringBootTest
-class GetCntToMatchedTest {
+class GetCntWaitingTest {
 
 	@Autowired
 	MatchService service;
@@ -16,7 +16,7 @@ class GetCntToMatchedTest {
 	@Test
 	void contextLoads() {
 		try {
-			service.getCntToMatched();
+			service.getCntWaiting();
 		} catch (Exception e) {
 			log.info("오류");
 			e.printStackTrace();

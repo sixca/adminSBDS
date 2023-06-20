@@ -8,6 +8,33 @@
         FROM MATCH
         WHERE STATUS IN ('매칭완료', '결제완료', '정산완료', '결제대기')
     </select>
+    <select id="getCntWaiting" resultType="java.lang.Integer">
+        SELECT COUNT(*) AS CNT
+        FROM MATCH
+        WHERE STATUS IN ('매칭대기')
+    </select>
+    <select id="getTotalPrice" resultType="java.lang.Integer">
+        SELECT SUM(PRICE) AS total_price
+        FROM MATCH
+        WHERE STATUS = '결제완료'
+    </select>
+    <select id="getCancelledCnt" resultType="java.lang.Integer">
+        SELECT COUNT(*) AS cnt
+        FROM MATCH
+        WHERE STATUS IN ('매칭취소', '환불완료')
+    </select>
+    <select id="getConfirmPercent" resultType="java.lang.Integer">
+        SELECT
+                (ROUND(COUNT(CASE WHEN STATUS = '매칭완료' THEN 1 END) / COUNT(*), 2)
+                    + ROUND(COUNT(CASE WHEN STATUS = '결제완료' THEN 1 END) / COUNT(*), 2)
+                    + ROUND(COUNT(CASE WHEN STATUS = '정산완료' THEN 1 END) / COUNT(*), 2)) * 100 AS confirm_percentage
+        FROM MATCH
+    </select>
+    <select id="getPayDoneCnt" resultType="java.lang.Integer">
+        SELECT COUNT(*) AS cnt
+        FROM MATCH
+        WHERE pay_date IS NOT NULL
+    </select>
     <select id="select" parameterType="Integer" resultType="Match">
         SELECT * FROM match WHERE id=#{id}
     </select>

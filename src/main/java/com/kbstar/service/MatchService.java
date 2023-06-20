@@ -1,10 +1,7 @@
 package com.kbstar.service;
 
-import com.kbstar.dto.Item;
 import com.kbstar.dto.Match;
-import com.kbstar.dto.MateReview;
 import com.kbstar.frame.SBDSService;
-import com.kbstar.mapper.ItemMapper;
 import com.kbstar.mapper.MatchMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,4 +44,27 @@ public class MatchService implements SBDSService<Integer, Match> {
     public int getCntToMatched() throws Exception{
         return mapper.getCntToMatched();
     }
+
+    public int getCntWaiting() throws Exception{
+        return mapper.getCntWaiting();
+    };
+
+
+    public int getTotalPrice() throws Exception{
+        return mapper.getTotalPrice();
+    }
+
+    public int getCancelledCnt() throws Exception{
+        return mapper.getCancelledCnt();
+    }
+
+    public int getConfirmPercent() throws Exception{
+        return mapper.getConfirmPercent();
+    }
+
+    public int getPayDoneCnt() throws Exception{
+        return mapper.getPayDoneCnt();
+    }
+
+
 }

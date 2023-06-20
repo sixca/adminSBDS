@@ -47,6 +47,20 @@ public class MatchController {
         return "index";
     }
 
+    @RequestMapping("/analysis")
+    public String analysis(Model model){
+
+//        List<Item> items = null;
+//        try {
+//            items = service.get();
+//        } catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
+//        model.addAttribute("items", items);
+        model.addAttribute("center",dir + "analysis");
+        return "index";
+    }
+
     @RequestMapping("/{id}")
     public String detail(Model model, @PathVariable int id) throws Exception {
         Item item = service.get(id);

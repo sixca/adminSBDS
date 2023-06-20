@@ -17,9 +17,27 @@
             })
         },
     };
+    let getcntwaiting = {
+        init: function () {
+            getcntwaiting.getcnt();
+        },
+        getcnt: function () {
+            $.ajax({
+                url: '/getcntwaiting',
+                success: function (result) {
+                    console.log(result);
+                    $('#getcntwaiting').text(result);
+                }
+            })
+        },
+    };
     $(document).ready(function() {
         getcnttomatched.init();
-        setInterval(getcnttomatched.init, 5000);  // 자동 리셋 기능 5초
+        getcntwaiting.init();
+        setInterval(function() {
+            getcnttomatched.init();
+            getcntwaiting.init();
+        }, 5000); // 자동 리셋 기능 5초
     });
 </script>
 
@@ -35,9 +53,14 @@
                             <div class="card-body">
                                 <h5 class="card-title text-primary">SBDS은 오늘도 성장중 🎉</h5>
                                 <p class="mb-4">
-                                    오늘까지 <span class="fw-bold"><h7 id="getcnt"></h7></span>명 의 간병 매칭서비스가 이루어졌습니다.
+                                    오늘까지 <span class="fw-bold" id="getcnt" style="font-size: 25px;"></span>
+                                    명의 간병 매칭서비스가 이루어졌습니다.
                                 </p>
-                                <a href="javascript:;" class="btn btn-sm btn-outline-primary">View Badges</a>
+                                <div class="alert alert-primary alert-dismissible text-center" role="alert">
+                                    현재 <span id="getcntwaiting" style="font-size: 20px; font-weight: bold;"></span>
+                                    명이 매칭을 기다리고 있어요!
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
                             </div>
                         </div>
                         <div class="col-sm-5 text-center text-sm-left">

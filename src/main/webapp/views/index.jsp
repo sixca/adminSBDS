@@ -59,6 +59,14 @@ data-template="vertical-menu-template-free"
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="/js/config.js"></script>
+
+    <%--  HighCharts  --%>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/data.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+
 </head>
 
 <body>
@@ -142,6 +150,12 @@ data-template="vertical-menu-template-free"
 
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">매칭</span>
+        </li>
+        <li class="menu-item">
+            <a href="/match/analysis " class="menu-link">
+                <i class="menu-icon tf-icons bx bx-collection"></i>
+                <div data-i18n="Basic">매칭 상세 분석</div>
+            </a>
         </li>
         <li class="menu-item">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
@@ -457,8 +471,8 @@ id="layout-navbar"
 <!-- Place this tag where you want the button to render. -->
 <c:choose>
     <c:when test="${loginadm == null}">
-        <a href="/login" class="badge rounded-pill bg-primary">로그인</a>&nbsp;&nbsp;
-        <a href="/register" class="badge rounded-pill bg-primary">관리자 등록</a>&nbsp;&nbsp;
+        <a href="/login" class="badge rounded-pill bg-primary">Log in</a>&nbsp;&nbsp;
+        <a href="/register" class="badge rounded-pill bg-primary">Make Account</a>&nbsp;&nbsp;
     </c:when>
     <c:otherwise>
 

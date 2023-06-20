@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kbstar.mapper.MatchMonthGenderChartMapper">
+    <select id="getMonthlyGenderlyCnt" resultType="MatchMonthGenderChart">
+        <![CDATA[
+        SELECT
+            CASE
+                WHEN OBJECT_GENDER = 'M' THEN '남성'
+                WHEN OBJECT_GENDER = 'F' THEN '여성'
+                END AS gender,
+            CASE
+                WHEN EXTRACT(YEAR FROM SYSDATE) - SUBSTR(OBJECT_BIRTH, 1, 4) BETWEEN 10 AND 49 THEN '40대 이하'
+                WHEN EXTRACT(YEAR FROM SYSDATE) - SUBSTR(OBJECT_BIRTH, 1, 4) BETWEEN 50 AND 59 THEN '50대'
+                WHEN EXTRACT(YEAR FROM SYSDATE) - SUBSTR(OBJECT_BIRTH, 1, 4) BETWEEN 60 AND 69 THEN '60대'
+                WHEN EXTRACT(YEAR FROM SYSDATE) - SUBSTR(OBJECT_BIRTH, 1, 4) BETWEEN 70 AND 79 THEN '70대'
+                WHEN EXTRACT(YEAR FROM SYSDATE) - SUBSTR(OBJECT_BIRTH, 1, 4) BETWEEN 80 AND 89 THEN '80대'
+                WHEN EXTRACT(YEAR FROM SYSDATE) - SUBSTR(OBJECT_BIRTH, 1, 4) >= 90 THEN '90대 이상'
+                END AS age,
+            COUNT(ID) AS matchCnt
+        FROM MATCH
+        GROUP BY
+            CASE
+                WHEN OBJECT_GENDER = 'M' THEN '남성'
+                WHEN OBJECT_GENDER = 'F' THEN '여성'
+                END,
+            CASE
+                WHEN EXTRACT(YEAR FROM SYSDATE) - SUBSTR(OBJECT_BIRTH, 1, 4) BETWEEN 10 AND 49 THEN '40대 이하'
+                WHEN EXTRACT(YEAR FROM SYSDATE) - SUBSTR(OBJECT_BIRTH, 1, 4) BETWEEN 50 AND 59 THEN '50대'
+                WHEN EXTRACT(YEAR FROM SYSDATE) - SUBSTR(OBJECT_BIRTH, 1, 4) BETWEEN 60 AND 69 THEN '60대'
+                WHEN EXTRACT(YEAR FROM SYSDATE) - SUBSTR(OBJECT_BIRTH, 1, 4) BETWEEN 70 AND 79 THEN '70대'
+                WHEN EXTRACT(YEAR FROM SYSDATE) - SUBSTR(OBJECT_BIRTH, 1, 4) BETWEEN 80 AND 89 THEN '80대'
+                WHEN EXTRACT(YEAR FROM SYSDATE) - SUBSTR(OBJECT_BIRTH, 1, 4) >= 90 THEN '90대 이상'
+                END
+        ORDER BY gender, age
+        ]]>
+    </select>
+</mapper>
