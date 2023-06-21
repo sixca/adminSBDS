@@ -61,7 +61,7 @@ public class MemberController {
         list = memberService.get();
         model.addAttribute("mlist", list);
         model.addAttribute("center", dir+"all");
-        return "index2";
+        return "index";
     }
 
     @RequestMapping("/detail")   //로그인 사용자 아이디 클릭 시 상세정보조회
@@ -74,7 +74,7 @@ public class MemberController {
         }
         model.addAttribute("memberinfo", member);
         model.addAttribute("center", dir+"detail");     //센터에 정보를 뿌림. 익숙해 지세요!
-        return "index2";
+        return "index";
     }
 //    @RequestMapping("/updateimpl")
 //    public String updateimpl(Model model, @Validated Member member, Errors errors) throws Exception {
@@ -121,7 +121,8 @@ public class MemberController {
             memberService.modify(member);
             FileUploadUtil.saveFile(mf, imgdir);     // 경로에 업로드
         }
-        return "redirect:/member/detail?id="+member.getId();
+//        return "redirect:/member/detail?id="+member.getId();
+        return "redirect:/member/all";
     }
 
 

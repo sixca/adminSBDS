@@ -37,8 +37,10 @@ public class Mate {
     private String license;
     private String img;
 
-    @Pattern(regexp = "[NY]", message = "'N' 또는 'Y' 값을 입력하세요")
-    private String valid = "N";
+//    @Pattern(regexp = "[NY]", message = "'N' 또는 'Y' 값을 입력하세요")
+//    private String valid = "N";
+    @Pattern(regexp = "[01]", message = "'0' 또는 '1' 값을 입력하세요")
+    private String valid = "1";
 
     private MultipartFile imgMate; //추가 :: img(이미지 네임)를 파일 덩어리 자체로 변환하기 위함
 

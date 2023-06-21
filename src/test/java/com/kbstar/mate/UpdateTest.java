@@ -17,7 +17,7 @@ class UpdateTest {
 	@Test
 	void contextLoads() {
 		try {
-			service.modify(new Mate(26,"updat@gmail.com","김업뎃스","김업뎃!", "서울시 서초구",6,"업뎃사","image4.jpg","N"));
+			service.modify(new Mate(26,"updat@gmail.com","김업뎃스","김업뎃!", "서울시 서초구",6,"업뎃사","image4.jpg","1"));
 		} catch (Exception e) {
 			log.info("오류");
 			e.printStackTrace();

@@ -122,8 +122,8 @@
                                 </div>
                                 <div class="col-sm-9 text-secondary">
                                     <select name="valid" class="form-control">
-                                        <option value="Y" ${mateinfo.valid == 'Y' ? 'selected' : ''}>Y</option>
-                                        <option value="N" ${mateinfo.valid == 'N' ? 'selected' : ''}>N</option>
+                                        <option value="1" ${mateinfo.valid == '1' ? 'selected' : ''}>Y</option>
+                                        <option value="0" ${mateinfo.valid == '0' ? 'selected' : ''}>N</option>
                                     </select>
                                 </div>
                             </div>

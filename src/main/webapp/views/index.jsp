@@ -167,7 +167,7 @@ data-template="vertical-menu-template-free"
             </ul>
         </li>
         <li class="menu-item">
-            <a href="/match/analysis " class="menu-link">
+            <a href="/member/all" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
                 <div data-i18n="Basic">회원 관리</div>
             </a>
