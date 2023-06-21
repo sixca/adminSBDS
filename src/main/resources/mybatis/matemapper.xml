@@ -3,18 +3,50 @@
         PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kbstar.mapper.MateMapper">
+    <select id="getTOP10List" parameterType="Integer" resultType="mate">
+        <![CDATA[
+        SELECT *
+        FROM (
+        SELECT m.name, COALESCE(SUM(mt.price), 0) AS total_price, COUNT(*) AS match_cnt, MAX(rv.avg_rate) AS avg_rate
+        FROM mate m
+        LEFT JOIN match mt ON m.id = mt.mate_id
+        LEFT JOIN (
+        SELECT mate_id, AVG(r.rate) AS avg_rate
+        FROM mate_review r
+        GROUP BY mate_id
+        ) rv ON m.id = rv.mate_id
+        WHERE mt.status NOT IN ('환불완료', '매칭취소')
+        GROUP BY m.name
+        HAVING MAX(rv.avg_rate) IS NOT NULL AND COALESCE(SUM(mt.price), 0) <> 0
+        ORDER BY avg_rate DESC
+        )
+        WHERE ROWNUM <= 10
+        ]]>
+    </select>
+    <select id="getMatchedMemberImgAll" parameterType="String" resultType="mate">
+        <![CDATA[
+        SELECT mt.NAME AS name, mb.NAME AS member_name, mb.img as member_img
+        FROM MATCH mtc
+                 JOIN MEMBER mb ON mtc.MEMBER_ID = MB.ID
+                 JOIN MATE mt ON MTC.MATE_ID = MT.ID
+        ]]>
+    </select>
+
     <select id="select" parameterType="Integer" resultType="mate">
         SELECT * FROM mate WHERE id=#{id}
     </select>
     <select id="selectall" resultType="mate">
-        SELECT * FROM mate
+        SELECT *
+        FROM mate
     </select>
     <insert id="insert" parameterType="mate">
         INSERT INTO mate (id, email, name, password, area, job_period, license, img, valid)
-        VALUES (mate_seq.NEXTVAL, #{email}, #{name}, #{password}, #{area}, #{jobPeriod}, #{license}, #{img}, UPPER(#{valid}))
+        VALUES (mate_seq.NEXTVAL, #{email}, #{name}, #{password}, #{area}, #{jobPeriod}, #{license}, #{img},
+        UPPER(#{valid}))
     </insert>
     <update id="update" parameterType="mate">
-        UPDATE mate SET email=#{email},name=#{name}, area=#{area}, job_period=#{jobPeriod}, license=#{license}, img=#{img}, valid=#{valid} WHERE id=#{id}
+        UPDATE mate SET email=#{email},name=#{name}, area=#{area}, job_period=#{jobPeriod}, license=#{license},
+        img=#{img}, valid=#{valid} WHERE id=#{id}
     </update>
     <delete id="delete" parameterType="Integer">
         DELETE FROM mate WHERE id=#{id}

@@ -40,4 +40,24 @@ public class MateService implements SBDSService<Integer, Mate> {
     public List<Mate> get() throws Exception {
         return mapper.selectall();
     }
+
+    public List<Mate> getTOP10List(){
+        try {
+            return mapper.getTOP10List();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public List<Mate> getMatchedMemberImgAll(){
+        try {
+            return mapper.getMatchedMemberImgAll();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
 }

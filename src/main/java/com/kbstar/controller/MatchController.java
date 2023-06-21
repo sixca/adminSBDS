@@ -1,7 +1,9 @@
 package com.kbstar.controller;
 
 import com.kbstar.dto.Item;
+import com.kbstar.dto.Mate;
 import com.kbstar.service.ItemService;
+import com.kbstar.service.MateService;
 import com.kbstar.util.FileUploadUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 @Controller
 @Slf4j
 @RequiredArgsConstructor
@@ -20,7 +24,10 @@ import org.springframework.web.multipart.MultipartFile;
 public class MatchController {
 
     @Autowired
-    ItemService service;
+    ItemService itemService;
+
+    @Autowired
+    MateService mateService;
 
     @Value("${uploadimgdir}")
     String uploadimgdir;
@@ -28,13 +35,13 @@ public class MatchController {
     String dir = "match/";
 
     @RequestMapping("/register")
-    public String register(Model model){
-        model.addAttribute("center",dir + "registerProduct");
+    public String register(Model model) {
+        model.addAttribute("center", dir + "registerProduct");
         return "index";
     }
 
     @RequestMapping("/all")
-    public String all(Model model){
+    public String all(Model model) {
 
 //        List<Item> items = null;
 //        try {
@@ -43,27 +50,28 @@ public class MatchController {
 //            throw new RuntimeException(e);
 //        }
 //        model.addAttribute("items", items);
-        model.addAttribute("center",dir + "all");
+        model.addAttribute("center", dir + "all");
         return "index";
     }
 
     @RequestMapping("/analysis")
-    public String analysis(Model model){
+    public String analysis(Model model) {
 
-//        List<Item> items = null;
-//        try {
-//            items = service.get();
-//        } catch (Exception e) {
-//            throw new RuntimeException(e);
-//        }
-//        model.addAttribute("items", items);
-        model.addAttribute("center",dir + "analysis");
+        List<Mate> list = null;
+        list = mateService.getTOP10List();
+
+        List<Mate> matchedlist = null;
+        matchedlist = mateService.getMatchedMemberImgAll();
+
+        model.addAttribute("matchedlist", matchedlist);
+        model.addAttribute("top10list", list);
+        model.addAttribute("center", dir + "analysis");
         return "index";
     }
 
     @RequestMapping("/{id}")
     public String detail(Model model, @PathVariable int id) throws Exception {
-        Item item = service.get(id);
+        Item item = itemService.get(id);
         model.addAttribute("item", item);
         model.addAttribute("center", dir + "updateProduct");
         return "index";
@@ -71,14 +79,14 @@ public class MatchController {
 
     @RequestMapping("/registerImpl")
     public String registerImpl(Model model, Item item) throws Exception {
-        MultipartFile mf =  item.getImgName();
+        MultipartFile mf = item.getImgName();
 
         //파일에서 이미지를 끄집어 낸다.
         String imgname = mf.getOriginalFilename();
         item.setImg(imgname);
 
         //db에 파일 저장
-        service.register(item);
+        itemService.register(item);
 
         //이미지 저장 디렉토리에 이미지를 저장한다.
         //우리가 업로드한 파일이 원하는 폴더로 들어간다(static으로 호출해서 함수 사용)
@@ -89,15 +97,15 @@ public class MatchController {
 
     @RequestMapping("/updateImpl")
     public String updateImpl(Model model, Item item) throws Exception {
-        MultipartFile mf =  item.getImgName();
+        MultipartFile mf = item.getImgName();
         //파일에서 이미지를 끄집어 낸다.
         String imgname = mf.getOriginalFilename();
         if (imgname.equals("") || imgname == null) {
-            service.modify(item);
+            itemService.modify(item);
         } else {
             item.setImg(imgname);
 
-            service.modify(item);
+            itemService.modify(item);
             FileUploadUtil.saveFile(mf, uploadimgdir);
         }
         return "redirect:/item/" + item.getId();
@@ -105,7 +113,7 @@ public class MatchController {
 
     @RequestMapping("/deleteimpl")
     public String deleteimpl(int id) throws Exception {
-        service.remove(id);
+        itemService.remove(id);
         return "redirect:/item/productall";
     }
 }

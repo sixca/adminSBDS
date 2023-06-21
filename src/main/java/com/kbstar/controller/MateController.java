@@ -40,7 +40,7 @@ public class MateController {
     @RequestMapping("/add")
     public String add(Model model) {
         model.addAttribute("center", dir + "add");
-        return "index2";
+        return "index";
     }
 
     @RequestMapping("/addimpl")
@@ -75,7 +75,7 @@ public class MateController {
         model.addAttribute("rlist", rlist);
         model.addAttribute("mlist", list);
         model.addAttribute("center", dir + "all");
-        return "index2";
+        return "index";
     }
 
     @RequestMapping("/detail")   //로그인 사용자 아이디 클릭 시 상세정보조회
@@ -93,7 +93,7 @@ public class MateController {
 
         model.addAttribute("mateinfo", mate);
         model.addAttribute("center", dir + "detail");     //센터에 정보를 뿌림. 익숙해 지세요!
-        return "index2";
+        return "index";
     }
 
     @RequestMapping("/updateimpl")

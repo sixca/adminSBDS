@@ -53,5 +53,14 @@ public class Mate {
         this.img = img;
         this.valid = valid;
     }
+
+    //인기 간병인top10 테이블 출력 시 사용 변수
+    private Integer totalPrice;
+    private Integer matchCnt;
+    private Integer avgRate;
+
+    //인기 간병인top10 테이블 안에 매칭회원 사진 출력 시 사용 변수
+    private String memberName;
+    private String memberImg;
 }
 

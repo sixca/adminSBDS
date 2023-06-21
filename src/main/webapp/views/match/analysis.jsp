@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
 <script>
     //성별, 연령별 매치 갯수 차트
     let chart = {
@@ -156,6 +159,43 @@
             getpaydonecnt.init();
         }, 5000);
     });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        var rankNumbers = document.querySelectorAll(".rank-number");
+        for (var i = 0; i < rankNumbers.length; i++) {
+            rankNumbers[i].textContent = i + 1;
+        }
+    });
+
+    //인기 간병인 TOP10 테이블 :: 순위 뿌리기 (1~10)
+    document.addEventListener("DOMContentLoaded", function () {
+        var rankNumbers = document.querySelectorAll(".rank-number");
+    });
+
+    //인기 간병인 TOP10 테이블 :: 평점 배경색 조건부 적용
+    document.addEventListener("DOMContentLoaded", function () {
+        var avgRateElements = document.querySelectorAll('#avgRate');
+
+        avgRateElements.forEach(function (avgRateElement) {
+            var avgRate = parseFloat(avgRateElement.innerText);
+
+            if (avgRate == 5) {
+                avgRateElement.classList.add('bg-label-danger');
+            } else if (avgRate >= 4 && avgRate < 5) {
+                avgRateElement.classList.add('bg-label-warning');
+            } else if (avgRate >= 3 && avgRate < 4) {
+                avgRateElement.classList.add('bg-label-info');
+            } else if (avgRate >= 2 && avgRate < 3) {
+                avgRateElement.classList.add('bg-label-success');
+            } else if (avgRate >= 1 && avgRate < 2) {
+                avgRateElement.classList.add('bg-label-primary');
+            } else if (avgRate >= 0 && avgRate < 1) {
+                avgRateElement.classList.add('bg-label-secondary');
+            }
+        });
+    });
+
+
 </script>
 
 
@@ -180,23 +220,20 @@
                     <label class="form-label" for="selectAgeOpt">연령대별</label>
                     <select class="form-select placement-dropdown" id="selectAgeOpt">
                         <option value="" selected></option>
-                        <option value="top-0 start-0">10대</option>
-                        <option value="top-0 start-50 translate-middle-x">20대</option>
-                        <option value="top-0 end-0">30대</option>
-                        <option value="top-50 start-0 translate-middle-y">40대</option>
-                        <option value="top-50 start-50 translate-middle">50대</option>
-                        <option value="top-50 end-0 translate-middle-y">60대</option>
-                        <option value="bottom-0 start-0">70대</option>
-                        <option value="bottom-0 start-50 translate-middle-x">80대</option>
-                        <option value="bottom-0 end-0">90대</option>
+                        <option value="under 40">40대 이하</option>
+                        <option value="50">50대</option>
+                        <option value="60">60대</option>
+                        <option value="70">70대</option>
+                        <option value="80">80대</option>
+                        <option value="90">90대 이하</option>
                     </select>
                 </div>
                 <div class="col-md-3 col-xl-2">
                     <label class="form-label" for="selectGenOpt">성별별</label>
                     <select class="form-select placement-dropdown" id="selectGenOpt">
                         <option value="" selected></option>
-                        <option value="top-0 start-0">남성</option>
-                        <option value="top-0 start-50 translate-middle-x">여성</option>
+                        <option value="M">남성</option>
+                        <option value="F">여성</option>
                     </select>
                 </div>
                 <div class="col-md-3 col-xl-2">
@@ -313,25 +350,6 @@
         <br/>
         <!-- Table within card -->
         <h5 class="mb-4">인기 간병인 TOP 10</h5>
-        <div class="card mb-4 col-md-2">
-            <div class="input-group">
-                <div class="col-md-7">
-                    <select
-                            class="form-select"
-                            id="selectGroupOrderBy"
-                            aria-label="Example select with button addon"
-                    >
-                        <option selected>Choose...</option>
-                        <option value="totPrice">누적 매출순</option>
-                        <option value="totCnt">누적 매칭순</option>
-                        <option value="totRate">평균 평점순</option>
-                    </select>
-                </div>
-                <div class="col-md-5 d-flex justify-content-end">
-                    <button class="btn btn-outline-primary" onclick="submitSelectedGroup()">Search</button>
-                </div>
-            </div>
-        </div>
         <div class="table-responsive text-nowrap">
             <table class="table card-table">
                 <thead>
@@ -340,57 +358,51 @@
                     <th>간병인 명</th>
                     <th>주요 매칭회원</th>
                     <th>누적 매출</th>
-                    <th>간병 일당</th>
                     <th class="text-center">누적 매칭 개수</th>
                     <th class="text-center">평균 평점</th>
                 </tr>
                 </thead>
-                <tbody class="table-border-bottom-0">
-                <tr>
-                    <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>1</strong></td>
-                    <td>Albert Cook</td>
-                    <td>
-                        <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-                            <li
-                                    data-bs-toggle="tooltip"
-                                    data-popup="tooltip-custom"
-                                    data-bs-placement="top"
-                                    class="avatar avatar-xs pull-up"
-                                    title="Lilian Fuller"
-                            >
-                                <img src="/img/avatars/5.png" alt="Avatar" class="rounded-circle"/>
-                            </li>
-                            <li
-                                    data-bs-toggle="tooltip"
-                                    data-popup="tooltip-custom"
-                                    data-bs-placement="top"
-                                    class="avatar avatar-xs pull-up"
-                                    title="Sophia Wilkerson"
-                            >
-                                <img src="/img/avatars/6.png" alt="Avatar" class="rounded-circle"/>
-                            </li>
-                            <li
-                                    data-bs-toggle="tooltip"
-                                    data-popup="tooltip-custom"
-                                    data-bs-placement="top"
-                                    class="avatar avatar-xs pull-up"
-                                    title="Christina Parker"
-                            >
-                                <img src="/img/avatars/7.png" alt="Avatar" class="rounded-circle"/>
-                            </li>
-                            <td>1,840,000원</td>
-                            <td>120,000원</td>
-                            <td class="text-center">12건</td>
-                            <td class="text-center"><span class="badge badge-center bg-label-warning">4.5</span></td>
-                        </ul>
-                        <%--                        <span class="badge badge-center bg-label-primary">1</span>--%>
-                        <%--                        <span class="badge badge-center bg-label-secondary">2</span>--%>
-                        <%--                        <span class="badge badge-center bg-label-success">3</span>--%>
-                        <%--                        <span class="badge badge-center bg-label-danger">4</span>--%>
-                        <%--                        <span class="badge badge-center bg-label-warning">5</span>--%>
-                    </td>
-                </tr>
 
+                <tbody class="table-border-bottom-0">
+                <c:forEach var="obj" items="${top10list}" varStatus="status">
+                    <tr>
+                        <td>
+                            <i class="fab fa-angular fa-lg text-danger me-3"></i>
+                            <strong class="rank-number">
+                                <% int rank = 1; %>
+                            </strong>
+                        </td>
+                        <td>${obj.name}</td>
+                        <td>
+                            <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
+                                <c:set var="count" value="0"/>
+                                <c:forEach var="matchedObj" items="${matchedlist}" varStatus="matchedStatus">
+                                    <c:if test="${matchedObj.name == obj.name && count lt 4}">
+                                        <c:set var="memberName" value="${matchedObj.memberName}"/>
+                                        <c:set var="memberImg" value="${matchedObj.memberImg}"/>
+                                        <li
+                                                data-bs-toggle="tooltip"
+                                                data-popup="tooltip-custom"
+                                                data-bs-placement="top"
+                                                class="avatar avatar-xs pull-up"
+                                                title="${memberName}"
+                                        >
+                                            <a href="/member/detail?name=${memberName}">
+                                                <img src="/uimg/${memberImg}" alt="Avatar" class="rounded-circle"/>
+                                            </a>
+                                        </li>
+                                        <c:set var="count" value="${count + 1}"/>
+                                    </c:if>
+                                </c:forEach>
+                                <td>${obj.totalPrice}원</td>
+                                <td class="text-center">${obj.matchCnt}건</td>
+                                <td class="text-center">
+                                    <span id="avgRate" class="badge badge-center rank-badge">${obj.avgRate}</span>
+                                </td>
+                            </ul>
+                        </td>
+                    </tr>
+                </c:forEach>
                 </tbody>
             </table>
         </div>

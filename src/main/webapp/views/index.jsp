@@ -66,7 +66,6 @@ data-template="vertical-menu-template-free"
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 
-
 </head>
 
 <body>
@@ -145,40 +144,45 @@ data-template="vertical-menu-template-free"
                 <div data-i18n="Analytics">Dashboard</div>
             </a>
         </li>
-
         <!-- Layouts -->
-
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">매칭</span>
         </li>
         <li class="menu-item">
-            <a href="/match/analysis " class="menu-link">
-                <i class="menu-icon tf-icons bx bx-collection"></i>
-                <div data-i18n="Basic">매칭 상세 분석</div>
-            </a>
-        </li>
-        <li class="menu-item">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-dock-top"></i>
-                <div data-i18n="Account Settings">Account Settings</div>
+                <div data-i18n="Account Settings">매칭 분석/관리</div>
             </a>
             <ul class="menu-sub">
                 <li class="menu-item">
-                    <a href="pages-account-settings-account.html" class="menu-link">
-                        <div data-i18n="Account">Account</div>
+                    <a href="/match/analysis" class="menu-link">
+                        <div data-i18n="Account">매칭 상세 분석</div>
                     </a>
                 </li>
                 <li class="menu-item">
                     <a href="pages-account-settings-notifications.html" class="menu-link">
-                        <div data-i18n="Notifications">Notifications</div>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="pages-account-settings-connections.html" class="menu-link">
-                        <div data-i18n="Connections">Connections</div>
+                        <div data-i18n="Notifications">매칭 리스트 조회</div>
                     </a>
                 </li>
             </ul>
+        </li>
+        <li class="menu-item">
+            <a href="/match/analysis " class="menu-link">
+                <i class="menu-icon tf-icons bx bx-collection"></i>
+                <div data-i18n="Basic">회원 관리</div>
+            </a>
+        </li>
+        <li class="menu-item">
+            <a href="/match/analysis " class="menu-link">
+                <i class="menu-icon tf-icons bx bx-collection"></i>
+                <div data-i18n="Basic">간병인 관리</div>
+            </a>
+        </li>
+        <li class="menu-item">
+            <a href="/match/analysis " class="menu-link">
+                <i class="menu-icon tf-icons bx bx-collection"></i>
+                <div data-i18n="Basic">후기 관리</div>
+            </a>
         </li>
         <li class="menu-item">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
@@ -227,7 +231,13 @@ data-template="vertical-menu-template-free"
         <li class="menu-item">
             <a href="cards-basic.html" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
-                <div data-i18n="Basic">Cards</div>
+                <div data-i18n="Basic">상품 관리</div>
+            </a>
+        </li>
+        <li class="menu-item">
+            <a href="cards-basic.html" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-collection"></i>
+                <div data-i18n="Basic">후기 관리</div>
             </a>
         </li>
         <!-- User interface -->
@@ -366,6 +376,17 @@ data-template="vertical-menu-template-free"
         <li class="menu-header small text-uppercase"><span class="menu-header-text">Forms &amp; Tables</span></li>
         <!-- Forms -->
         <li class="menu-item">
+            <a href="tables-basic.html" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-table"></i>
+                <div data-i18n="Tables">공지/마케팅 알림</div>
+            </a>
+        </li>
+        <li class="menu-item">
+
+            <a href="/coupon/all" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-collection"></i>
+                <div data-i18n="Basic">공지 관리</div>
+            </a>
             <a href="/coupon/all" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
                 <div data-i18n="Basic">쿠폰 관리</div>
@@ -405,13 +426,7 @@ data-template="vertical-menu-template-free"
                 </li>
             </ul>
         </li>
-        <!-- Tables -->
-        <li class="menu-item">
-            <a href="tables-basic.html" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-table"></i>
-                <div data-i18n="Tables">Tables</div>
-            </a>
-        </li>
+
         <!-- Misc -->
         <li class="menu-header small text-uppercase"><span class="menu-header-text">Misc</span></li>
         <li class="menu-item">
