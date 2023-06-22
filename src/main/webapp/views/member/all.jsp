@@ -9,6 +9,41 @@
         <!-- Basic Bootstrap Table -->
         <div class="card">
             <h5 class="card-header">회원 현황</h5>
+            <div class="card-body">
+                <form action="/member/findimpl" method="get">
+                    <div class="row gx-3 gy-2 align-items-center justify-content-center">
+                        <input type="hidden" name="keyword1" value="email">
+                        <input type="hidden" name="keyword2" value="name">
+                        <input type="hidden" name="keyword3" value="birth">
+                        <input type="hidden" name="keyword4" value="birth">
+
+                        <div class="col-md-2">
+                            <label class="form-label" for="email">이메일</label>
+                            <input id="email" class="form-control me-2" type="text" name="search1"
+                                   <c:if test="${value1 != ''}">value="${value1}"</c:if>>
+                        </div>
+                        <div class="col-md-2">
+                            <label class="form-label" for="name">회원명</label>
+                            <input id="name" class="form-control me-2" type="text" name="search2"
+                                   <c:if test="${value2 != ''}">value="${value2}"</c:if>>
+                        </div>
+                        <div class="col-md-2">
+                            <label class="form-label" for="startDate">생년월일 Start</label>
+                            <input id="startDate" class="form-control me-2" type="date" name="startDate"
+                                   <c:if test="${value3 != ''}">value="${value3}"</c:if>>
+                        </div>
+                        <div class="col-md-2">
+                            <label class="form-label" for="endDate">생년월일 End</label>
+                            <input id="endDate" class="form-control me-2" type="date" name="endDate"
+                                   <c:if test="${value4 != ''}">value="${value4}"</c:if>>
+                        </div>
+                        <div class="col-md-2">
+                            <label class="form-label" for="showToastPlacement">&nbsp;</label>
+                            <button id="showToastPlacement" class="btn btn-primary d-block">Search</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
             <div class="table-responsive text-nowrap">
                 <table class="table">
                     <thead>
@@ -24,7 +59,9 @@
                     </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
-                    <c:forEach var="obj" items="${mlist}">
+                    <c:forEach var="obj" items="${cpage.getList()}">
+
+                        <%--    <c:forEach var="obj" items="${mlist}">--%>
                         <tr>
                             <td>
                                 <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center justify-content-center">
@@ -32,10 +69,10 @@
                                             data-bs-toggle="tooltip"
                                             data-popup="tooltip-custom"
                                             data-bs-placement="top"
-                                            class="avatar avatar-xs pull-up"
-                                            title="Lilian Fuller"
+                                            class="avatar avatar-sm pull-up"
+                                            title="${obj.name}"
                                     >
-                                        <img src="/uimg/${obj.img}" alt="${obj.img}" class="rounded-circle" />
+                                        <img src="/uimg/${obj.img}" alt="${obj.img}" class="rounded-circle"/>
                                     </li>
                                 </ul>
                             </td>
@@ -45,8 +82,8 @@
                             <td>${obj.birth}</td>
                             <td>${obj.tel}</td>
                             <td>${obj.addr}</td>
-                            <td class="d-flex align-items-center justify-content-center">
-                              <c:choose>
+                            <td>
+                                <c:choose>
                                     <c:when test="${obj.valid eq 1}">
                                         <span class="badge bg-label-primary me-1">정상</span>
                                     </c:when>
@@ -57,7 +94,8 @@
                             </td>
                             <td>
                                 <div class="dropdown">
-                                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                            data-bs-toggle="dropdown">
                                         <i class="bx bx-dots-vertical-rounded"></i>
                                     </button>
                                     <div class="dropdown-menu">
@@ -74,8 +112,12 @@
                     </c:forEach>
                     </tbody>
                 </table>
+                <c:if test="${cpage.getList() == null}">
+                    <h4>데이터가 없습니다.</h4>
+                </c:if>
+                <jsp:include page="../findpagemember.jsp"/>
             </div>
         </div>
     </div>
 </div>
-        <!--/ Basic Bootstrap Table -->
+<!--/ Basic Bootstrap Table -->

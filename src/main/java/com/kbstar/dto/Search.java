@@ -15,3 +15,4 @@ public class Search {
     private String keyword3;
     private String search3;
 }
+//쿠폰 관리 화면의 조건검색

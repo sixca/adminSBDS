@@ -26,11 +26,9 @@
     <select id="select" parameterType="Integer" resultType="MateReview">
         SELECT * FROM mate_review WHERE id=#{id}
     </select>
-
     <select id="selectall" resultType="MateReview">
         SELECT * FROM mate_review
     </select>
-
     <delete id="delete" parameterType="Integer">
         DELETE FROM mate_review WHERE id=#{id}
     </delete>

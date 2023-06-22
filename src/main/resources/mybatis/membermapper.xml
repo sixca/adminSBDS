@@ -3,6 +3,25 @@
         PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kbstar.mapper.MemberMapper">
+    <select id="getfindpage" resultType="member" parameterType="member">
+        SELECT *
+        FROM member
+        <where>
+            <if test="search1 != null and !search1.equals('')">
+                AND email LIKE '%' ||  #{search1} || '%'
+            </if>
+            <if test="search2 != null and !search2.equals('')">
+                AND name LIKE '%' ||  #{search2} || '%'
+            </if>
+            <if test="startDate != null and !startDate.equals('')">
+                AND birth &gt;= TO_DATE(#{startDate}, 'YYYY-MM-DD')
+            </if>
+            <if test="endDate != null and !endDate.equals('')">
+                AND birth &lt;= TO_DATE(#{endDate}, 'YYYY-MM-DD')+0.9999
+            </if>
+        </where>
+    </select>
+
     <select id="select" parameterType="Integer" resultType="member">
         SELECT * FROM member WHERE id=#{id}
     </select>

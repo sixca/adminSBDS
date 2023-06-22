@@ -16,7 +16,6 @@ import javax.validation.constraints.Size;
 @Setter
 @Getter
 @ToString
-
 public class Member {
 
     private Integer id;
@@ -53,5 +52,15 @@ public class Member {
         this.img = img;
         this.valid = valid;
     } // 초기화
+
+    //회원관리화면 조건검색 시 사용 변수
+    private String keyword1;
+    private String search1;
+    private String keyword2;
+    private String search2;
+    private String keyword3;
+    private String startDate;
+    private String keyword4;
+    private String endDate;
 }
 

@@ -16,7 +16,7 @@ class MateRateTest {
 	@Test
 	void contextLoads() {
 		try {
-			service.mateRate(30);
+			service.mateRate(2005);
 		} catch (Exception e) {
 			log.info("평점조회 오류");
 		}

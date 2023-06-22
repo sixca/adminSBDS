@@ -1,8 +1,10 @@
 package com.kbstar.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.kbstar.dto.Mate;
 import com.kbstar.dto.MateReview;
 import com.kbstar.dto.MateReviewRate;
+import com.kbstar.dto.Member;
 import com.kbstar.service.MateReviewService;
 import com.kbstar.service.MateService;
 import com.kbstar.util.FileUploadUtil;
@@ -16,6 +18,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -124,5 +127,30 @@ public class MateController {
     public String deleteimpl(Model model, Integer id) throws Exception {
         mateService.remove(id);
         return "redirect:/mate/all";
+    }
+
+    @RequestMapping("/findimpl")
+    public String findimpl(Model model, Mate mate, @RequestParam(required = false, defaultValue = "1") int pageNo) throws Exception {
+        log.info("===============NAME!!!!!"+mate.getSearch1());
+        log.info("===============LICENSE!!!!!"+mate.getSearch2());
+        log.info("===============AREA!!!!!"+mate.getSearch3());
+        log.info("===============STARTPERIOD!!!!!"+mate.getStartPeriod());
+        log.info("===============ENDPERIOD!!!!!"+mate.getEndPeriod());
+        PageInfo<Mate> p = new PageInfo<>(mateService.getFindPage(pageNo, mate), 5);
+
+        //mate 전체 리뷰리스트를 rlist로 addAttr
+        List<MateReviewRate> rlist = mateReviewService.mateRateAll();
+        model.addAttribute("rlist", rlist);
+
+        model.addAttribute("value1",mate.getSearch1());
+        model.addAttribute("value2",mate.getSearch2());
+        model.addAttribute("value3",mate.getSearch3());
+        model.addAttribute("value4",mate.getStartPeriod());
+        model.addAttribute("value5",mate.getEndPeriod());
+        model.addAttribute("target","mate");
+        model.addAttribute("cpage",p);
+        model.addAttribute("center",dir+"all");
+        model.addAttribute("mate", mate);
+        return "index";
     }
 }

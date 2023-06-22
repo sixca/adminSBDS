@@ -1,5 +1,7 @@
 package com.kbstar.service;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.kbstar.dto.Member;
 import com.kbstar.frame.SBDSService;
 import com.kbstar.mapper.MemberMapper;
@@ -39,5 +41,11 @@ public class MemberService implements SBDSService<Integer, Member> {
     @Override
     public List<Member> get() throws Exception {
         return mapper.selectall();
+    }
+
+    //회원관리 search & pagination
+    public Page<Member> getFindPage(int pageNo, Member member) throws Exception{
+        PageHelper.startPage(pageNo, 10);
+        return mapper.getfindpage(member);
     }
 }

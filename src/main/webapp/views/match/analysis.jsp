@@ -160,16 +160,12 @@
         }, 5000);
     });
 
+    //인기 간병인 TOP10 테이블 :: 순위 뿌리기 (1~10)
     document.addEventListener("DOMContentLoaded", function () {
         var rankNumbers = document.querySelectorAll(".rank-number");
         for (var i = 0; i < rankNumbers.length; i++) {
             rankNumbers[i].textContent = i + 1;
         }
-    });
-
-    //인기 간병인 TOP10 테이블 :: 순위 뿌리기 (1~10)
-    document.addEventListener("DOMContentLoaded", function () {
-        var rankNumbers = document.querySelectorAll(".rank-number");
     });
 
     //인기 간병인 TOP10 테이블 :: 평점 배경색 조건부 적용
@@ -194,7 +190,6 @@
             }
         });
     });
-
 
 </script>
 
@@ -377,7 +372,7 @@
                             <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
                                 <c:set var="count" value="0"/>
                                 <c:forEach var="matchedObj" items="${matchedlist}" varStatus="matchedStatus">
-                                    <c:if test="${matchedObj.name == obj.name && count lt 4}">
+                                    <c:if test="${matchedObj.name == obj.name && count lt 5}">
                                         <c:set var="memberName" value="${matchedObj.memberName}"/>
                                         <c:set var="memberImg" value="${matchedObj.memberImg}"/>
                                         <li
@@ -387,7 +382,7 @@
                                                 class="avatar avatar-xs pull-up"
                                                 title="${memberName}"
                                         >
-                                            <a href="/member/detail?name=${memberName}">
+                                            <a href="/member/findimpl?keyword1=email&keyword2=name&keyword3=birth&keyword4=birth&search1=&search2=${memberName}&startDate=&endDate=">
                                                 <img src="/uimg/${memberImg}" alt="Avatar" class="rounded-circle"/>
                                             </a>
                                         </li>

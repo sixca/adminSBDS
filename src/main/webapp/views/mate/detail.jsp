@@ -2,231 +2,205 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <script>
-    let mate_detail={
-        init: function (){
-            $('#update_btn').click(function(){
+    let mate_detail = {
+        init: function () {
+            $('#update_btn').click(function () {
                 mate_detail.send();
             });
-            $('#delete_btn').click(function(){
+            $('#delete_btn').click(function () {
                 var c = confirm("삭제 하시겠습니까?");
-                if(c == true){
-                    location.href="/mate/deleteimpl?id=${mateinfo.id}";
+                if (c == true) {
+                    location.href = "/mate/deleteimpl?id=${mateinfo.id}";
                 }
             });
         },
-        send: function(){
+        send: function () {
             $('#detail_form').attr({
-                method:'post',
-                action:'/mate/updateimpl',
+                method: 'post',
+                action: '/mate/updateimpl',
                 enctype: 'multipart/form-data'   // imgname <-> img파일
             });
             $('#detail_form').submit();
         }
     };
-    $(function(){
+    $(function () {
         mate_detail.init();
+    });
+
+    // 업로드할 사진 첨부 시, 화면에 보이기
+    let showMemberImg = {
+        init: function () {
+            const uploadBtn = document.getElementById('imgMate');
+            uploadBtn.addEventListener('change', this.getImg.bind(this));
+        },
+        getImg: function (event) {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+
+            // FileReader가 파일을 읽은 후에 실행되는 이벤트 핸들러 등록
+            reader.onload = function (e) {
+                const uploadedAvatar = document.getElementById('uploadedAvatar');
+                uploadedAvatar.src = e.target.result; // 결과를 이미지의 src 속성에 할당
+            };
+
+            if (file) { // 파일이 존재하는 경우에만 실행
+                // 파일을 읽기
+                reader.readAsDataURL(file);
+            }
+        }
+    };
+
+    $(document).ready(function () {
+        showMemberImg.init();
     });
 </script>
 
-<div id="page-wrapper">
-    <div class="header">
-        <h1 class="page-header">
-            간병인 상세
-        </h1>
-    </div>
-    <div class="main-body">
+<div class="content-wrapper">
+    <!-- Content -->
+
+    <div class="container-xxl flex-grow-1 container-p-y">
+        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Mate Update /</span> 간병인 정보 수정</h4>
+
         <div class="row">
-            <div class="col-lg-4">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="d-flex flex-column align-items-center text-center">
-                            <img src="/uimg/${mateinfo.img}" alt="Admin" class="rounded-circle p-1 bg-primary" width="110" style="border-radius: 50%;">
-                            <div class="mt-3">
-                                <h4>${mateinfo.name}</h4>
-                                <p class="text-secondary mb-1">${mateinfo.email}</p>
-                                <p class="text-muted font-size-sm">${mateinfo.area}</p>
-                                <button class="btn btn-outline-primary">Message</button>
+            <div class="col-md-12">
+                <div class="card mb-4">
+                    <h5 class="card-header">Profile Details</h5>
+                    <!-- Account -->
+                    <form id="detail_form">
+                        <input type="hidden" name="id" value="${mateinfo.id}">
+                        <input type="hidden" name="img" value="${mateinfo.img}">
+                        <input type="hidden" name="password" value="${mateinfo.password}">
+
+                        <div class="card-body">
+                            <div class="d-flex align-items-start align-items-sm-center gap-4">
+                                <img
+                                        src="/uimg/${mateinfo.img}"
+                                        alt="user-avatar"
+                                        class="d-block rounded"
+                                        height="100"
+                                        width="100"
+                                        id="uploadedAvatar"
+                                />
+                                <div class="button-wrapper">
+                                    <label for="imgMate" class="btn btn-primary me-2 mb-4" tabindex="0">
+                                        <span class="d-none d-sm-block">Upload new photo</span>
+                                        <i class="bx bx-upload d-block d-sm-none"></i>
+                                        <input
+                                                type="file"
+                                                id="imgMate"
+                                                name="imgMate"
+                                                class="account-file-input"
+                                                hidden
+                                                accept="image/png, image/jpeg, image/jpg"
+                                        />
+                                    </label>
+                                    <button type="reset" class="btn btn-outline-secondary account-image-reset mb-4">
+                                        <i class="bx bx-reset d-block d-sm-none"></i>
+                                        <span class="d-none d-sm-block">Reset</span>
+                                    </button>
+
+                                    <p class="text-muted mb-0">Allowed JPG, GIF or PNG. Max size of 800K</p>
+                                </div>
                             </div>
                         </div>
-                        <hr class="my-4">
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                <h4 class="d-flex align-items-center mb-3">
-                                    <span class="text-primary font-weight-bold">고객 후기</span>
-                                </h4>
-                            </li>
-                            <c:forEach var="obj" items="${rlist}" varStatus="status">
-                            <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                <span class="text-secondary">"${rlist[status.index].content}"</span>
-                            </li>
-                            </c:forEach>
-                            <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                <h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-twitter me-2 icon-inline text-info"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>Twitter</h6>
-                                <span class="text-secondary">@Your_Mate</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-8">
-                <div class="card">
-                    <div class="card-body">
-                        <form id="detail_form">
-                            <input type="hidden" name="id" value="${mateinfo.id}">
-                            <input type="hidden" name="img" value="${mateinfo.img}">
-                            <input type="hidden" name="password" value="${mateinfo.password}">
+                        <hr class="my-0"/>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="mb-3 col-md-6">
+                                    <label for="name" class="form-label">Full Name</label>
+                                    <input
+                                            class="form-control"
+                                            type="text"
+                                            id="name"
+                                            name="name"
+                                            value="${mateinfo.name}"
+                                            autofocus
+                                    />
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="email" class="form-label">E-mail</label>
+                                    <input
+                                            class="form-control"
+                                            type="text"
+                                            id="email"
+                                            name="email"
+                                            value="${mateinfo.email}"
+                                    />
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="area" class="form-label">Area</label>
+                                    <input class="form-control" type="text" id="area" name="area"
+                                           value="${mateinfo.area}"/>
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label class="form-label" for="jobPeriod">Job Period</label>
+                                    <div class="input-group input-group-merge">
+                                        <span class="input-group-text">(경력 연차)</span>
+                                        <input
+                                                type="number"
+                                                id="jobPeriod"
+                                                name="jobPeriod"
+                                                class="form-control"
+                                                value="${mateinfo.jobPeriod}"
+                                        />
+                                    </div>
+                                </div>
 
-                            <div class="row mb-3">
-                                <div class="col-sm-3">
-                                    <h6 class="mb-0">Full Name</h6>
+                                <div class="mb-3 col-md-6">
+                                    <label for="license" class="form-label">License</label>
+                                    <input
+                                            class="form-control"
+                                            type="text"
+                                            id="license"
+                                            name="license"
+                                            value="${mateinfo.license}"
+                                            autofocus
+                                    />
                                 </div>
-                                <div class="col-sm-9 text-secondary">
-                                    <input type="text" name="name" class="form-control" value="${mateinfo.name}">
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <div class="col-sm-3">
-                                    <h6 class="mb-0">Email</h6>
-                                </div>
-                                <div class="col-sm-9 text-secondary">
-                                    <input type="text" name="email" class="form-control" value="${mateinfo.email}">
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <div class="col-sm-3">
-                                    <h6 class="mb-0">지역</h6>
-                                </div>
-                                <div class="col-sm-9 text-secondary">
-                                    <input type="text" name="area" class="form-control" value="${mateinfo.area}">
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <div class="col-sm-3">
-                                    <h6 class="mb-0">경력(년차)</h6>
-                                </div>
-                                <div class="col-sm-9 text-secondary">
-                                    <input type="text" name="jobPeriod" class="form-control" value="${mateinfo.jobPeriod}">
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <div class="col-sm-3">
-                                    <h6 class="mb-0">자격</h6>
-                                </div>
-                                <div class="col-sm-9 text-secondary">
-                                    <input type="text" name="license" class="form-control" value="${mateinfo.license}">
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <div class="col-sm-3">
-                                    <h6 class="mb-0">탈퇴여부</h6>
-                                </div>
-                                <div class="col-sm-9 text-secondary">
-                                    <select name="valid" class="form-control">
-                                        <option value="1" ${mateinfo.valid == '1' ? 'selected' : ''}>Y</option>
-                                        <option value="0" ${mateinfo.valid == '0' ? 'selected' : ''}>N</option>
+                                <div class="mb-3 col-md-6">
+                                    <label for="valid" class="form-label">Valid</label>
+                                    <select id="valid" name="valid" class="select2 form-select">
+                                        <option value="1" ${mateinfo.valid == '1' ? 'selected' : ''}>정상</option>
+                                        <option value="0" ${mateinfo.valid == '0' ? 'selected' : ''}>정지</option>
                                     </select>
                                 </div>
                             </div>
-                            <div class="row mb-3">
-                                <div class="col-sm-3">
-                                    <h6 class="mb-0">프로필 이미지 변경</h6>
-                                </div>
-                                <div class="col-sm-9 text-secondary">
-                                    <input type="file" name="imgMate" class="form-control" placeholder="Input img">
-                                </div>
+                            <div class="mt-2">
+                                <button id="update_btn" type="submit" class="btn btn-primary me-2">Save changes</button>
+                                <button type="reset" class="btn btn-outline-secondary" onclick="window.history.back();">Back</button>
                             </div>
-                            <div class="row">
-                                <div class="col-sm-3"></div>
-                                <div class="col-sm-9 text-secondary">
-                                    <input id="update_btn" type="button" class="btn btn-primary px-4" value="Save Changes">
-                                    <input id="delete_btn" type="button" class="btn btn-primary px-4" value="Delete This Profile">
-                                    <a href="javascript:history.back()" class="btn btn-secondary px-4">Back</a>
-
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-12">
+                            <!-- /Account -->
+                        </div>
                         <div class="card">
+                            <h5 class="card-header">Delete Account</h5>
                             <div class="card-body">
-                                <h5 class="d-flex align-items-center mb-3">
-                                    <span class="text-primary font-weight-bold">간병인 활동 마일리지</span>
-                                </h5>
-                                <p>간병 매칭 마일리지</p>
-                                <div class="progress mb-3" style="height: 5px">
-                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                                <div class="mb-3 col-12 mb-0">
+                                    <div class="alert alert-warning">
+                                        <h6 class="alert-heading fw-bold mb-1">해당 회원계정을 삭제하시겠습니까?</h6>
+                                        <p class="mb-0" style="font-size: 10px">회원계정을 삭제 시 복구가 불가능합니다. 주의해주십시오.</p>
+                                    </div>
                                 </div>
-                                <p>간병 완료 마일리지</p>
-                                <div class="progress mb-3" style="height: 5px">
-                                    <div class="progress-bar bg-danger" role="progressbar" style="width: 72%" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
+                                <div class="form-check mb-3">
+                                    <input
+                                            class="form-check-input"
+                                            type="checkbox"
+                                            name="accountActivation"
+                                            id="accountActivation"
+                                    />
+                                    <label class="form-check-label" for="accountActivation"
+                                    >I confirm this account deactivation</label
+                                    >
                                 </div>
-                                <p>간병인 후기 마일리지</p>
-                                <div class="progress mb-3" style="height: 5px">
-                                    <div class="progress-bar bg-warning" role="progressbar" style="width: 55%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
+                                <button id="delete_btn" type="button" class="btn btn-danger deactivate-account">
+                                    Deactivate Account
+                                </button>
                             </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
+        <!-- / Content -->
+        <div class="content-backdrop fade"></div>
     </div>
 </div>
-
-<style>
-    body{
-    margin-top:0px;
-    color: #1a202c;
-    text-align: left;
-    background-color: #e2e8f0;
-    }
-    .main-body {
-    padding: 0px;
-    }
-    .card {
-    box-shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px 0 rgba(0,0,0,.06);
-    }
-
-    .card {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
-    word-wrap: break-word;
-    background-color: #fff;
-    background-clip: border-box;
-    border: 0 solid rgba(0,0,0,.125);
-    border-radius: .25rem;
-    }
-
-    .card-body {
-    flex: 1 1 auto;
-    min-height: 1px;
-    padding: 1rem;
-    }
-
-    .gutters-sm {
-    margin-right: -8px;
-    margin-left: -8px;
-    }
-
-    .gutters-sm>.col, .gutters-sm>[class*=col-] {
-    padding-right: 8px;
-    padding-left: 8px;
-    }
-    .mb-3, .my-3 {
-    margin-bottom: 1rem!important;
-    }
-
-    .bg-gray-300 {
-    background-color: #e2e8f0;
-    }
-    .h-100 {
-    height: 100%!important;
-    }
-    .shadow-none {
-    box-shadow: none!important;
-    }
-</style>

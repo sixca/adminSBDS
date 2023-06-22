@@ -1,6 +1,9 @@
 package com.kbstar.service;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.kbstar.dto.Mate;
+import com.kbstar.dto.Member;
 import com.kbstar.frame.SBDSService;
 import com.kbstar.mapper.MateMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -59,5 +62,9 @@ public class MateService implements SBDSService<Integer, Mate> {
         }
     }
 
+    public Page<Mate> getFindPage(int pageNo, Mate mate) throws Exception{
+        PageHelper.startPage(pageNo, 10);
+        return mapper.getfindpage(mate);
+    }
 
 }

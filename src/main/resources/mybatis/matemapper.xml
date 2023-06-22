@@ -31,6 +31,27 @@
                  JOIN MATE mt ON MTC.MATE_ID = MT.ID
         ]]>
     </select>
+    <select id="getfindpage" resultType="mate" parameterType="mate">
+        SELECT *
+        FROM mate
+        <where>
+            <if test="search1 != null and !search1.equals('')">
+                AND name LIKE '%' ||  #{search1} || '%'
+            </if>
+            <if test="search2 != null and !search2.equals('')">
+                AND license LIKE '%' ||  #{search2} || '%'
+            </if>
+            <if test="search3 != null and !search3.equals('')">
+                AND area LIKE '%' ||  #{search3} || '%'
+            </if>
+            <if test="startPeriod != null and !startPeriod.equals('')">
+                AND job_period &gt;= #{startPeriod}
+            </if>
+            <if test="endPeriod != null and !endPeriod.equals('')">
+                AND job_period &lt;= #{endPeriod}
+            </if>
+        </where>
+    </select>
 
     <select id="select" parameterType="Integer" resultType="mate">
         SELECT * FROM mate WHERE id=#{id}

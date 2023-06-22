@@ -64,5 +64,17 @@ public class Mate {
     //인기 간병인top10 테이블 안에 매칭회원 사진 출력 시 사용 변수
     private String memberName;
     private String memberImg;
+
+    //간병인관리화면 조건검색 시 사용 변수
+    private String keyword1;
+    private String search1;
+    private String keyword2;
+    private String search2;
+    private String keyword3;
+    private String search3;
+    private String keyword4;
+    private Integer startPeriod;
+    private String keyword5;
+    private Integer endPeriod;
 }
 

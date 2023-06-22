@@ -1,5 +1,6 @@
 package com.kbstar.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.kbstar.dto.Member;
 import com.kbstar.service.MemberService;
 import com.kbstar.util.FileUploadUtil;
@@ -13,6 +14,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -130,6 +132,24 @@ public class MemberController {
     public String deleteimpl(Model model, Integer id) throws Exception {
         memberService.remove(id);
         return "redirect:/member/all";
+    }
+
+    @RequestMapping("/findimpl")
+    public String findimpl(Model model, Member member, @RequestParam(required = false, defaultValue = "1") int pageNo) throws Exception {
+        log.info("===============EMAIL!!!!!"+member.getSearch1());
+        log.info("===============NAME!!!!!"+member.getSearch2());
+        log.info("===============STARTDATE!!!!!"+member.getStartDate());
+        log.info("===============ENDDATE!!!!!"+member.getEndDate());
+        PageInfo<Member> p = new PageInfo<>(memberService.getFindPage(pageNo, member), 5);
+        model.addAttribute("value1",member.getSearch1());
+        model.addAttribute("value2",member.getSearch2());
+        model.addAttribute("value3",member.getStartDate());
+        model.addAttribute("value4",member.getEndDate());
+        model.addAttribute("target","member");
+        model.addAttribute("cpage",p);
+        model.addAttribute("center",dir+"all");
+        model.addAttribute("member", member);
+        return "index";
     }
 
 }
