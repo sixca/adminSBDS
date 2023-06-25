@@ -7,27 +7,40 @@
 <mapper namespace="com.kbstar.mapper.MateReviewMapper">
 
     <select id="mateRate" resultType="MateReviewRate">
-        SELECT m.id AS mateId , AVG(r.rate) AS rate
-        FROM mate m LEFT JOIN mate_review r
-        ON m.id = r.mate_id
-        GROUP BY m.id
-        HAVING m.id = #{mateId}
+        <![CDATA[
+    SELECT m.id AS mateId, ROUND(AVG(r.rate), 1) AS rate
+    FROM mate m
+    LEFT JOIN mate_review r ON m.id = r.mate_id
+    WHERE m.id = #{mateId}
+    GROUP BY m.id
+    ]]>
     </select>
+
     <select id="mateRateAll" resultType="MateReviewRate">
-        SELECT m.id AS mateId , AVG(r.rate) AS rate
-        FROM mate m LEFT JOIN mate_review r
-        ON m.id = r.mate_id
+    <![CDATA[
+        SELECT m.id AS mateId, ROUND(AVG(r.rate), 1) AS rate
+        FROM mate m
+                 LEFT JOIN mate_review r ON m.id = r.mate_id
         GROUP BY m.id
-    </select>
+        ]]>
+</select>
+
     <select id="getByMateId" resultType="MateReview">
         SELECT * FROM mate_review
         WHERE mate_id=#{mateId}
     </select>
     <select id="select" parameterType="Integer" resultType="MateReview">
-        SELECT * FROM mate_review WHERE id=#{id}
+        SELECT MR.ID, M.NAME AS MATE_NAME, MB.NAME AS MEMBER_NAME, MR.CONTENT, MR.RATE, MR.RDATE
+        FROM MATE_REVIEW MR
+        JOIN MATE M ON MR.MATE_ID = M.ID
+        JOIN MEMBER MB ON MR.MEMBER_ID = MB.ID
+        WHERE MR.ID = #{id}
     </select>
     <select id="selectall" resultType="MateReview">
-        SELECT * FROM mate_review
+        SELECT MR.ID AS ID, M.NAME AS MATE_NAME, MB.NAME AS MEMBER_NAME, MR.CONTENT AS CONTENT, MR.RATE AS RATE, MR.RDATE AS RDATE
+             FROM MATE_REVIEW MR
+             JOIN MATE M ON MR.MATE_ID = M.ID
+             JOIN MEMBER MB ON MR.MEMBER_ID = MB.ID
     </select>
     <delete id="delete" parameterType="Integer">
         DELETE FROM mate_review WHERE id=#{id}

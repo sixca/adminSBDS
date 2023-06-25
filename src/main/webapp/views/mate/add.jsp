@@ -161,7 +161,7 @@
                                 <div class="mb-3 col-md-6">
                                     <label for="area" class="form-label">Area</label>
                                     <input class="form-control" type="text" id="area" name="area"
-                                           placeholder="시/군/구"/>
+                                           placeholder="시/구/동"/>
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label class="form-label" for="jobPeriod">Job Period</label>

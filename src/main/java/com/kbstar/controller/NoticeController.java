@@ -32,7 +32,7 @@ public class NoticeController {
     @RequestMapping("/register")
     public String register(Model model){
         model.addAttribute("center",dir + "registerNotice");
-        return "index2";
+        return "index";
     }
 
     @RequestMapping("/noticeall")
@@ -46,7 +46,7 @@ public class NoticeController {
         }
         model.addAttribute("notices", notices);
         model.addAttribute("center",dir + "noticeall");
-        return "index2";
+        return "index";
     }
 
     @RequestMapping("/{id}")
@@ -54,7 +54,7 @@ public class NoticeController {
         Notice notice = service.get(id);
         model.addAttribute("notice", notice);
         model.addAttribute("center", dir + "updateNotice");
-        return "index2";
+        return "index";
     }
 
     @RequestMapping("/registerImpl")
@@ -71,7 +71,7 @@ public class NoticeController {
         //이미지 저장 디렉토리에 이미지를 저장한다.
         //우리가 업로드한 파일이 원하는 폴더로 들어간다(static으로 호출해서 함수 사용)
         FileUploadUtil.saveFile(mf, uploadimgdir);
-        log.info("notice.getAdmId={}", notice.getAdmId());
+        log.info("===========notice.getAdmId={}", notice.getAdmId());
         return "redirect:/notice/noticeall";
     }
 

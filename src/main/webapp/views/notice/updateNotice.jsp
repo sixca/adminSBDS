@@ -68,7 +68,7 @@
                                 <div class="input-field col s7 d-flex justify-content-center">
                                     <input name="id" type="hidden" value="${notice.id}">
                                     <input name="admId" type="hidden" value="${notice.admId}">
-                                    <input name="writer" type="hidden" value="${notice.writer}">
+                                    <input name="content" type="hidden" value="${notice.content}">
                                     <input name="hit" type="hidden" value="${notice.hit}">
                                     <input name="img" type="hidden" value="${notice.img}"/>
                                     <input class="d-none mt-5 ml-5" type="file" name="imgName" style="display: none"
@@ -77,9 +77,14 @@
                                         <img src="/uimg/${notice.img}" id="preview" style="height: 500px; width: 500px">
                                     </a>
                                 </div>
+
                                 <div class="input-field col s4">
                                     <input id="title" name="title" type="text" class="validate" value="${notice.title}">
-                                    <label for="title">공지사항 제목</label>
+                                    <label for="title">공지 제목</label>
+                                </div>
+                                <div class="input-field col s4">
+                                    <textarea id="content" name="content" class="materialize-textarea" value="${notice.content}">${notice.content}</textarea>
+                                    <label for="content">내용</label>
                                 </div>
 
                                 <div class="row">

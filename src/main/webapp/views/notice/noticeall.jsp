@@ -27,28 +27,27 @@
                                     <th>공지사항 번호</th>
                                     <th>관리자 번호</th>
                                     <th>제목</th>
-                                    <th>관리자 ID</th>
-                                    <th class="center">공지 대표 이미지</th>
+                                    <th>내용</th>
+                                    <th class="center">대표 이미지</th>
                                     <th>조회수</th>
                                     <th>등록일자</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <c:forEach var="obj" items="${notices}">
-                                    <tr class="odd gradeX">
-                                        <td><a href="/notice/${obj.id}">${obj.id}</a></td>
-                                        <td>${obj.admId}</td>
-                                        <td>${obj.title}</td>
-                                        <td>${obj.writer}</td>
-                                        <td class="center"><img src="/uimg/${obj.img}" alt="Notice Image"></td>
-                                        <td>${obj.hit}</td>
-                                        <td><fmt:formatDate value="${obj.rdate}" pattern="yyyy-MM-dd"/></td>
-                                    </tr>
-                                </c:forEach>
+                                    <c:forEach var="obj" items="${notices}">
+                                        <tr class="odd gradeX">
+                                            <td><a href="/notice/${obj.id}">${obj.id}</a></td>
+                                            <td>${obj.admId}</td>
+                                            <td>${obj.title}</td>
+                                            <td>${obj.content}</td>
+                                            <td class="center"><img src="/uimg/${obj.img}" alt="Notice Image"></td>
+                                            <td>${obj.hit}</td>
+                                            <td><fmt:formatDate value="${obj.rdate}" pattern="yyyy-MM-dd"/></td>
+                                        </tr>
+                                    </c:forEach>
                                 </tbody>
                             </table>
                         </div>
-
                     </div>
                 </div>
                 <!--End Advanced Tables -->

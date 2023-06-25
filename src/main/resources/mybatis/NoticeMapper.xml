@@ -12,11 +12,11 @@
     </select>
 
     <insert id="insert" parameterType="notice">
-        INSERT INTO notice (id, adm_id, title, writer, img, hit, rdate) VALUES (notice_seq.NEXTVAL, #{admId}, #{title}, #{writer}, #{img}, 0, SYSTIMESTAMP)
+        INSERT INTO notice (id, adm_id, title, content, img, hit, rdate) VALUES (notice_seq.NEXTVAL, #{admId}, #{title}, #{content}, #{img}, 0, SYSTIMESTAMP)
     </insert>
 
     <update id="update" parameterType="notice">
-        UPDATE notice SET adm_id=#{admId}, title=#{title}, writer=#{writer}, img=#{img}, hit=#{hit}, rdate=SYSDATE WHERE id=#{id}
+        UPDATE notice SET adm_id=#{admId}, title=#{title}, content=#{content}, img=#{img}, hit=#{hit}, rdate=SYSDATE WHERE id=#{id}
     </update>
 
     <delete id="delete" parameterType="Integer">

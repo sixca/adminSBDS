@@ -249,7 +249,9 @@
 
 <div class="content-wrapper">
     <!-- Content -->
-    <div class="container-xxl flex-grow-1 container-p-y">
+
+    <div class="container-xxl flex-grow-1 container-p-y bg-white">
+
         <div class="row">
             <div class="col-md-5 col-xl-5">
                 <div class="card shadow-none bg-transparent border border-primary mb-3">
@@ -344,7 +346,55 @@
         <br/>
         <br/>
         <!-- Table within card -->
-        <h5 class="mb-4">인기 간병인 TOP 10</h5>
+        <div class="d-flex justify-content-between align-items-center">
+            <h5 class="mb-4">베스트 간병인 TOP 10</h5>
+            <div class="mb-4">
+                <!-- Button trigger modal -->
+                <button
+                        type="button"
+                        class="btn btn-outline-info"
+                        data-bs-toggle="modal"
+                        data-bs-target="#modalCenter"
+                >
+                    순위 기준
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="modalCenter" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modalCenterTitle">Best 간병인 순위 기준</h5>
+                                <button
+                                        type="button"
+                                        class="btn-close"
+                                        data-bs-dismiss="modal"
+                                        aria-label="Close"
+                                ></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col mb-3">
+                                        <div class="modal-body">
+                                            <p>MATCH :: 매칭내역이 존재하는 MATE</p>
+                                            <p>MATE_REVIEW :: 후기가 존재하는 MATE</p>
+                                            <p>매칭상태 :: '환불완료', '매칭취소'인 매칭 제외</p>
+                                            <p>매출금액이 0, 평점이 없는 메이트 제외</p>
+                                            <p>매칭금액, 매칭건수, 평점 항목별 가중치로 총점순 나열</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                                    Close
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="table-responsive text-nowrap">
             <table class="table card-table">
                 <thead>
@@ -371,6 +421,7 @@
                         <td>
                             <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
                                 <c:set var="count" value="0"/>
+                                    <%--   주요 매칭 회원 컬럼 사진 갯수 5개 이하 표시(lt 5) --%>
                                 <c:forEach var="matchedObj" items="${matchedlist}" varStatus="matchedStatus">
                                     <c:if test="${matchedObj.name == obj.name && count lt 5}">
                                         <c:set var="memberName" value="${matchedObj.memberName}"/>

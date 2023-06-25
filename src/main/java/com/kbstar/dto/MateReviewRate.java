@@ -9,5 +9,5 @@ import lombok.*;
 @ToString
 public class MateReviewRate {
     private Integer mateId;
-    private Integer rate;
+    private float rate;
 }

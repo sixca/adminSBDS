@@ -44,7 +44,6 @@
                             <div class="row">
                                 <div class="input-field col s7 d-flex justify-content-center">
                                     <input name="admId" type="hidden" value="${loginadm.id}">
-                                    <input name="writer" type="hidden" value="${loginadm.adminId}">
                                     <input class="d-none mt-5 ml-5" type="file" name="imgName" style="display: none"
                                            id="imgname">
                                     <a href="javascript:void(0);" onclick="$('#imgname').trigger('click')">
@@ -55,6 +54,10 @@
                                     <input id="title" name="title" type="text" class="validate">
                                     <label for="title">공지사항 제목</label>
                                 </div>
+                                <div class="input-field col s4">
+                                    <textarea id="content" name="content" class="materialize-textarea"></textarea>
+                                    <label for="content">내용</label>
+                                </div>
                                 <div class="row">
                                     <div class="col-sm-3">
                                         <input id="register_btn" type="submit" class="btn btn-primary px-4" value="Save Changes" style="margin-bottom: 10px;">
@@ -63,7 +66,6 @@
                                         <a href="javascript:history.back()" class="btn btn-secondary px-4" style="margin-bottom: 10px;">Back</a>
                                     </div>
                                 </div>
-
                             </div>
                         </form>
                         <div class="clearBoth"></div>

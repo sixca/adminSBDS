@@ -14,15 +14,16 @@ public class Notice {
     private Integer id;
     private Integer admId;
     private String title;
-    private String writer;
+    private String content;
     private String img;
     private Integer hit;
     private Date rdate;
 
     private MultipartFile imgName;
 
-    public Notice(String title, String img) {
+    public Notice(String title, String content, String img) {
         this.title = title;
+        this.content = content;
         this.img = img;
     }
 }

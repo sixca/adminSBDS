@@ -20,13 +20,14 @@
                 AND birth &lt;= TO_DATE(#{endDate}, 'YYYY-MM-DD')+0.9999
             </if>
         </where>
+        ORDER BY id DESC
     </select>
 
     <select id="select" parameterType="Integer" resultType="member">
         SELECT * FROM member WHERE id=#{id}
     </select>
     <select id="selectall" resultType="member">
-        SELECT * FROM member
+        SELECT * FROM member ORDER BY id DESC
     </select>
     <insert id="insert" parameterType="member">
         INSERT INTO member VALUES (member_seq.NEXTVAL,#{email},#{name},#{password},#{birth},#{tel},#{addr},#{img},#{valid})

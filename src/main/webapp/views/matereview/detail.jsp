@@ -1,13 +1,13 @@
-﻿<script>
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+
+<script>
     function deleteReview() {
         location.href = "/matereview/deleteimpl?id=" + ${mreviewinfo.id};
-
     }
 
-    function submitComment() {
-        var comment = document.getElementById("comment").value;
-        // 댓글 등록 로직 추가
-    }
 </script>
 
 <div id="page-wrapper">
@@ -27,31 +27,35 @@
                     </div>
                     <div class="card-content">
                             <table class="table table-condensed">
-                                <thead>
-                                <tr align="center">
-                                    <th width="10%">제목</th>
-                                    <th width="60%">${mreviewinfo.content}</th>
-                                </tr>
-                                </thead>
+<%--                                <thead>--%>
+<%--                                <tr align="center">--%>
+<%--                                    <th width="10%">제목</th>--%>
+<%--                                    <th width="60%">${mreviewinfo.content}</th>--%>
+<%--                                </tr>--%>
+<%--                                </thead>--%>
                                 <tbody>
                                 <tr>
-                                    <td>작성 회원 번호
+                                    <td>작성 회원 명
                                     </td>
                                     <td>
-                                        ${mreviewinfo.mateId}
+                                        ${mreviewinfo.mateName}
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>대상 간병인 번호
+                                    <td>대상 간병인 명
                                     </td>
                                     <td>
-                                        ${mreviewinfo.memberId} <span style="float: right; font-weight: bold; color: blue;">평점 : ${mreviewinfo.rate}점</span>
+                                        ${mreviewinfo.memberName} <span style="float: right; font-weight: bold; color: blue;">평점 : ${mreviewinfo.rate}점</span>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>
-                                        <img src="/uimg/${mreviewinfo.img}" alt="ReviewPhoto" class="rounded-circle p-1 bg-primary" width="80" style="border-radius: 50%;">
+                                    <td>등록일시
                                     </td>
+                                    <td>
+                                        <fmt:formatDate value="${mreviewinfo.rdate}" pattern="yyyy-MM-dd 00:00:00"/>
+                                    </td>
+                                </tr>
+                                <tr>
                                     <td colspan="2">
                                         <p>${mreviewinfo.content}</p>
                                     </td>
@@ -81,31 +85,35 @@
                             </thead>
                             <tbody>
                             <%-- DB에서 불러온 댓글 리스트를 순회하며 출력 --%>
-                            <tr>
-<%--                                <td>${comment.adminId}</td>--%>
-<%--                                <td>${comment.rdate}</td>--%>
-<%--                                <td>${comment.content}</td>--%>
-                                <td>admin0613</td>
-                                <td>2023-06-11</td>
-                                <td>소중한 후기 남겨주셔서 감사합니다.</td>
-                            </tr>
+                            <c:forEach var="c" items="${comment}">
+                                <c:if test="${c.reviewId eq mreviewinfo.id}">
+                                    <tr>
+                                        <td>${c.adminId}</td>
+                                        <td><fmt:formatDate value="${c.rdate}" pattern="yyyy-MM-dd"/></td>
+                                        <td>${c.mateComment}</td>
+                                    </tr>
+                                </c:if>
+                            </c:forEach>
                             </tbody>
                         </table>
                         <table class="table table-condensed">
                             <thead>
-                            <tr>
-                                <td>
-                                    <div class="form-group">
-                                        <label for="comment">댓글 입력</label>
-                                        <textarea class="form-control" id="comment" rows="3"></textarea>
-                                    </div>
-                                    <button class="btn btn-primary px-4" onclick="submitComment()" style='float:right'>댓글 등록</button>
-                                </td>
-                            </tr>
+                                <tr>
+                                    <td>
+                                        <form method="post" action="/matereview/matereviewcommentregister">
+                                            <div class="form-group">
+                                                <label for="comment">댓글 입력</label>
+                                                <textarea id="comment" name="comment" class="form-control" rows="3"></textarea>
+                                            </div>
+                                            <input name="adminId" type="hidden" value="${loginadm.getAdminId()}">
+                                            <input type="hidden" name="reviewId" value="${reviewId}">
+                                            <button type="submit" class="btn btn-primary px-4" style="float:right">댓글 등록</button>
+                                        </form>
+                                    </td>
+                                </tr>
                             </thead>
                         </table>
                     </div>
-
                 </div>
             </div>
             <!-- /. PAGE INNER  -->

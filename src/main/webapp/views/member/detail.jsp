@@ -8,9 +8,15 @@
                 member_detail.send();
             });
             $('#delete_btn').click(function () {
-                var c = confirm("삭제 하시겠습니까?");
-                if (c == true) {
-                    location.href = "/member/deleteimpl?id=${memberinfo.id}";
+                var accountActivation = document.getElementById("accountActivation");
+                if (accountActivation.checked) {
+                    var c = confirm("삭제 하시겠습니까?");
+                    if (c == true) {
+                        location.href = "/member/deleteimpl?id=${memberinfo.id}";
+                    }
+                    }else {
+                        // accountActivation 체크되지 않은 경우 경고 창 표시 & 다시 화면으로 컴백
+                        alert("삭제 전 확인 동의를 체크해주세요");
                 }
             });
         },
@@ -188,11 +194,11 @@
                                             id="accountActivation"
                                     />
                                     <label class="form-check-label" for="accountActivation"
-                                    >I confirm this account deactivation</label
+                                    >해당 계정을 삭제하기 위한 확인을 마쳤습니다 (필수)</label
                                     >
                                 </div>
                                 <button id="delete_btn" type="button" class="btn btn-danger deactivate-account">
-                                    Deactivate Account
+                                    계정 삭제
                                 </button>
                             </div>
                         </div>

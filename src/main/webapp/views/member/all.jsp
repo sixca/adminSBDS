@@ -1,11 +1,18 @@
 ﻿<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<script>
+    // delete 버튼 확인창
+    function confirmDelete(id) {
+        if (confirm("삭제 시, 절대 복구할 수 없습니다. 그래도 진행하시겠습니까?")) {
+            window.location.href = "/member/deleteimpl?id=" + id;
+        }
+    }
+</script>
+
 <div class="content-wrapper">
     <!-- Content -->
-
     <div class="container-xxl flex-grow-1 container-p-y">
         <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">회원 관리 /</span> Member Management</h4>
-
         <!-- Basic Bootstrap Table -->
         <div class="card">
             <h5 class="card-header">회원 현황</h5>
@@ -54,7 +61,7 @@
                         <th>이름</th>
                         <th>생년월일</th>
                         <th>전화번호</th>
-                        <th>주소</th>
+                        <th style="width: 50px;">주소</th>
                         <th>활동여부</th>
                     </tr>
                     </thead>
@@ -102,9 +109,9 @@
                                         <a class="dropdown-item" href="/member/detail?id=${obj.id}"
                                         ><i class="bx bx-edit-alt me-1"></i> Edit</a
                                         >
-                                        <a class="dropdown-item" href="/member/deleteimpl?id=${obj.id}"
-                                        ><i class="bx bx-trash me-1"></i> Delete</a
-                                        >
+                                        <a class="dropdown-item" href="#" onclick="confirmDelete(${obj.id})">
+                                            <i class="bx bx-trash me-1"></i> Delete
+                                        </a>
                                     </div>
                                 </div>
                             </td>
@@ -113,7 +120,7 @@
                     </tbody>
                 </table>
                 <c:if test="${cpage.getList() == null}">
-                    <h4>데이터가 없습니다.</h4>
+                    <h4 style="color: hotpink; margin-top: 15px; font-size: 15px; text-align: center;">검색 조건을 입력하세요</h4>
                 </c:if>
                 <jsp:include page="../findpagemember.jsp"/>
             </div>

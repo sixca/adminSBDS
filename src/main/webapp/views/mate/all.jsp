@@ -34,6 +34,12 @@
             }
         });
     });
+    // delete 버튼 확인창
+    function confirmDelete(id) {
+        if (confirm("삭제 시, 절대 복구할 수 없습니다. 그래도 진행하시겠습니까?")) {
+            window.location.href = "/mate/deleteimpl?id=" + id;
+        }
+    }
 </script>
 
 
@@ -143,7 +149,15 @@
                             <td style="text-align: center">${obj.jobPeriod}</td>
                             <td>${obj.license}</td>
                             <td>${obj.area}</td>
-                            <td><span id="avgRate" class="badge badge-center">${rlist[status.index].rate}</span></td>
+                            <td>
+                                <span id="avgRate" class="badge badge-center">
+                                    <c:forEach var="r" items="${rlist}">
+                                        <c:if test="${r.mateId eq obj.id}">
+                                            ${r.rate}
+                                        </c:if>
+                                    </c:forEach>
+                                </span>
+                            </td>
                             <td>
                                 <c:choose>
                                     <c:when test="${obj.valid eq 1}">
@@ -164,9 +178,9 @@
                                         <a class="dropdown-item" href="/mate/detail?id=${obj.id}"
                                         ><i class="bx bx-edit-alt me-1"></i> Edit</a
                                         >
-                                        <a class="dropdown-item" href="/mate/deleteimpl?id=${obj.id}"
-                                        ><i class="bx bx-trash me-1"></i> Delete</a
-                                        >
+                                        <a class="dropdown-item" href="#" onclick="confirmDelete(${obj.id})">
+                                            <i class="bx bx-trash me-1"></i> Delete
+                                        </a>
                                     </div>
                                 </div>
                             </td>

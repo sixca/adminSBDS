@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+                "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kbstar.mapper.MateReviewCommentMapper">
+
+<!--    <select id="getMateReviewComment" parameterType="Integer" resultType="MateReviewComment">-->
+<!--        SELECT * FROM mate_review_comment WHERE review_id=#{reviewId}-->
+<!--    </select>-->
+
+    <select id="select" parameterType="Integer" resultType="MateReviewComment">
+        SELECT * FROM mate_review_comment WHERE id=#{id}
+    </select>
+
+    <select id="selectall" resultType="MateReviewComment">
+        SELECT * FROM mate_review_comment ORDER BY rdate DESC
+    </select>
+
+    <insert id="insert" parameterType="MateReviewComment">
+        INSERT INTO mate_review_comment (id, review_id, admin_id, rdate, mate_comment) VALUES (MATE_REVIEW_COMMENT_SEQ.NEXTVAL, #{reviewId}, #{adminId}, SYSTIMESTAMP, #{mateComment})
+    </insert>
+
+    <update id="update" parameterType="MateReviewComment">
+        UPDATE mate_review_comment SET review_id=#{reviewId}, admin_id=#{adminId}, rdate=SYSDATE, mate_comment=#{mateComment} WHERE id=#{id}
+    </update>
+
+    <delete id="delete" parameterType="Integer">
+        DELETE FROM mate_review_comment WHERE id = #{id}
+    </delete>
+
+</mapper>

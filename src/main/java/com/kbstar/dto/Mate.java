@@ -59,7 +59,7 @@ public class Mate {
     //인기 간병인top10 테이블 출력 시 사용 변수
     private Integer totalPrice;
     private Integer matchCnt;
-    private Integer avgRate;
+    private float avgRate;
 
     //인기 간병인top10 테이블 안에 매칭회원 사진 출력 시 사용 변수
     private String memberName;

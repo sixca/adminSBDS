@@ -7,20 +7,34 @@
         <![CDATA[
         SELECT *
         FROM (
-        SELECT m.name, COALESCE(SUM(mt.price), 0) AS total_price, COUNT(*) AS match_cnt, MAX(rv.avg_rate) AS avg_rate
-        FROM mate m
-        LEFT JOIN match mt ON m.id = mt.mate_id
-        LEFT JOIN (
-        SELECT mate_id, AVG(r.rate) AS avg_rate
-        FROM mate_review r
-        GROUP BY mate_id
-        ) rv ON m.id = rv.mate_id
-        WHERE mt.status NOT IN ('환불완료', '매칭취소')
-        GROUP BY m.name
-        HAVING MAX(rv.avg_rate) IS NOT NULL AND COALESCE(SUM(mt.price), 0) <> 0
-        ORDER BY avg_rate DESC
-        )
-        WHERE ROWNUM <= 10
+                 SELECT
+                     m.name,
+                     COALESCE(SUM(mt.price), 0) AS total_price,
+                     COUNT(*) AS match_cnt,
+                     ROUND(MAX(rv.avg_rate), 1) AS avg_rate -- 평균값을 소수점 첫째 자리까지 반올림
+                 FROM
+                     mate m
+                         LEFT JOIN match mt ON m.id = mt.mate_id
+                         LEFT JOIN (
+                         SELECT
+                             mate_id,
+                             ROUND(AVG(r.rate), 1) AS avg_rate -- 평균값을 소수점 첫째 자리까지 반올림
+                         FROM
+                             mate_review r
+                         GROUP BY
+                             mate_id
+                     ) rv ON m.id = rv.mate_id
+                 WHERE
+                     mt.status NOT IN ('환불완료', '매칭취소')
+                 GROUP BY
+                     m.name
+                 HAVING
+                     MAX(rv.avg_rate) IS NOT NULL AND COALESCE(SUM(mt.price), 0) <> 0
+                 ORDER BY
+                     avg_rate DESC
+             )
+        WHERE
+            ROWNUM <= 10
         ]]>
     </select>
     <select id="getMatchedMemberImgAll" parameterType="String" resultType="mate">
@@ -37,6 +51,7 @@
         <where>
             <if test="search1 != null and !search1.equals('')">
                 AND name LIKE '%' ||  #{search1} || '%'
+                ORDER BY id DESC
             </if>
             <if test="search2 != null and !search2.equals('')">
                 AND license LIKE '%' ||  #{search2} || '%'
@@ -46,9 +61,11 @@
             </if>
             <if test="startPeriod != null and !startPeriod.equals('')">
                 AND job_period &gt;= #{startPeriod}
+                ORDER BY job_period
             </if>
             <if test="endPeriod != null and !endPeriod.equals('')">
                 AND job_period &lt;= #{endPeriod}
+                ORDER BY job_period DESC
             </if>
         </where>
     </select>
@@ -59,6 +76,7 @@
     <select id="selectall" resultType="mate">
         SELECT *
         FROM mate
+        ORDER BY id DESC
     </select>
     <insert id="insert" parameterType="mate">
         INSERT INTO mate (id, email, name, password, area, job_period, license, img, valid)

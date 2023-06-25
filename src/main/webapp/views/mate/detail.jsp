@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <script>
     let mate_detail = {
@@ -8,9 +9,15 @@
                 mate_detail.send();
             });
             $('#delete_btn').click(function () {
+                var accountActivation = document.getElementById("accountActivation");
+                if (accountActivation.checked) {
                 var c = confirm("삭제 하시겠습니까?");
                 if (c == true) {
                     location.href = "/mate/deleteimpl?id=${mateinfo.id}";
+                }
+                }else {
+                    // accountActivation 체크되지 않은 경우 경고 창 표시 & 다시 화면으로 컴백
+                    alert("삭제 전 확인 동의를 체크해주세요");
                 }
             });
         },
@@ -53,6 +60,30 @@
     $(document).ready(function () {
         showMemberImg.init();
     });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        var avgRateElements = document.querySelectorAll('#avgRate');
+
+        avgRateElements.forEach(function (avgRateElement) {
+            var avgRate = parseFloat(avgRateElement.innerText);
+
+            if (avgRate == 5) {
+                avgRateElement.classList.add('bg-danger');
+            } else if (avgRate >= 4 && avgRate < 5) {
+                avgRateElement.classList.add('bg-warning');
+            } else if (avgRate >= 3 && avgRate < 4) {
+                avgRateElement.classList.add('bg-info');
+            } else if (avgRate >= 2 && avgRate < 3) {
+                avgRateElement.classList.add('bg-success');
+            } else if (avgRate >= 1 && avgRate < 2) {
+                avgRateElement.classList.add('bg-primary');
+            } else if (avgRate >= 0 && avgRate < 1) {
+                avgRateElement.classList.add('bg-secondary');
+            }
+        });
+    });
+
+
 </script>
 
 <div class="content-wrapper">
@@ -167,9 +198,46 @@
                             </div>
                             <div class="mt-2">
                                 <button id="update_btn" type="submit" class="btn btn-primary me-2">Save changes</button>
-                                <button type="reset" class="btn btn-outline-secondary" onclick="window.history.back();">Back</button>
+                                <button type="reset" class="btn btn-outline-secondary" onclick="window.history.back();">
+                                    Back
+                                </button>
                             </div>
                             <!-- /Account -->
+                        </div>
+                        <div class="card-body">
+                            <div class="divider divider-primary">
+                                <div class="divider-text">회원들이 남긴 후기입니다</div>
+                            </div>
+                            <div class="row" style="justify-content: center;">
+                                <!-- List group with Badges & Pills -->
+                                <div class="col-lg-6">
+                                    <div class="demo-inline-spacing mt-3">
+                                        <ul class="list-group">
+                                            <%--                    간병인별 후기 뿌리기. 5개까지만 제한                   --%>
+                                            <c:forEach var="obj" items="${rlist}" varStatus="status">
+                                                <c:if test="${status.index < 5}">
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <span class="badge bg-label-dark">
+                                                            <fmt:formatDate value="${rlist[status.index].rdate}" pattern="yyyy-MM-dd" />
+                                                        </span>
+                                                            ${rlist[status.index].content}
+                                                        <span id="avgRate" class="badge">${rlist[status.index].rate}</span>
+                                                    </li>
+                                                </c:if>
+                                            </c:forEach>
+                                        </ul>
+                                    </div>
+                                    <c:if test="${empty rlist}">
+                                        <div style="display: flex; justify-content: center;">
+                                            <img src="http://www.lacvert.co.kr/images/etc/no_content02.gif" style="margin: 0 auto;">
+                                        </div>
+                                    </c:if>
+                                </div>
+                                <!--/ List group with Badges & Pills -->
+                            </div>
+                            <div class="divider divider-primary">
+                                <div class="divider-text"><a href="/review/all">더보기..</a></div>
+                            </div>
                         </div>
                         <div class="card">
                             <h5 class="card-header">Delete Account</h5>
@@ -188,11 +256,11 @@
                                             id="accountActivation"
                                     />
                                     <label class="form-check-label" for="accountActivation"
-                                    >I confirm this account deactivation</label
+                                    >해당 계정을 삭제하기 위한 확인을 마쳤습니다 (필수)</label
                                     >
                                 </div>
                                 <button id="delete_btn" type="button" class="btn btn-danger deactivate-account">
-                                    Deactivate Account
+                                    계정 삭제
                                 </button>
                             </div>
                         </div>

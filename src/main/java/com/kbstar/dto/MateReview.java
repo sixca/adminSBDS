@@ -2,6 +2,8 @@ package com.kbstar.dto;
 
 import lombok.*;
 
+import java.util.Date;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
@@ -13,5 +15,8 @@ public class MateReview {
     private Integer memberId;
     private Integer rate;
     private String content;
-    private String img;
+    private Date rdate;
+
+    private String mateName;
+    private String memberName;
 }

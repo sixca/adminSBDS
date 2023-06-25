@@ -32,7 +32,7 @@ public class ItemController {
     @RequestMapping("/register")
     public String register(Model model){
         model.addAttribute("center",dir + "registerProduct");
-        return "index2";
+        return "index";
     }
 
     @RequestMapping("/productall")
@@ -46,7 +46,7 @@ public class ItemController {
         }
         model.addAttribute("items", items);
         model.addAttribute("center",dir + "productall");
-        return "index2";
+        return "index";
     }
 
     @RequestMapping("/{id}")
@@ -54,7 +54,7 @@ public class ItemController {
         Item item = service.get(id);
         model.addAttribute("item", item);
         model.addAttribute("center", dir + "updateProduct");
-        return "index2";
+        return "index";
     }
 
     @RequestMapping("/registerImpl")
