@@ -40,6 +40,13 @@ public class MainController {
         return "index";
     }
 
+    @RequestMapping("/push")
+    public String push(Model model){
+        model.addAttribute("center","push/push");
+        return "index";
+    }
+
+
     @RequestMapping("/login")
     public String login(Model model, String redirectURL){
         model.addAttribute("redirectURL",redirectURL);

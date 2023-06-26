@@ -28,14 +28,7 @@ public class ItemController {
     String uploadimgdir;
 
     String dir = "item/";
-
-    @RequestMapping("/register")
-    public String register(Model model){
-        model.addAttribute("center",dir + "registerProduct");
-        return "index";
-    }
-
-    @RequestMapping("/productall")
+    @RequestMapping("/all")
     public String productall(Model model){
 
         List<Item> items = null;
@@ -45,7 +38,7 @@ public class ItemController {
             throw new RuntimeException(e);
         }
         model.addAttribute("items", items);
-        model.addAttribute("center",dir + "productall");
+        model.addAttribute("center",dir + "all");
         return "index";
     }
 

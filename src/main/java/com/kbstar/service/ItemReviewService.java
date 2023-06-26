@@ -1,6 +1,7 @@
 package com.kbstar.service;
 
 import com.kbstar.dto.ItemReview;
+import com.kbstar.dto.ItemReviewDto;
 import com.kbstar.frame.SBDSService;
 import com.kbstar.mapper.ItemReviewMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -11,13 +12,13 @@ import java.util.List;
 
 @Service
 @Slf4j
-public class ItemReviewService implements SBDSService<Integer, ItemReview> {
+public class ItemReviewService implements SBDSService<Integer, ItemReviewDto> {
 
     @Autowired
     ItemReviewMapper mapper;
 
     @Override
-    public void register(ItemReview itemReview) throws Exception {
+    public void register(ItemReviewDto itemReview) throws Exception {
         mapper.insert(itemReview);
     }
 
@@ -27,17 +28,18 @@ public class ItemReviewService implements SBDSService<Integer, ItemReview> {
     }
 
     @Override
-    public void modify(ItemReview itemReview) throws Exception {
-        mapper.update(itemReview);
+    public void modify(ItemReviewDto itemReviewDto) throws Exception {
+
     }
 
     @Override
-    public ItemReview get(Integer id) throws Exception {
-        return mapper.select(id);
+    public ItemReviewDto get(Integer integer) throws Exception {
+        return null;
     }
 
+
     @Override
-    public List<ItemReview> get() throws Exception {
+    public List<ItemReviewDto> get() throws Exception {
         return mapper.selectall();
     }
 }

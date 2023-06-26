@@ -5,11 +5,20 @@
                 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.kbstar.mapper.ItemReviewMapper">
-    <select id="select" parameterType="Integer" resultType="ItemReview">
+    <select id="select" parameterType="Integer" resultType="ItemReviewDto">
         SELECT * FROM item_review WHERE id=#{id}
     </select>
-    <select id="selectall" resultType="ItemReview">
-        SELECT * FROM item_review
+    <select id="selectall" resultType="ItemReviewDto">
+        SELECT m.name as reviewName,
+               r.review as review,
+               r.title as title,
+               i.name as itemName,
+               r.rate as rate
+        FROM item_review r
+                 inner join item i
+                            on r.item_id = i.id
+                 inner join member m
+                            on m.id = r.member_id
     </select>
     <delete id="delete" parameterType="Integer">
         DELETE FROM item_review WHERE id=#{id}

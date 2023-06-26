@@ -7,10 +7,6 @@
         <h1 class="page-header">
             후기 관리
         </h1>
-        <ol class="breadcrumb">
-            <li><a href="/matereview/all">간병인 후기</a></li>
-            <li><a href="/itemreview/all">상품 후기</a></li>
-        </ol>
     </div>
 
     <div id="page-inner">
@@ -27,21 +23,21 @@
                             <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                 <thead>
                                 <tr>
-                                    <th class="center">후기 번호</th>
-                                    <th class="center">회원 번호</th>
-                                    <th class="center">제품 번호</th>
-                                    <th class="center">제목</th>
-                                    <th class="center">평점</th>
+                                    <th class="text-center">제품명</th>
+                                    <th class="text-center">제목</th>
+                                    <th class="text-center">리뷰</th>
+                                    <th class="text-center">평점</th>
+                                    <th class="text-center">리뷰 작성</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                     <c:forEach var="obj" items="${ilist}">
                                         <tr>
-                                            <td>${obj.id}</td>
-                                            <td><a href="/member/detail?id=${obj.memberId}">${obj.memberId}</a></td>
-                                            <td><a href="/item/${obj.itemId}">${obj.itemId}</a></td>
-                                            <td><a href="/itemreview/detail?id=${obj.id}">${obj.title}</a></td>
+                                            <td>${obj.itemName}</td>
+                                            <td>${obj.title}</td>
+                                            <td>${obj.review}</td>
                                             <td>${obj.rate}</td>
+                                            <td>${obj.reviewName}</td>
                                         </tr>
                                     </c:forEach>
                                 </tbody>

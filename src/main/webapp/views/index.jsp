@@ -229,13 +229,13 @@ data-template="vertical-menu-template-free"
         <li class="menu-header small text-uppercase"><span class="menu-header-text">쇼핑몰</span></li>
         <!-- Cards -->
         <li class="menu-item">
-            <a href="cards-basic.html" class="menu-link">
+            <a href="/item/all" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
                 <div data-i18n="Basic">상품 관리</div>
             </a>
         </li>
         <li class="menu-item">
-            <a href="cards-basic.html" class="menu-link">
+            <a href="/review/all" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
                 <div data-i18n="Basic">후기 관리</div>
             </a>
@@ -376,7 +376,7 @@ data-template="vertical-menu-template-free"
         <li class="menu-header small text-uppercase"><span class="menu-header-text">Forms &amp; Tables</span></li>
         <!-- Forms -->
         <li class="menu-item">
-            <a href="/marketing" class="menu-link">
+            <a href="/push" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-table"></i>
                 <div data-i18n="Tables">공지/마케팅 알림</div>
             </a>
