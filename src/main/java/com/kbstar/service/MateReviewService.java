@@ -1,5 +1,7 @@
 package com.kbstar.service;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.kbstar.dto.MateReview;
 import com.kbstar.dto.MateReviewRate;
 import com.kbstar.frame.SBDSService;
@@ -52,6 +54,11 @@ public class MateReviewService implements SBDSService<Integer, MateReview> {
 
     public List<MateReviewRate> mateRateAll(){
         return mapper.mateRateAll();
+    }
+
+    public Page<MateReview> getPage(int pageNo) throws Exception {
+        PageHelper.startPage(pageNo, 5); // 한화면에 출력되는 열 갯수
+        return mapper.getpage();
     }
 
 }

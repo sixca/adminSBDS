@@ -46,4 +46,11 @@
         DELETE FROM mate_review WHERE id=#{id}
     </delete>
 
+    <select id="getpage" resultType="MateReview">
+        SELECT MR.ID AS ID, M.NAME AS MATE_NAME, MB.NAME AS MEMBER_NAME, MR.CONTENT AS CONTENT, MR.RATE AS RATE, MR.RDATE AS RDATE
+        FROM MATE_REVIEW MR
+                 JOIN MATE M ON MR.MATE_ID = M.ID
+                 JOIN MEMBER MB ON MR.MEMBER_ID = MB.ID
+        ORDER BY id DESC
+    </select>
 </mapper>

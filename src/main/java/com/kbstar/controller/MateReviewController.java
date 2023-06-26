@@ -1,8 +1,7 @@
 package com.kbstar.controller;
 
-import com.kbstar.dto.Adm;
-import com.kbstar.dto.MateReview;
-import com.kbstar.dto.MateReviewComment;
+import com.github.pagehelper.PageInfo;
+import com.kbstar.dto.*;
 import com.kbstar.service.AdmService;
 import com.kbstar.service.MateReviewCommentService;
 import com.kbstar.service.MateReviewService;
@@ -12,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -29,8 +29,6 @@ public class MateReviewController {
     @Autowired
     AdmService admService;
 
-
-
     String dir = "matereview/";
 
     @RequestMapping("/all")
@@ -42,6 +40,22 @@ public class MateReviewController {
         model.addAttribute("center", dir+"all");
         return "index";
     }
+
+    @RequestMapping("/allpage")
+    public String allpage(@RequestParam(required = false, defaultValue = "1") int pageNo, Model model) throws Exception {
+        PageInfo<MateReview> p;
+        try {
+            p = new PageInfo<>(service.getPage(pageNo), 5); // 5:하단 네비게이션 개수
+        } catch (Exception e) {
+            throw new Exception("페이징 오류");
+        }
+        model.addAttribute("target","matereview");
+
+        model.addAttribute("cpage",p);
+        model.addAttribute("center",dir+"allpage");
+        return "index";
+    }
+
 
     @GetMapping("/detail")   //상세리뷰조회
     public String detail(Model model, Integer id) throws Exception {
@@ -95,4 +109,20 @@ public class MateReviewController {
         service.remove(id);
         return "redirect:/matereview/all";
     }
+
+    @RequestMapping("/deletecommentimpl")
+    public String deletecommentimpl(Model model, Integer id, HttpServletRequest request) throws Exception {
+        mateReviewCommentService.remove(id);
+
+        // HttpServletRequest을 활용하여 기존 페이지의 URL을 얻어옴 = referer
+        String referer = request.getHeader("Referer");
+        if (referer == null || referer.isEmpty()) {
+            // 기존 페이지의 URL이 없을 경우 기본 URL로 이동
+            return "redirect:/";
+        } else {
+            // 기존 페이지의 URL로 이동
+            return "redirect:" + referer;
+        }
+    }
+
 }

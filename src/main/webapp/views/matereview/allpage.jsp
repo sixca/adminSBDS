@@ -1,4 +1,4 @@
-﻿<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
@@ -53,21 +53,21 @@
                     </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
-                    <c:forEach var="obj" items="${rlist}" varStatus="status">
-                    <tr>
-                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${obj.id}</strong></td>
-                        <td><a href="/mate/findimpl?keyword1=name&keyword2=license&keyword3=area&keyword4=startPeriod&keyword5=endPeriod&search1=${obj.mateName}&search2=&search3=&startPeriod=&endPeriod=">${obj.mateName}</a></td>
-                        <td><a href="/member/findimpl?keyword1=email&keyword2=name&keyword3=birth&keyword4=birth&search1=&search2=${obj.memberName}&startDate=&endDate=">${obj.memberName}</a></td>
-                        <td><a href="/matereview/detail?id=${obj.id}">${obj.content}</a></td>
-                        <td>${obj.rate}</td>
-                        <td><fmt:formatDate value="${obj.rdate}" pattern="yyyy-MM-dd 00:00:00"/></td>
-                        <td class="d-flex align-items-center">
-                            <div class="mx-auto">
-                                <input class="form-check-input mt-0" type="checkbox" id="indeterminate-checkbox-${obj.id}" value="${obj.id}"/>
-                                <label for="indeterminate-checkbox-${obj.id}"></label>
-                            </div>
-                        </td>
-                    </tr>
+                    <c:forEach var="obj" items="${cpage.getList()}" varStatus="status">
+                        <tr>
+                            <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${obj.id}</strong></td>
+                            <td><a href="/mate/findimpl?keyword1=name&keyword2=license&keyword3=area&keyword4=startPeriod&keyword5=endPeriod&search1=${obj.mateName}&search2=&search3=&startPeriod=&endPeriod=">${obj.mateName}</a></td>
+                            <td><a href="/member/findimpl?keyword1=email&keyword2=name&keyword3=birth&keyword4=birth&search1=&search2=${obj.memberName}&startDate=&endDate=">${obj.memberName}</a></td>
+                            <td><a href="/matereview/detail?id=${obj.id}">${obj.content}</a></td>
+                            <td>${obj.rate}</td>
+                            <td><fmt:formatDate value="${obj.rdate}" pattern="yyyy-MM-dd 00:00:00"/></td>
+                            <td class="d-flex align-items-center">
+                                <div class="mx-auto">
+                                    <input class="form-check-input mt-0" type="checkbox" id="indeterminate-checkbox-${obj.id}" value="${obj.id}"/>
+                                    <label for="indeterminate-checkbox-${obj.id}"></label>
+                                </div>
+                            </td>
+                        </tr>
                     </c:forEach>
                     </tbody>
                 </table>
@@ -79,6 +79,7 @@
                     </button>
                 </div>
             </div>
+            <jsp:include page="../page.jsp"/>
         </div>
         <!--/ Hoverable Table rows -->
     </div>

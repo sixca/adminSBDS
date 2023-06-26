@@ -51,7 +51,6 @@
         <where>
             <if test="search1 != null and !search1.equals('')">
                 AND name LIKE '%' ||  #{search1} || '%'
-                ORDER BY id DESC
             </if>
             <if test="search2 != null and !search2.equals('')">
                 AND license LIKE '%' ||  #{search2} || '%'
@@ -61,13 +60,12 @@
             </if>
             <if test="startPeriod != null and !startPeriod.equals('')">
                 AND job_period &gt;= #{startPeriod}
-                ORDER BY job_period
             </if>
             <if test="endPeriod != null and !endPeriod.equals('')">
                 AND job_period &lt;= #{endPeriod}
-                ORDER BY job_period DESC
             </if>
         </where>
+            ORDER BY job_period DESC
     </select>
 
     <select id="select" parameterType="Integer" resultType="mate">

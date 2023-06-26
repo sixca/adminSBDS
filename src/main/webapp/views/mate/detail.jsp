@@ -236,7 +236,7 @@
                                 <!--/ List group with Badges & Pills -->
                             </div>
                             <div class="divider divider-primary">
-                                <div class="divider-text"><a href="/review/all">더보기..</a></div>
+                                <div class="divider-text"><a href="/matereview/allpage">더보기..</a></div>
                             </div>
                         </div>
                         <div class="card">
