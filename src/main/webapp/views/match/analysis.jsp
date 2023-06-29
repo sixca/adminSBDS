@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+<%--<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>--%>
 
 <script>
     //성별, 연령별 매치 갯수 차트
@@ -195,7 +194,7 @@
 
 
 <div class="container-xxl flex-grow-1 container-p-y">
-    <h4 class="fw-semibold py-3 mb-4"><span class="text-muted fw-light">상세 매칭 분석 /</span> Search detail</h4>
+    <h4 class="fw-semibold py-3 mb-4"><span class="text-muted fw-light">Search Detail /</span> 상세 매칭 분석</h4>
     <div class="card mb-4">
         <div class="card-body">
             <div class="row gx-3 gy-2 align-items-center">
@@ -240,7 +239,7 @@
                     <input class="form-control me-2" id="endDate" type="date">
                 </div>
                 <div class="col-md-3 col-xl-2 text-center">
-                    <button id="searchBtn" class="btn btn-primary">Search</button>
+                    <button id="searchBtn" class="btn btn-primary" onclick="window.location.href='/match/analysis'">Search</button>
                 </div>
             </div>
         </div>
@@ -265,7 +264,7 @@
                     <div class="card-body">
                         <h5 class="card-title">매칭금액</h5>
                         <h5><strong><big id="gettotalprice"></big>원</strong></h5>
-                        <p class="card-text"><span style="color: blue;">결제완료</span> 상태인 매칭만 해당</p>
+                        <p class="card-text"><span style="color: blue;">결제완료, 정산완료</span> 상태인 매칭만 해당</p>
                     </div>
                 </div>
                 <div class="card shadow-none bg-transparent border border-danger mb-3">
@@ -347,7 +346,7 @@
         <br/>
         <!-- Table within card -->
         <div class="d-flex justify-content-between align-items-center">
-            <h5 class="mb-4">베스트 간병인 TOP 10</h5>
+            <h5 class="mb-4">베스트 메이트 TOP 10</h5>
             <div class="mb-4">
                 <!-- Button trigger modal -->
                 <button
@@ -364,7 +363,7 @@
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="modalCenterTitle">Best 간병인 순위 기준</h5>
+                                <h5 class="modal-title" id="modalCenterTitle">Best 메이트 순위 기준</h5>
                                 <button
                                         type="button"
                                         class="btn-close"
@@ -400,7 +399,7 @@
                 <thead>
                 <tr>
                     <th>순위</th>
-                    <th>간병인 명</th>
+                    <th>메이트 명</th>
                     <th>주요 매칭회원</th>
                     <th>누적 매출</th>
                     <th class="text-center">누적 매칭 개수</th>
@@ -409,46 +408,46 @@
                 </thead>
 
                 <tbody class="table-border-bottom-0">
-                <c:forEach var="obj" items="${top10list}" varStatus="status">
-                    <tr>
-                        <td>
-                            <i class="fab fa-angular fa-lg text-danger me-3"></i>
-                            <strong class="rank-number">
-                                <% int rank = 1; %>
-                            </strong>
-                        </td>
-                        <td>${obj.name}</td>
-                        <td>
-                            <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-                                <c:set var="count" value="0"/>
-                                    <%--   주요 매칭 회원 컬럼 사진 갯수 5개 이하 표시(lt 5) --%>
-                                <c:forEach var="matchedObj" items="${matchedlist}" varStatus="matchedStatus">
-                                    <c:if test="${matchedObj.name == obj.name && count lt 5}">
-                                        <c:set var="memberName" value="${matchedObj.memberName}"/>
-                                        <c:set var="memberImg" value="${matchedObj.memberImg}"/>
-                                        <li
-                                                data-bs-toggle="tooltip"
-                                                data-popup="tooltip-custom"
-                                                data-bs-placement="top"
-                                                class="avatar avatar-xs pull-up"
-                                                title="${memberName}"
-                                        >
-                                            <a href="/member/findimpl?keyword1=email&keyword2=name&keyword3=birth&keyword4=birth&search1=&search2=${memberName}&startDate=&endDate=">
-                                                <img src="/uimg/${memberImg}" alt="Avatar" class="rounded-circle"/>
-                                            </a>
-                                        </li>
-                                        <c:set var="count" value="${count + 1}"/>
-                                    </c:if>
-                                </c:forEach>
-                                <td>${obj.totalPrice}원</td>
-                                <td class="text-center">${obj.matchCnt}건</td>
-                                <td class="text-center">
-                                    <span id="avgRate" class="badge badge-center rank-badge">${obj.avgRate}</span>
-                                </td>
-                            </ul>
-                        </td>
-                    </tr>
-                </c:forEach>
+                    <c:forEach var="obj" items="${top10list}" varStatus="status">
+                        <tr>
+                            <td>
+                                <i class="fab fa-angular fa-lg text-danger me-3"></i>
+                                <strong class="rank-number">
+                                    <% int rank = 1; %>
+                                </strong>
+                            </td>
+                            <td>${obj.name}</td>
+                            <td>
+                                <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
+                                    <c:set var="count" value="0"/>
+                                        <%--   주요 매칭 회원 컬럼 사진 갯수 5개 이하 표시(lt 5) --%>
+                                    <c:forEach var="matchedObj" items="${matchedlist}" varStatus="matchedStatus">
+                                        <c:if test="${matchedObj.name == obj.name && count lt 5}">
+                                            <c:set var="memberName" value="${matchedObj.memberName}"/>
+                                            <c:set var="memberImg" value="${matchedObj.memberImg}"/>
+                                            <li
+                                                    data-bs-toggle="tooltip"
+                                                    data-popup="tooltip-custom"
+                                                    data-bs-placement="top"
+                                                    class="avatar avatar-xs pull-up"
+                                                    title="${memberName}"
+                                            >
+                                                <a href="/member/findimpl?keyword1=email&keyword2=name&keyword3=birth&keyword4=birth&search1=&search2=${memberName}&startDate=&endDate=">
+                                                    <img src="/uimg/${memberImg}" alt="Avatar" class="rounded-circle"/>
+                                                </a>
+                                            </li>
+                                            <c:set var="count" value="${count + 1}"/>
+                                        </c:if>
+                                    </c:forEach>
+                                    <td>${obj.totalPrice}원</td>
+                                    <td class="text-center">${obj.matchCnt}건</td>
+                                    <td class="text-center">
+                                        <span id="avgRate" class="badge badge-center rank-badge">${obj.avgRate}</span>
+                                    </td>
+                                </ul>
+                            </td>
+                        </tr>
+                    </c:forEach>
                 </tbody>
             </table>
         </div>

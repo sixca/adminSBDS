@@ -1,6 +1,5 @@
 package com.kbstar.mapper;
 
-import com.kbstar.dto.ItemReview;
 import com.kbstar.dto.ItemReviewDto;
 import com.kbstar.frame.SBDSMapper;
 import org.apache.ibatis.annotations.Mapper;

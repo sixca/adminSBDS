@@ -1,6 +1,9 @@
 package com.kbstar.service;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.kbstar.dto.Match;
+import com.kbstar.dto.Member;
 import com.kbstar.frame.SBDSService;
 import com.kbstar.mapper.MatchMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -66,7 +69,14 @@ public class MatchService implements SBDSService<Integer, Match> {
         return mapper.getPayDoneCnt();
     }
 
+    //매칭조회 search & pagination
+    public Page<Match> getFindPage(int pageNo, Match match) throws Exception{
+        PageHelper.startPage(pageNo, 10);
+        return mapper.getfindpage(match);
+    }
 
-
+    public void updateStatus(Integer id, String status) {
+        mapper.updateStatus(id, status);
+    }
 
 }

@@ -25,8 +25,21 @@ public class CouponController {
 
     String dir = "coupon/";
 
+//    @RequestMapping("/all")
+//    public String all(Model model){
+//        List<Coupon> coupons = null;
+//        try {
+//            coupons = service.get();
+//        } catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
+//        model.addAttribute("coupons", coupons);
+//        model.addAttribute("center",dir + "all");
+//        return "index";
+//    }
+
     @RequestMapping("/all")
-    public String all(Model model){
+    public String all(Model model, @RequestParam(required = false) String id) {
         List<Coupon> coupons = null;
         try {
             coupons = service.get();
@@ -34,7 +47,9 @@ public class CouponController {
             throw new RuntimeException(e);
         }
         model.addAttribute("coupons", coupons);
-        model.addAttribute("center",dir + "all");
+        model.addAttribute("center", dir + "all");
+        model.addAttribute("detailId", id); // member/detail 화면에서 넘어온 경우 ID 값을 회원번호에 전달
+
         return "index";
     }
 

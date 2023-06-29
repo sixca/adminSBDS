@@ -164,7 +164,7 @@
                   <br/>
                   <div class="mb-3">
                     <label for="authkey" class="form-label">Auth Key</label>
-                    <input type="number" class="form-control" id="authkey" placeholder="Auth key (4 dit)" />
+                    <input type="password" class="form-control" id="authkey" placeholder="Auth key (4 dit)" />
                   </div>
                 </div>
                 <div class="mb-3">

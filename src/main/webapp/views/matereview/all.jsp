@@ -32,19 +32,19 @@
     <!-- Content -->
 
     <div class="container-xxl flex-grow-1 container-p-y">
-        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Mate Reviews /</span> 간병인 후기 관리</h4>
+        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Mate Reviews /</span> 메이트 후기 관리</h4>
 
         <!-- Basic Bootstrap Table -->
 
         <!-- Hoverable Table rows -->
         <div class="card">
-            <h5 class="card-header">간병인 후기 리스트</h5>
+            <h5 class="card-header">메이트 후기 리스트</h5>
             <div class="table-responsive text-nowrap">
                 <table class="table table-hover text-center align-middle">
                     <thead>
                     <tr class="text-center">
                         <th>#</th>
-                        <th>간병인명</th>
+                        <th>메이트명</th>
                         <th>회원명</th>
                         <th>회원 후기</th>
                         <th>평점</th>

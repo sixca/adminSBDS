@@ -7,12 +7,55 @@
             window.location.href = "/member/deleteimpl?id=" + id;
         }
     }
+
+    // 활동 or 정지 클릭 변환 :: 클릭 이벤트 핸들러 함수 toggleStatus
+    function toggleStatus(element) {
+        var id = element.getAttribute("data-id");
+        var value = element.getAttribute("data-value");
+        var newValue = value === "1" ? "0" : "1";
+        element.setAttribute("data-value", newValue);
+
+        // 변경된 값을 기준으로 CSS 클래스 및 텍스트 업데이트
+        element.classList.toggle("bg-label-primary", newValue === "1");
+        element.classList.toggle("bg-label-danger", newValue === "0");
+        element.textContent = newValue === "1" ? "정상" : "정지";
+
+        // confirm 창을 통해 사용자의 확인을 받음
+        var confirmed = confirm("활동상태가 변경됩니다. 계속 하시겠습니까?");
+        if (!confirmed) {
+            // 변경이 취소된 경우 원래 값으로 되돌리기
+            newValue = value;
+            element.setAttribute("data-value", newValue);
+            element.classList.toggle("bg-label-primary", newValue === "1");
+            element.classList.toggle("bg-label-danger", newValue === "0");
+            element.textContent = newValue === "1" ? "정상" : "정지";
+            return;
+        }
+
+        // 서버에 데이터 업데이트를 요청하는 Ajax 호출
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/member/updateStatus/" + id, true);
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                // 서버 응답 처리
+                var response = xhr.responseText;
+                console.log("업데이트 결과: " + response);
+            }
+        };
+
+        // 수정된 부분: 요청 데이터를 쿼리 문자열로 전송
+        xhr.send("id=" + id + "&valid=" + newValue);
+    }
+
+
+
 </script>
 
 <div class="content-wrapper">
     <!-- Content -->
     <div class="container-xxl flex-grow-1 container-p-y">
-        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">회원 관리 /</span> Member Management</h4>
+        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Member Management /</span> 회원 관리</h4>
         <!-- Basic Bootstrap Table -->
         <div class="card">
             <h5 class="card-header">회원 현황</h5>
@@ -90,15 +133,18 @@
                             <td>${obj.tel}</td>
                             <td>${obj.addr}</td>
                             <td>
-                                <c:choose>
-                                    <c:when test="${obj.valid eq 1}">
-                                        <span class="badge bg-label-primary me-1">정상</span>
-                                    </c:when>
-                                    <c:when test="${obj.valid eq 0}">
-                                        <span class="badge bg-label-danger me-1">정지</span>
-                                    </c:when>
-                                </c:choose>
+                                <span class="badge ${obj.valid eq 1 ? 'bg-label-primary' : 'bg-label-danger'} me-1" style="cursor: pointer;" onclick="toggleStatus(this)" data-id="${obj.id}" data-value="${obj.valid}">
+                                    <c:choose>
+                                        <c:when test="${obj.valid eq 1}">
+                                            정상
+                                        </c:when>
+                                        <c:when test="${obj.valid eq 0}">
+                                            정지
+                                        </c:when>
+                                    </c:choose>
+                                </span>
                             </td>
+
                             <td>
                                 <div class="dropdown">
                                     <button type="button" class="btn p-0 dropdown-toggle hide-arrow"

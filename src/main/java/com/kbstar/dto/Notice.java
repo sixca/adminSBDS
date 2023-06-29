@@ -26,4 +26,8 @@ public class Notice {
         this.content = content;
         this.img = img;
     }
+
+
+
+
 }

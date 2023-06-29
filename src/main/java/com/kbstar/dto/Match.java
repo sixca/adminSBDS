@@ -22,4 +22,17 @@ public class Match {
     private int price;
     private String payment;
     private Date payDate;
+
+    private String mateName;
+    private String memberName;
+
+    //매칭관리화면 조건검색 시 사용 변수
+    private String keyword1;
+    private String search1;
+    private String keyword2;
+    private String search2;
+    private String keyword3;
+    private String startDateTo;
+    private String keyword4;
+    private String startDateFrom;
 }

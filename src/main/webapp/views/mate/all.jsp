@@ -47,11 +47,11 @@
     <!-- Content -->
 
     <div class="container-xxl flex-grow-1 container-p-y">
-        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">간병인 관리 /</span> Mate Management</h4>
+        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Mate Management /</span> 메이트 관리</h4>
 
         <!-- Basic Bootstrap Table -->
         <div class="card">
-            <h5 class="card-header">간병인 현황</h5>
+            <h5 class="card-header">메이트 현황</h5>
             <div class="card-body">
                 <form action="/mate/findimpl" method="get">
                     <div class="row gx-3 gy-2 align-items-center justify-content-center">
@@ -62,7 +62,7 @@
                         <input type="hidden" name="keyword5" value="endPeriod">
 
                         <div class="col-md-2">
-                            <label class="form-label" for="name">간병인명</label>
+                            <label class="form-label" for="name">메이트명</label>
                             <input id="name" class="form-control me-2" type="text" name="search1"
                                    <c:if test="${value1 != ''}">value="${value1}"</c:if>>
                         </div>
@@ -96,16 +96,16 @@
                                             <c:if test="${option == value5}">selected</c:if>>${option}년차</option>
                                 </c:forEach>
                             </select>
-                        </div>
+                        </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <div class="col-md-1">
                             <label class="form-label" for="showToastPlacement">&nbsp;</label>
-                            <button id="showToastPlacement" class="btn btn-primary d-block mb-4">Show!</button>
+                            <button id="showToastPlacement" class="btn btn-primary d-block mb-4">Show</button>
                         </div>
                         <div class="col-md-1">
                             <label class="form-label" for="reset">&nbsp;</label>
-                            <button type="button" id="reset" class="btn btn-outline-secondary account-image-reset mb-4">
-                            <i class="bx bx-reset d-block d-sm-none"></i>
-                            <span class="d-none d-sm-block">Reset</span>
+                            <button type="button" id="reset" class="btn btn-light d-block mb-4">Reset</button>
+<%--                            <i class="bx bx-reset d-block d-sm-none"></i>--%>
+<%--                            <span class="d-none d-sm-block">Reset</span>--%>
                         </button>
                         </div>
                     </div>
@@ -116,7 +116,7 @@
                     <thead>
                     <tr>
                         <th>프로필 사진</th>
-                        <th>간병인번호</th>
+                        <th>메이트번호</th>
                         <th>e-mail</th>
                         <th>이름</th>
                         <th>경력(년)</th>
@@ -190,7 +190,7 @@
                 </table>
                 <c:if test="${cpage.getList() == null}">
                     <h4 class="fw-bold py-3 mb-4 text-center"><span
-                            class="text-muted fw-light">조건을 입력하여 간병인 LIST를 출력하세요</span></h4>
+                            class="text-muted fw-light">조건을 입력하여 메이트 LIST를 출력하세요</span></h4>
                 </c:if>
                 <jsp:include page="../findpagemate.jsp"/>
             </div>
@@ -204,7 +204,7 @@
     <a
             href="/mate/add"
             target="_blank"
-            class="btn btn-danger btn-buy-now"
-    >간병인 신규 등록</a
+            class="btn btn-outline-danger btn-buy-now"
+    >메이트 신규 등록</a
     >
 </div>

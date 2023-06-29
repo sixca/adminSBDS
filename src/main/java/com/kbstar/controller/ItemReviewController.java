@@ -1,6 +1,5 @@
 package com.kbstar.controller;
 
-import com.kbstar.dto.ItemReview;
 import com.kbstar.dto.ItemReviewDto;
 import com.kbstar.service.ItemReviewService;
 import lombok.extern.slf4j.Slf4j;
@@ -13,7 +12,7 @@ import java.util.List;
 
 @Slf4j
 @Controller
-@RequestMapping("/review")
+@RequestMapping("/itemreview")
 public class ItemReviewController {
 
     @Autowired

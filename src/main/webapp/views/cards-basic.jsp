@@ -682,7 +682,7 @@
                   </div>
                 </div>
               </div>
-
+<%----%>
               <h6 class="pb-1 mb-4 text-muted">Header and footer</h6>
               <div class="row mb-5">
                 <div class="col-md-6 col-lg-4 mb-3">

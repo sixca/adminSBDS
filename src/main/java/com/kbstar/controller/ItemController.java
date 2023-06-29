@@ -87,6 +87,6 @@ public class ItemController {
     @RequestMapping("/deleteimpl")
     public String deleteimpl(int id) throws Exception {
         service.remove(id);
-        return "redirect:/item/productall";
+        return "redirect:/item/all";
     }
 }

@@ -9,7 +9,8 @@
         SELECT * FROM item_review WHERE id=#{id}
     </select>
     <select id="selectall" resultType="ItemReviewDto">
-        SELECT m.name as reviewName,
+        SELECT r.id as id,
+               m.name as reviewName,
                r.review as review,
                r.title as title,
                i.name as itemName,

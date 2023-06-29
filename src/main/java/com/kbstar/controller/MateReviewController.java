@@ -107,7 +107,7 @@ public class MateReviewController {
     @RequestMapping("/deleteimpl")
     public String deleteimpl(Model model, Integer id) throws Exception {
         service.remove(id);
-        return "redirect:/matereview/all";
+        return "redirect:/matereview/allpage";
     }
 
     @RequestMapping("/deletecommentimpl")
@@ -123,6 +123,16 @@ public class MateReviewController {
             // 기존 페이지의 URL로 이동
             return "redirect:" + referer;
         }
+    }
+
+    @RequestMapping("/search")
+    public String search(Model model, MateReview mr) throws Exception {
+        List<MateReview> list = null;
+        list = service.search(mr);
+        model.addAttribute("mr",mr);
+        model.addAttribute("mrlist",list);
+        model.addAttribute("center",dir+"allpage");
+        return "index";
     }
 
 }

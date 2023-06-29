@@ -59,6 +59,35 @@
     $(document).ready(function () {
         showMemberImg.init();
     });
+
+    // 버튼 클릭 시, 쿠폰 등록 화면으로 넘어가는 기능(회원 아이디를 가지고 이동)
+    let goCouponWithId = {
+        init: function () {
+            // detail_form의 ID 값을 가져옴
+            var detailId = document.querySelector('#detail_form input[name="id"]').value;
+
+            // coupon/all 화면으로 이동하는 버튼에 클릭 이벤트 리스너를 추가
+            var couponBtn = document.querySelector('#goCoupon');
+            couponBtn.addEventListener('click', function () {
+                // coupon/all 화면으로 이동할 URL 생성
+                var couponURL = "/coupon/all?id=" + detailId;
+                // 새 창 또는 현재 창에서 coupon/all 화면 열기
+                window.open(couponURL, "_blank", "width=500,height=300");
+                console.log(detailId);
+            });
+
+            // 버튼에 마우스를 올렸을 때 문구 표시
+            couponBtn.addEventListener('mouseover', function () {
+                couponBtn.setAttribute('title', '해당 회원에게 쿠폰을 제공하세요!');
+            });
+        }
+    };
+
+    document.addEventListener('DOMContentLoaded', function() {
+        goCouponWithId.init();
+    });
+
+
 </script>
 
 <div class="content-wrapper">
@@ -104,7 +133,9 @@
                                         <i class="bx bx-reset d-block d-sm-none"></i>
                                         <span class="d-none d-sm-block">Reset</span>
                                     </button>
-
+                                    <button id="goCoupon" class="btn mb-4">
+                                        <i class="bx bxs-coupon bx-spin" style="color: #de22c5; font-size: 2rem;"></i>
+                                    </button>
                                     <p class="text-muted mb-0">Allowed JPG, GIF or PNG. Max size of 800K</p>
                                 </div>
                             </div>

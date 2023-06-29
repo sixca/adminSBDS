@@ -11,7 +11,7 @@ import org.springframework.scheduling.config.ScheduledTaskRegistrar;
 public class ScheduleConfig implements SchedulingConfigurer
 
 {
-    private final int POOL_SIZE = 6;
+    private final int POOL_SIZE = 10;
     //6개의 풀을 사용할 것임
     @Override
     public void configureTasks(ScheduledTaskRegistrar registry) {

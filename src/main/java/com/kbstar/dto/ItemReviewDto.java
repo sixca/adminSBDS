@@ -8,7 +8,7 @@ import lombok.*;
 @Getter
 @ToString
 public class ItemReviewDto {
-
+    private int id;
     private String reviewName;
     private String review;
     private String title;

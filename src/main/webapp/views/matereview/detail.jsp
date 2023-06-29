@@ -22,10 +22,10 @@
     <!-- Content -->
 
     <div class="container-xxl flex-grow-1 container-p-y">
-        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Mate Reviews Detail /</span> 간병인 후기 상세</h4>
+        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Mate Reviews Detail /</span> 메이트 후기 상세</h4>
 
         <div class="card">
-            <h5 class="card-header">간병인 후기 상세</h5>
+            <h5 class="card-header">메이트 후기 상세</h5>
             <div class="table-responsive text-nowrap">
 
 
@@ -42,7 +42,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>대상 간병인 명
+                                    <td>대상 메이트 명
                                     </td>
                                     <td>
                                         ${mreviewinfo.memberName} <span
@@ -77,7 +77,7 @@
                                         <span style='float:right'>
                                             <input type="button" class="btn btn-primary px-4" value="후기 삭제"
                                                    onclick="deleteReview()">
-                                            <a href="/matereview/all" class="btn btn-secondary px-4">Back</a>
+                                            <a href="/matereview/allpage" class="btn btn-secondary px-4">Back</a>
                                         </span>
                                     </td>
                                 </tr>

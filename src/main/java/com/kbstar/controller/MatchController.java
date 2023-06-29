@@ -1,8 +1,9 @@
 package com.kbstar.controller;
 
-import com.kbstar.dto.Item;
+import com.github.pagehelper.PageInfo;
+import com.kbstar.dto.Match;
 import com.kbstar.dto.Mate;
-import com.kbstar.service.ItemService;
+import com.kbstar.service.MatchService;
 import com.kbstar.service.MateService;
 import com.kbstar.util.FileUploadUtil;
 import lombok.RequiredArgsConstructor;
@@ -11,8 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -24,35 +24,15 @@ import java.util.List;
 public class MatchController {
 
     @Autowired
-    ItemService itemService;
+    MateService mateService;
 
     @Autowired
-    MateService mateService;
+    MatchService matchService;
 
     @Value("${uploadimgdir}")
     String uploadimgdir;
 
     String dir = "match/";
-
-    @RequestMapping("/register")
-    public String register(Model model) {
-        model.addAttribute("center", dir + "registerProduct");
-        return "index";
-    }
-
-    @RequestMapping("/all")
-    public String all(Model model) {
-
-//        List<Item> items = null;
-//        try {
-//            items = service.get();
-//        } catch (Exception e) {
-//            throw new RuntimeException(e);
-//        }
-//        model.addAttribute("items", items);
-        model.addAttribute("center", dir + "all");
-        return "index";
-    }
 
     @RequestMapping("/analysis")
     public String analysis(Model model) {
@@ -71,49 +51,49 @@ public class MatchController {
 
     @RequestMapping("/{id}")
     public String detail(Model model, @PathVariable int id) throws Exception {
-        Item item = itemService.get(id);
-        model.addAttribute("item", item);
+        Match match = matchService.get(id);
+        model.addAttribute("match", match);
         model.addAttribute("center", dir + "updateProduct");
         return "index";
     }
 
-    @RequestMapping("/registerImpl")
-    public String registerImpl(Model model, Item item) throws Exception {
-        MultipartFile mf = item.getImgName();
-
-        //파일에서 이미지를 끄집어 낸다.
-        String imgname = mf.getOriginalFilename();
-        item.setImg(imgname);
-
-        //db에 파일 저장
-        itemService.register(item);
-
-        //이미지 저장 디렉토리에 이미지를 저장한다.
-        //우리가 업로드한 파일이 원하는 폴더로 들어간다(static으로 호출해서 함수 사용)
-        FileUploadUtil.saveFile(mf, uploadimgdir);
-        log.info("item.getRegisterId={}", item.getRegisterId());
-        return "redirect:/item/productall";
-    }
-
     @RequestMapping("/updateImpl")
-    public String updateImpl(Model model, Item item) throws Exception {
-        MultipartFile mf = item.getImgName();
-        //파일에서 이미지를 끄집어 낸다.
-        String imgname = mf.getOriginalFilename();
-        if (imgname.equals("") || imgname == null) {
-            itemService.modify(item);
-        } else {
-            item.setImg(imgname);
-
-            itemService.modify(item);
-            FileUploadUtil.saveFile(mf, uploadimgdir);
-        }
-        return "redirect:/item/" + item.getId();
+    public String updateImpl(Model model, Match match) throws Exception {
+        matchService.modify(match);
+        return "redirect:/match/" + match.getId();
     }
 
     @RequestMapping("/deleteimpl")
     public String deleteimpl(int id) throws Exception {
-        itemService.remove(id);
-        return "redirect:/item/productall";
+        matchService.remove(id);
+        return "redirect:/match/productall";
     }
+
+    //pagenation
+    @RequestMapping("/findimpl")
+    public String findimpl(Model model, Match match, @RequestParam(required = false, defaultValue = "1") int pageNo) throws Exception {
+        log.info("===============EMAIL!!!!!"+match.getSearch1());
+        log.info("===============NAME!!!!!"+match.getSearch2());
+        log.info("===============STARTDATE!!!!!"+match.getStartDateTo());
+        log.info("===============ENDDATE!!!!!"+match.getStartDateFrom());
+        PageInfo<Match> p = new PageInfo<>(matchService.getFindPage(pageNo, match), 5);
+        model.addAttribute("value1",match.getSearch1());
+        model.addAttribute("value2",match.getSearch2());
+        model.addAttribute("value3",match.getStartDateTo());
+        model.addAttribute("value4",match.getStartDateFrom());
+        model.addAttribute("target","match");
+        model.addAttribute("cpage",p);
+        model.addAttribute("center",dir+"all");
+        model.addAttribute("search", match);
+        return "index";
+    }
+
+    @PostMapping("/updateStatus/{id}")
+    @ResponseBody
+    public void updateStatus(@PathVariable("id") Integer id, @RequestParam("status") String status) {
+        // status를 문자열 그대로 사용하여 처리
+        matchService.updateStatus(id, status);
+    }
+
+
 }

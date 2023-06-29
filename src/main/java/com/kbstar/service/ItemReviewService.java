@@ -1,6 +1,5 @@
 package com.kbstar.service;
 
-import com.kbstar.dto.ItemReview;
 import com.kbstar.dto.ItemReviewDto;
 import com.kbstar.frame.SBDSService;
 import com.kbstar.mapper.ItemReviewMapper;

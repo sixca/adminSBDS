@@ -48,4 +48,11 @@ public class MemberService implements SBDSService<Integer, Member> {
         PageHelper.startPage(pageNo, 10);
         return mapper.getfindpage(member);
     }
+
+    // member 테이블에서 valid 상태 변경 기능
+    public void updateStatus(Integer id, Integer valid) {
+        mapper.updateStatus(id, valid);
+    }
+
+
 }

@@ -1,8 +1,10 @@
 package com.kbstar.mapper;
 
+import com.github.pagehelper.Page;
 import com.kbstar.dto.Match;
 import com.kbstar.frame.SBDSMapper;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -19,6 +21,10 @@ public interface MatchMapper extends SBDSMapper<Integer, Match> {
 
     int getPayDoneCnt();
 
+    // all pagination
+    Page<Match> getfindpage(Match match) throws Exception;
 
+    // status 변경 기능
+    void updateStatus(@Param("id") Integer id, @Param("status") String status);
 
 }

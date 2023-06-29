@@ -5,37 +5,19 @@
     <!-- Content -->
 
     <div class="container-xxl flex-grow-1 container-p-y">
-        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">상품 관리 /</span> Item Management</h4>
+        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">제품 관리 /</span> Item Management</h4>
 
         <!-- Basic Bootstrap Table -->
         <div class="card">
-            <h5 class="card-header">상품 현황</h5>
-            <div class="card-body">
-
-                    <div class="row gx-3 gy-2 align-items-center justify-content-center">
-
-                        <div class="col-md-2">
-                            <label class="form-label" for="name">제품명</label>
-                            <input id="name" class="form-control me-2" type="text" name="search1">
-                        </div>
-                        <div class="col-md-2">
-                            <label class="form-label" for="license">가격</label>
-                            <input id="license" class="form-control me-2" type="text" name="search2">
-                        </div>
-                        <div class="col-md-2">
-                            <label class="form-label" for="area">사이즈</label>
-                            <input id="area" class="form-control me-2" type="text" name="search3">
-                        </div>
-                        <div class="col-md-2">
-                            <label class="form-label" for="color">색상</label>
-                            <input id="color" class="form-control me-2" type="text" name="search3">
-                        </div>
-                        <div class="col-md-1">
-                            <label class="form-label" for="showToastPlacement">&nbsp;</label>
-                            <button id="showToastPlacement" class="btn btn-primary d-block mb-4">Search!</button>
-                        </div>
-                        </div>
+            <div class="card-header d-flex align-items-center justify-content-between">
+                <h5 class="card-header">제품 현황</h5>
+                <div class="d-flex">
+                    <div class="input-group input-group-sm">
+                        <input type="text" class="form-control" id="search-input1" placeholder="제품명">
+                        <input type="text" class="form-control" id="search-input2" placeholder="최대 금액">
+                        <button class="btn btn-outline-primary" type="button" onclick="window.location.href='/matereview/allpage'">Search</button>
                     </div>
+                </div>
             </div>
             <div class="table-responsive text-nowrap">
                 <table class="table">
@@ -45,8 +27,6 @@
                         <th>제품번호</th>
                         <th>제품명</th>
                         <th>가격</th>
-                        <th>사이즈</th>
-                        <th>색상</th>
                         <th>등록일시</th>
                         <th>수정 및 삭제</th>
                     </tr>
@@ -69,11 +49,9 @@
                                 </ul>
                             </td>
                             <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${obj.id}</strong></td>
-                            <td>${obj.name}</td>
+                            <td><a href="#">${obj.name}</a></td>
                             <td><fmt:formatNumber type="number" pattern="###,###원" value="${obj.price}"/></td>
-                            <td style="text-align: center">${obj.itemSize}</td>
-                            <td>${obj.color}</td>
-                            <td><fmt:formatDate value="${obj.rdate}" pattern="yyyy-MM-dd" /></td>
+                            <td><fmt:formatDate value="${obj.rdate}" pattern="yyyy-MM-dd"/></td>
                             <td>
                                 <div class="dropdown">
                                     <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
@@ -95,14 +73,7 @@
                     </c:forEach>
                     </tbody>
                 </table>
-                <c:if test="${cpage.getList() == null}">
-                    <h4 class="fw-bold py-3 mb-4 text-center"><span
-                            class="text-muted fw-light">조건을 입력하여 상품 리스트를 출력하세</span></h4>
-                </c:if>
-                <jsp:include page="../findpagemate.jsp"/>
             </div>
         </div>
+    </div>
 </div>
-
-<!--/ Basic Bootstrap Table -->
-

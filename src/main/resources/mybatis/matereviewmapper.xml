@@ -24,6 +24,17 @@
         GROUP BY m.id
         ]]>
 </select>
+    <select id="search" parameterType="mateReview" resultType="mateReview">
+        SELECT MR.ID AS ID, M.NAME AS MATE_NAME, MB.NAME AS MEMBER_NAME, MR.CONTENT AS CONTENT, MR.RATE AS RATE, MR.RDATE AS RDATE
+        FROM MATE_REVIEW MR
+        JOIN MATE M ON MR.MATE_ID = M.ID
+        JOIN MEMBER MB ON MR.MEMBER_ID = MB.ID
+        <where>
+            <if test="mateName != null and !mateName.equals('') ">
+                M.NAME LIKE '%'||#{mateName}||'%'
+            </if>
+        </where>
+    </select>
 
     <select id="getByMateId" resultType="MateReview">
         SELECT * FROM mate_review

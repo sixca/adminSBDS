@@ -13,8 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -33,29 +32,6 @@ public class MemberController {
 
     @Value("${uploadimgdir}")
     String imgdir;
-//
-//    @RequestMapping("/add")
-//    public String add(Model model){
-//        model.addAttribute("center", dir+"add");
-//         return "index";
-//        }
-//
-//    @RequestMapping("/addimpl")
-//    public String addimpl(Model model, @Validated Member member, Errors errors) throws Exception {   //member에 문제가 생기면, errors 저장. validation
-//       if(errors.hasErrors()){
-//           List<ObjectError> es = errors.getAllErrors();    //Member에 담아둔(DefaultMessage) 어노테이션과 message
-//           String msg ="";
-//           for(ObjectError e:es){
-//               msg += "<h4>";
-//               msg += e.getDefaultMessage();
-//               msg += "</h4>";
-//           }
-//           throw new Exception(msg);
-//       }
-//       member.setPassword(encoder.encode(member.getPassword()));
-//       memberService.register(member);  // DB에 짚어 넣고
-//       return "redirect:/member/all";
-//    }
 
     @RequestMapping("/all")
     public String all(Model model) throws Exception {
@@ -78,29 +54,6 @@ public class MemberController {
         model.addAttribute("center", dir+"detail");     //센터에 정보를 뿌림. 익숙해 지세요!
         return "index";
     }
-//    @RequestMapping("/updateimpl")
-//    public String updateimpl(Model model, @Validated Member member, Errors errors) throws Exception {
-//        if(errors.hasErrors()){
-//            List<ObjectError> es = errors.getAllErrors();    //Member에 담아둔(DefaultMessage) 어노테이션과 message
-//            String msg ="";
-//            for(ObjectError e:es){
-//                msg += "<h4>";
-//                msg += e.getDefaultMessage();
-//                msg += "</h4>";
-//            }
-//            throw new Exception(msg);
-//        }
-//        MultipartFile mf = member.getImgMember();
-//        String new_img = mf.getOriginalFilename();
-//        if(new_img == null || new_img.equals("")){
-//            memberService.modify(member);
-//        }else {
-//            member.setImg(new_img);
-//            memberService.modify(member);
-//            FileUploadUtil.saveFile(mf, imgdir);
-//        }
-//        return "redirect:/member/detail?id="+member.getId();         //수정이 일어난 후, "/detail?id="로 다시 보냄
-//    }
 
     @RequestMapping("/updateimpl")
     public String updateimpl(Model model, @Validated Member member, Errors errors) throws Exception {
@@ -127,7 +80,6 @@ public class MemberController {
         return "redirect:/member/all";
     }
 
-
     @RequestMapping("/deleteimpl")
     public String deleteimpl(Model model, Integer id) throws Exception {
         memberService.remove(id);
@@ -150,6 +102,19 @@ public class MemberController {
         model.addAttribute("center",dir+"all");
         model.addAttribute("member", member);
         return "index";
+    }
+
+    // member > valid 상태변경 기능 (활동 or 정지)
+//    @PostMapping("/updateStatus")
+//    @ResponseBody
+//    public void updateStatus(@PathVariable("id") Integer id, @RequestParam("valid") Integer valid) {
+//        memberService.updateStatus(id, valid);
+//    }
+
+    @PostMapping("/updateStatus/{id}")
+    @ResponseBody
+    public void updateStatus(@PathVariable("id") Integer id, @RequestParam("valid") Integer valid) {
+        memberService.updateStatus(id, valid);
     }
 
 }

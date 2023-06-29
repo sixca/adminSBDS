@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Random;
 
 @Slf4j
 @RestController
@@ -69,6 +70,7 @@ public class AjaxController {
         return matchService.getPayDoneCnt();
     }
 
+    //간병인 상세분석 차트
     @RequestMapping("/chart1")
     public Object chart1() throws Exception {
         try {
@@ -121,6 +123,38 @@ public class AjaxController {
 
         return null; // 수정: 예외 발생 시 null 반환
     }
+
+    //Dash 차트1
+//    @RequestMapping("/chart02")
+//    public Object chart02() {
+//        JSONArray ja = new JSONArray();
+//        Random r = new Random();
+//        for (int i = 0; i < 7; i++) {
+//            int cnt = r.nextInt(40) + 1;
+//            ja.add(cnt);
+//        }
+//        return ja;
+//    }
+
+    @RequestMapping("/chart02")
+    public Object chart02() {
+        JSONArray male = new JSONArray();
+        JSONArray female = new JSONArray();
+        Random r = new Random();
+        for (int i = 0; i < 7; i++) {
+            int maleCount = r.nextInt(40) + 1;
+            int femaleCount = r.nextInt(40) + 1;
+            male.add(maleCount);
+            female.add(femaleCount);
+        }
+
+        JSONArray result = new JSONArray();
+        result.add(male);
+        result.add(female);
+
+        return result;
+    }
+
 }
 
 

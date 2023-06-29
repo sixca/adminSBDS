@@ -83,7 +83,7 @@
     <!-- Content -->
 
     <div class="container-xxl flex-grow-1 container-p-y">
-        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Register Mate /</span> 간병인 등록</h4>
+        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Register Mate /</span> 메이트 등록</h4>
 
         <div class="row">
             <div class="col-md-12">
@@ -94,7 +94,7 @@
                         <div class="card-body">
                             <div class="d-flex align-items-start align-items-sm-center gap-4">
                                 <img
-                                        src="https://cdn.icon-icons.com/icons2/930/PNG/512/file-add_icon-icons.com_72336.png"
+                                        src="/uimg/addimg.svg"
                                         alt="user-avatar"
                                         class="d-block rounded"
                                         height="100"

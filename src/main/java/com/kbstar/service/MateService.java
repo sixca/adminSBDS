@@ -2,6 +2,7 @@ package com.kbstar.service;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.kbstar.dto.Item;
 import com.kbstar.dto.Mate;
 import com.kbstar.dto.Member;
 import com.kbstar.frame.SBDSService;

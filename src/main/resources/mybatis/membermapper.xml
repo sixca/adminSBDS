@@ -3,6 +3,11 @@
         PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kbstar.mapper.MemberMapper">
+    <update id="updateStatus">
+        UPDATE member
+        SET valid = #{valid}
+        WHERE id = #{id}
+    </update>
     <select id="getfindpage" resultType="member" parameterType="member">
         SELECT *
         FROM member

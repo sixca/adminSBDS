@@ -18,4 +18,7 @@ public interface MateReviewMapper extends SBDSMapper<Integer, MateReview> {
     List<MateReview> getByMateId(Integer mateId);
 
     Page<MateReview> getpage() throws Exception;
+
+    public List<MateReview> search(MateReview mr);
+
 }

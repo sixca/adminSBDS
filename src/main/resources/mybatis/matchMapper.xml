@@ -16,7 +16,7 @@
     <select id="getTotalPrice" resultType="java.lang.Integer">
         SELECT SUM(PRICE) AS total_price
         FROM MATCH
-        WHERE STATUS = '결제완료'
+        WHERE STATUS IN ('결제완료', '정산완료')
     </select>
     <select id="getCancelledCnt" resultType="java.lang.Integer">
         SELECT COUNT(*) AS cnt
@@ -24,10 +24,9 @@
         WHERE STATUS IN ('매칭취소', '환불완료')
     </select>
     <select id="getConfirmPercent" resultType="java.lang.Integer">
-        SELECT
-                (ROUND(COUNT(CASE WHEN STATUS = '매칭완료' THEN 1 END) / COUNT(*), 2)
-                    + ROUND(COUNT(CASE WHEN STATUS = '결제완료' THEN 1 END) / COUNT(*), 2)
-                    + ROUND(COUNT(CASE WHEN STATUS = '정산완료' THEN 1 END) / COUNT(*), 2)) * 100 AS confirm_percentage
+        SELECT (ROUND(COUNT(CASE WHEN STATUS = '매칭완료' THEN 1 END) / COUNT(*), 2)
+            + ROUND(COUNT(CASE WHEN STATUS = '결제완료' THEN 1 END) / COUNT(*), 2)
+            + ROUND(COUNT(CASE WHEN STATUS = '정산완료' THEN 1 END) / COUNT(*), 2)) * 100 AS confirm_percentage
         FROM MATCH
     </select>
     <select id="getPayDoneCnt" resultType="java.lang.Integer">
@@ -40,17 +39,74 @@
     </select>
 
     <select id="selectall" resultType="match">
-        SELECT * FROM match
+        SELECT m.ID,
+               mem.NAME AS member_name,
+               mat.NAME AS mate_name,
+               m.START_DATE,
+               m.END_DATE,
+               m.SERVICE,
+               m.AREA,
+               m.OBJECT_GENDER,
+               m.OBJECT_BIRTH,
+               m.STATUS,
+               m.PRICE,
+               m.PAYMENT,
+               m.PAY_DATE
+        FROM MATCH m
+                 INNER JOIN MEMBER mem ON m.MEMBER_ID = mem.ID
+                 INNER JOIN MATE mat ON m.MATE_ID = mat.ID
     </select>
 
+    <select id="getfindpage" resultType="match" parameterType="match">
+        SELECT
+        m.ID,
+        mem.NAME AS member_name,
+        mat.NAME AS mate_name,
+        m.START_DATE,
+        m.END_DATE,
+        m.SERVICE,
+        m.AREA,
+        m.OBJECT_GENDER,
+        m.OBJECT_BIRTH,
+        m.STATUS,
+        m.PRICE,
+        m.PAYMENT,
+        m.PAY_DATE
+        FROM
+        MATCH m
+        INNER JOIN MEMBER mem ON m.MEMBER_ID = mem.ID
+        INNER JOIN MATE mat ON m.MATE_ID = mat.ID
+        <where>
+            <if test="search1 != null and !search1.equals('')">
+                AND m.OBJECT_GENDER LIKE '%' || #{search1} || '%'
+            </if>
+            <if test="search2 != null and !search2.equals('')">
+                AND m.STATUS LIKE '%' || #{search2} || '%'
+            </if>
+            <if test="startDateTo != null and !startDateTo.equals('')">
+                AND m.START_DATE &gt;= TO_DATE(#{startDateTo}, 'YYYY-MM-DD')
+            </if>
+            <if test="startDateFrom != null and !startDateFrom.equals('')">
+                AND m.END_DATE &lt;= TO_DATE(#{startDateFrom}, 'YYYY-MM-DD')+0.9999
+            </if>
+        </where>
+        ORDER BY m.ID DESC
+    </select>
+
+
     <insert id="insert" parameterType="match">
-        INSERT INTO match (id, member_id, num, amount, adm_comment) VALUES (match_seq.NEXTVAL, #{memberId}, #{num}, #{amount}, #{admComment})
+        INSERT INTO match (id, member_id, num, amount, adm_comment) VALUES (match_seq.NEXTVAL, #{memberId}, #{num},
+        #{amount}, #{admComment})
     </insert>
+    <update id="updateStatus">
+        UPDATE match
+        SET status = #{status}
+        WHERE id = #{id}
+    </update>
 
     <update id="update" parameterType="match">
         UPDATE match SET member_id=#{memberId}, num=#{num}, amount=#{amount}, adm_comment=#{admComment} WHERE id=#{id}
     </update>
-
     <delete id="delete" parameterType="Integer">
         DELETE FROM match WHERE id=#{id}
     </delete>
