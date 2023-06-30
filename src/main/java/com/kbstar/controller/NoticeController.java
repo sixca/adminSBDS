@@ -42,20 +42,6 @@ public class NoticeController {
         return "index";
     }
 
-//    @RequestMapping("/noticeall")
-//    public String noticeall(Model model){
-//
-//        List<Notice> notices = null;
-//        try {
-//            notices = service.get();
-//        } catch (Exception e) {
-//            throw new RuntimeException(e);
-//        }
-//        model.addAttribute("notices", notices);
-//        model.addAttribute("center",dir + "noticeall");
-//        return "index";
-//    }
-
     @RequestMapping("/allpage")
     public String allpage(@RequestParam(required = false, defaultValue = "1") int pageNo, Model model) throws Exception {
         PageInfo<Notice> p;

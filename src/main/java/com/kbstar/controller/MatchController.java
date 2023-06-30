@@ -94,6 +94,4 @@ public class MatchController {
         // status를 문자열 그대로 사용하여 처리
         matchService.updateStatus(id, status);
     }
-
-
 }

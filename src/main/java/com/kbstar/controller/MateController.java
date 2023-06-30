@@ -5,6 +5,7 @@ import com.kbstar.dto.Mate;
 import com.kbstar.dto.MateReview;
 import com.kbstar.dto.MateReviewRate;
 import com.kbstar.dto.Member;
+import com.kbstar.service.MatchService;
 import com.kbstar.service.MateReviewService;
 import com.kbstar.service.MateService;
 import com.kbstar.util.FileUploadUtil;
@@ -35,6 +36,9 @@ public class MateController {
     MateService mateService;
     @Autowired
     MateReviewService mateReviewService;
+    @Autowired
+    MatchService matchService;
+
     String dir = "mate/";
 
     @Value("${uploadimgdir}")
@@ -84,8 +88,11 @@ public class MateController {
     @RequestMapping("/detail")   //로그인 사용자 아이디 클릭 시 상세정보조회
     public String detail(Model model, Integer id) throws Exception {
         Mate mate = null;
+        List<Mate> matchedlist = null;
         try {
             mate = mateService.get(id);
+            matchedlist = mateService.getMatchedMemberImgAll();
+
         } catch (Exception e) {
             throw new Exception("오류 :: 간병인 불러오기 실패");
         }
@@ -93,7 +100,7 @@ public class MateController {
         List<MateReview> list = null;
         list = mateReviewService.getByMateId(id);
         model.addAttribute("rlist", list);
-
+        model.addAttribute("matchedlist", matchedlist);
         model.addAttribute("mateinfo", mate);
         model.addAttribute("center", dir + "detail");     //센터에 정보를 뿌림. 익숙해 지세요!
         return "index";

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+                "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kbstar.mapper.MemberCRMCommentMapper">
+    <select id="select" parameterType="Integer" resultType="MemberCRMComment">
+        SELECT * FROM member_crm_comment WHERE id=#{id}
+    </select>
+
+    <select id="selectall" resultType="MemberCRMComment">
+        SELECT * FROM member_crm_comment ORDER BY rdate DESC
+    </select>
+
+    <insert id="insert" parameterType="MemberCRMComment">
+        INSERT INTO member_crm_comment (id, member_id, admin_id, rdate, crm_comment) VALUES (MEMBER_CRM_COMMENT_SEQ.NEXTVAL, #{memberId}, #{adminId}, SYSTIMESTAMP, #{crmComment})
+    </insert>
+
+    <update id="update" parameterType="MemberCRMComment">
+        UPDATE member_crm_comment SET member_id=#{memberId}, admin_id=#{adminId}, rdate=SYSDATE, crm_comment=#{crmComment} WHERE id=#{id}
+    </update>
+
+    <delete id="delete" parameterType="Integer">
+        DELETE FROM member_crm_comment WHERE id = #{id}
+    </delete>
+</mapper>

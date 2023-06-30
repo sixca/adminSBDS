@@ -16,11 +16,10 @@
     </insert>
 
     <update id="update" parameterType="item">
-        UPDATE item SET register_id=#{registerId}, name=#{name}, img=#{img}, price=#{price}, item_size=#{itemSize}, color=#{color}, udate=SYSDATE, valid=#{isValid} WHERE id=#{id}
+        UPDATE item SET register_id=#{registerId}, name=#{name}, img=#{img}, price=#{price}, item_size=#{itemSize}, color=#{color}, rdate=#{rdate}, udate=SYSDATE, valid=#{isValid} WHERE id=#{id}
     </update>
-
     <delete id="delete" parameterType="Integer">
-        UPDATE item SET udate=SYSDATE, is_valid = 0 WHERE id=#{id}
+        UPDATE item SET udate=SYSDATE, valid = 0 WHERE id=#{id}
     </delete>
 
 </mapper>

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 
 <script>
     let member_detail = {
@@ -14,9 +16,9 @@
                     if (c == true) {
                         location.href = "/member/deleteimpl?id=${memberinfo.id}";
                     }
-                    }else {
-                        // accountActivation 체크되지 않은 경우 경고 창 표시 & 다시 화면으로 컴백
-                        alert("삭제 전 확인 동의를 체크해주세요");
+                } else {
+                    // accountActivation 체크되지 않은 경우 경고 창 표시 & 다시 화면으로 컴백
+                    alert("삭제 전 확인 동의를 체크해주세요");
                 }
             });
         },
@@ -72,7 +74,7 @@
                 // coupon/all 화면으로 이동할 URL 생성
                 var couponURL = "/coupon/all?id=" + detailId;
                 // 새 창 또는 현재 창에서 coupon/all 화면 열기
-                window.open(couponURL, "_blank", "width=500,height=300");
+                window.open(couponURL, "_blank", "width=500,height=800");
                 console.log(detailId);
             });
 
@@ -83,9 +85,16 @@
         }
     };
 
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         goCouponWithId.init();
     });
+
+    // CRM Comment 삭제
+    function deleteComment(commentId) {
+        if (confirm("해당 관리 이력을 삭제하시겠습니까?")) {
+            location.href = "/member/deletecommentimpl?id=" + commentId;
+        }
+    }
 
 
 </script>
@@ -94,7 +103,8 @@
     <!-- Content -->
 
     <div class="container-xxl flex-grow-1 container-p-y">
-        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Member Update /</span> 회원정보 수정</h4>
+        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Member Relationship Management /</span> 회원 CRM
+        </h4>
 
         <div class="row">
             <div class="col-md-12">
@@ -204,36 +214,97 @@
                             </div>
                             <div class="mt-2">
                                 <button id="update_btn" type="submit" class="btn btn-primary me-2">Save changes</button>
-                                <button type="reset" class="btn btn-outline-secondary" onclick="window.history.back();">Back</button>
+                                <button type="reset" class="btn btn-outline-secondary"
+                                        onclick="location.href='/member/findimpl?keyword1=email&keyword2=name&keyword3=birth&keyword4=birth&search1=&search2=&startDate=&endDate=';">
+                                    Back
+                                </button>
                             </div>
                             <!-- /Account -->
                         </div>
-                        <div class="card">
-                            <h5 class="card-header">Delete Account</h5>
-                            <div class="card-body">
-                                <div class="mb-3 col-12 mb-0">
-                                    <div class="alert alert-warning">
-                                        <h6 class="alert-heading fw-bold mb-1">해당 회원계정을 삭제하시겠습니까?</h6>
-                                        <p class="mb-0" style="font-size: 10px">회원계정을 삭제 시 복구가 불가능합니다. 주의해주십시오.</p>
+                    </form>
+                    <div class="col-md-12">
+                        <div class="card mb-4">
+                            <h5 class="card-header">회원 이력 관리</h5>
+                            <div class="card-body demo-vertical-spacing demo-only-element">
+                                <div class="card mb-12">
+                                    <div class="row g-0">
+                                        <div class="col-md-12 p-4">
+                                            <div class="toast-container d-flex justify-content-between">
+                                                <c:forEach var="c" items="${comment}">
+                                                    <c:if test="${c.memberId eq memberinfo.id}">
+                                                        <div class="bs-toast toast fade show" role="alert"
+                                                             aria-live="assertive" aria-atomic="true">
+                                                            <div class="toast-header">
+                                                                <i class="bx bx-bell me-2"></i>
+                                                                <div class="me-auto fw-semibold">${c.adminId}</div>
+                                                                <small><fmt:formatDate value="${c.rdate}"
+                                                                                       pattern="yyyy-MM-dd HH:mm:ss"/></small>
+                                                                <button type="button" class="btn-close"
+                                                                        data-bs-dismiss="toast" aria-label="Close"
+                                                                        onclick="deleteComment(${c.id})"></button>
+                                                                <!-- 수정된 부분 -->
+                                                            </div>
+                                                            <div class="toast-body">${c.crmComment}</div>
+                                                        </div>
+                                                    </c:if>
+                                                </c:forEach>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="form-check mb-3">
-                                    <input
-                                            class="form-check-input"
-                                            type="checkbox"
-                                            name="accountActivation"
-                                            id="accountActivation"
-                                    />
-                                    <label class="form-check-label" for="accountActivation"
-                                    >해당 계정을 삭제하기 위한 확인을 마쳤습니다 (필수)</label
-                                    >
-                                </div>
-                                <button id="delete_btn" type="button" class="btn btn-danger deactivate-account">
-                                    계정 삭제
-                                </button>
+                                <form method="post" action="/member/membercrmcommentregister">
+                                    <div class="col-md-12">
+                                        <div class="card mb-4">
+                                            <div class="card-body demo-vertical-spacing demo-only-element">
+                                                <div class="input-group">
+                                                    <input
+                                                            type="text"
+                                                            class="form-control"
+                                                            placeholder="해당 회원에 관련된 코멘트를 작성해주세요"
+                                                            id="comment"
+                                                            name="comment"
+                                                            aria-label="Recipient's username"
+                                                            aria-describedby="button-addon2"
+                                                    />
+                                                    <input name="adminId" type="hidden"
+                                                           value="${loginadm.getAdminId()}">
+                                                    <input type="hidden" name="memberId" value="${memberId}">
+                                                    <button class="btn btn-outline-primary" type="submit"
+                                                            id="button-addon2">Send
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
-                    </form>
+                    </div>
+                    <div class="card">
+                        <h5 class="card-header">Delete Account</h5>
+                        <div class="card-body">
+                            <div class="mb-3 col-12 mb-0">
+                                <div class="alert alert-warning">
+                                    <h6 class="alert-heading fw-bold mb-1">해당 회원계정을 삭제하시겠습니까?</h6>
+                                    <p class="mb-0" style="font-size: 10px">회원계정을 삭제 시 복구가 불가능합니다. 주의해주십시오.</p>
+                                </div>
+                            </div>
+                            <div class="form-check mb-3">
+                                <input
+                                        class="form-check-input"
+                                        type="checkbox"
+                                        name="accountActivation"
+                                        id="accountActivation"
+                                />
+                                <label class="form-check-label" for="accountActivation"
+                                >해당 계정을 삭제하기 위한 확인을 마쳤습니다 (필수)</label
+                                >
+                            </div>
+                            <button id="delete_btn" type="button" class="btn btn-danger deactivate-account">
+                                계정 삭제
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

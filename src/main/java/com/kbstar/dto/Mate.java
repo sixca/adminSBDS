@@ -76,5 +76,6 @@ public class Mate {
     private Integer startPeriod;
     private String keyword5;
     private Integer endPeriod;
+
 }
 

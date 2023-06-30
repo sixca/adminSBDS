@@ -2,7 +2,6 @@ package com.kbstar.service;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.kbstar.dto.Item;
 import com.kbstar.dto.MateReview;
 import com.kbstar.dto.MateReviewRate;
 import com.kbstar.frame.SBDSService;
@@ -11,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.net.Inet4Address;
 import java.util.List;
 
 @Service
@@ -66,4 +66,11 @@ public class MateReviewService implements SBDSService<Integer, MateReview> {
         return mapper.search(mr);
     }
 
+    public int getAvgRateByMate(Integer id) throws Exception{
+        return mapper.getAvgRateByMate(id);
+    }
+
+    public int getReviewCntByMate(Integer id) throws Exception{
+        return mapper.getReviewCntByMate(id);
+    }
 }

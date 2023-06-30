@@ -79,4 +79,11 @@ public class MatchService implements SBDSService<Integer, Match> {
         mapper.updateStatus(id, status);
     }
 
+    public int getMatchCntByMate(Integer id) throws Exception{
+        return mapper.getMatchCntByMate(id);
+    }
+    public int getTotalPriceByMate(Integer id) throws Exception{
+        return mapper.getTotalPriceByMate(id);
+    }
+
 }

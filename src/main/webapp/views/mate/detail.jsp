@@ -93,11 +93,140 @@
         }
     };
 
-    document.addEventListener('DOMContentLoaded', function () {
-        goReviewWithName.init();
+
+    //Progress-Bar :: 매칭건수, 총 매출, 평균평점, 후기건수
+    let getMatchCntByMate = {
+        init: function() {
+            let urlParams = new URLSearchParams(window.location.search);
+            let id = urlParams.get('id');
+            getMatchCntByMate.getcnt(id);
+        },
+        getcnt: function(id) {
+            $.ajax({
+                url: '/getmatchcntbymate',
+                data: { id: id },
+                success: function(result) {
+                    let matchCnt = parseFloat(result) >= 1 ? result : 0; // result 값이 1 이상인 경우에만 result 사용, 그렇지 않으면 0으로 설정
+                    console.log(matchCnt);
+                    let percentage = (matchCnt / 30) * 100; // 매칭 건수의 퍼센티지 계산
+                    $('#getmcbm').text(matchCnt + '건'); // 매칭 건수 라벨 업데이트
+                    $('#getmcbm-progress').css('width', percentage + '%'); // 매칭 건수 프로그레스바 스타일 업데이트
+                    $('#getmcbm-progress').attr('aria-valuenow', percentage); // 매칭 건수 프로그레스바 속성 업데이트
+                },
+                error: function() {
+                    let matchCnt = 0; // result 값이 없을 때 0으로 설정
+                    console.log(matchCnt);
+                    let percentage = (matchCnt / 30) * 100; // 매칭 건수의 퍼센티지 계산
+                    $('#getmcbm').text(matchCnt + '건'); // 매칭 건수 라벨 업데이트
+                    $('#getmcbm-progress').css('width', percentage + '%'); // 매칭 건수 프로그레스바 스타일 업데이트
+                    $('#getmcbm-progress').attr('aria-valuenow', percentage); // 매칭 건수 프로그레스바 속성 업데이트
+                }
+            });
+        }
+    };
+
+    let getTotalPriceByMate = {
+        init: function () {
+            let urlParams = new URLSearchParams(window.location.search);
+            let id = urlParams.get('id');
+            getTotalPriceByMate.getcnt(id);
+        },
+        getcnt: function (id) {
+            $.ajax({
+                url: '/gettotalpricebymate',
+                data: { id: id },
+                success: function (result) {
+                    let totalPrice = parseFloat(result) >= 1 ? result : 0; // result 값이 1 이상인 경우에만 result 사용, 그렇지 않으면 0으로 설정
+                    console.log(totalPrice);
+                    let formattedPrice = totalPrice.toLocaleString(); // 총 매출을 ###,###,###원 형식으로 변환
+                    let percentage = (totalPrice / 10000000) * 100; // 총 매출의 퍼센티지 계산 (기준금액: 1000만원)
+                    $('#gettpbm').text(formattedPrice + '원'); // 총 매출 라벨 업데이트
+                    $('#gettpbm-progress').css('width', percentage + '%'); // 총 매출 프로그레스바 스타일 업데이트
+                    $('#gettpbm-progress').attr('aria-valuenow', percentage); // 총 매출 프로그레스바 속성 업데이트
+                },
+                error: function() {
+                    let totalPrice = 0; // result 값이 없을 때 0으로 설정
+                    console.log(totalPrice);
+                    let formattedPrice = totalPrice.toLocaleString(); // 총 매출을 ###,###,###원 형식으로 변환
+                    let percentage = (totalPrice / 10000000) * 100; // 총 매출의 퍼센티지 계산 (기준금액: 1000만원)
+                    $('#gettpbm').text(formattedPrice + '원'); // 총 매출 라벨 업데이트
+                    $('#gettpbm-progress').css('width', percentage + '%'); // 총 매출 프로그레스바 스타일 업데이트
+                    $('#gettpbm-progress').attr('aria-valuenow', percentage); // 총 매출 프로그레스바 속성 업데이트
+                }
+            });
+        }
+    };
+
+    let getAvgRateByMate = {
+        init: function() {
+            let urlParams = new URLSearchParams(window.location.search);
+            let id = urlParams.get('id');
+            getAvgRateByMate.getcnt(id);
+        },
+        getcnt: function(id) {
+            $.ajax({
+                url: '/getavgratebymate',
+                data: { id: id },
+                success: function(result) {
+                    let avgRate = parseFloat(result) >= 1 ? result : 0; // result 값이 1 이상인 경우에만 result 사용, 그렇지 않으면 0으로 설정
+                    console.log(avgRate);
+                    let percentage = (avgRate / 30) * 100; // 매칭 건수의 퍼센티지 계산
+                    $('#getarbm').text(avgRate + '건'); // 매칭 건수 라벨 업데이트
+                    $('#getarbm-progress').css('width', percentage + '%'); // 매칭 건수 프로그레스바 스타일 업데이트
+                    $('#getarbm-progress').attr('aria-valuenow', percentage); // 매칭 건수 프로그레스바 속성 업데이트
+                },
+                error: function() {
+                    let avgRate = 0; // result 값이 없을 때 0으로 설정
+                    console.log(avgRate);
+                    let percentage = (avgRate / 5) * 100; // 매칭 건수의 퍼센티지 계산
+                    $('#getarbm').text(avgRate + '건'); // 매칭 건수 라벨 업데이트
+                    $('#getarbm-progress').css('width', percentage + '%'); // 매칭 건수 프로그레스바 스타일 업데이트
+                    $('#getarbm-progress').attr('aria-valuenow', percentage); // 매칭 건수 프로그레스바 속성 업데이트
+                }
+            });
+        }
+    };
+
+    let getReviewCntByMate = {
+        init: function() {
+            let urlParams = new URLSearchParams(window.location.search);
+            let id = urlParams.get('id');
+            getReviewCntByMate.getcnt(id);
+        },
+        getcnt: function(id) {
+            $.ajax({
+                url: '/getreviewcntbymate',
+                data: { id: id },
+                success: function(result) {
+                    let reviewCnt = parseFloat(result) >= 1 ? result : 0; // result 값이 1 이상인 경우에만 result 사용, 그렇지 않으면 0으로 설정
+                    console.log(reviewCnt);
+                    let percentage = (reviewCnt / 5) * 100; // 매칭 건수의 퍼센티지 계산
+                    $('#getrcbm').text(reviewCnt + '건'); // 매칭 건수 라벨 업데이트
+                    $('#getrcbm-progress').css('width', percentage + '%'); // 매칭 건수 프로그레스바 스타일 업데이트
+                    $('#getrcbm-progress').attr('aria-valuenow', percentage); // 매칭 건수 프로그레스바 속성 업데이트
+                },
+                error: function() {
+                    let reviewCnt = 0; // result 값이 없을 때 0으로 설정
+                    console.log(reviewCnt);
+                    let percentage = (reviewCnt / 100) * 100; // 매칭 건수의 퍼센티지 계산
+                    $('#getrcbm').text(reviewCnt + '건'); // 매칭 건수 라벨 업데이트
+                    $('#getrcbm-progress').css('width', percentage + '%'); // 매칭 건수 프로그레스바 스타일 업데이트
+                    $('#getrcbm-progress').attr('aria-valuenow', percentage); // 매칭 건수 프로그레스바 속성 업데이트
+                }
+            });
+        }
+    };
+
+    $(document).ready(function() {
+        getMatchCntByMate.init();
+        getTotalPriceByMate.init();
+        getAvgRateByMate.init();
+        getReviewCntByMate.init();
+        setInterval(getMatchCntByMate.init, 60000);
+        setInterval(getTotalPriceByMate.init, 60000);
+        setInterval(getAvgRateByMate.init, 60000);
+        setInterval(getReviewCntByMate.init, 60000);
     });
-
-
 
 </script>
 
@@ -109,7 +238,7 @@
 
         <div class="row">
             <div class="col-md-12">
-                <div class="card mb-4">
+                <div class="card mb-12">
                     <h5 class="card-header">Profile Details</h5>
                     <!-- Account -->
                     <form id="detail_form">
@@ -118,37 +247,64 @@
                         <input type="hidden" name="password" value="${mateinfo.password}">
 
                         <div class="card-body">
-                            <div class="d-flex align-items-start align-items-sm-center gap-4">
-                                <img
-                                        src="/uimg/${mateinfo.img}"
-                                        alt="user-avatar"
-                                        class="d-block rounded"
-                                        height="100"
-                                        width="100"
-                                        id="uploadedAvatar"
-                                />
-                                <div class="button-wrapper">
-                                    <label for="imgMate" class="btn btn-primary me-2 mb-4" tabindex="0">
-                                        <span class="d-none d-sm-block">Upload new photo</span>
-                                        <i class="bx bx-upload d-block d-sm-none"></i>
-                                        <input
-                                                type="file"
-                                                id="imgMate"
-                                                name="imgMate"
-                                                class="account-file-input"
-                                                hidden
-                                                accept="image/png, image/jpeg, image/jpg"
-                                        />
-                                    </label>
-                                    <button type="reset" class="btn btn-outline-secondary account-image-reset mb-4">
-                                        <i class="bx bx-reset d-block d-sm-none"></i>
-                                        <span class="d-none d-sm-block">Reset</span>
-                                    </button>
-
-                                    <p class="text-muted mb-0">Allowed JPG, GIF or PNG. Max size of 800K</p>
+                            <div class="row align-items-start align-items-sm-center">
+                                <div class="col-6 col-sm-1" style="margin-left: 20px">
+                                    <img src="/uimg/${mateinfo.img}" alt="user-avatar" class="d-block rounded" height="100" width="100" id="uploadedAvatar" />
+                                </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <div class="col-6 col-sm-3">
+                                    <div class="button-wrapper">
+                                        <label for="imgMate" class="btn btn-primary me-2 mb-4" tabindex="0">
+                                            <span class="d-none d-sm-block">Upload new photo</span>
+                                            <i class="bx bx-upload d-block d-sm-none"></i>
+                                            <input type="file" id="imgMate" name="imgMate" class="account-file-input" hidden accept="image/png, image/jpeg, image/jpg" />
+                                        </label>
+                                        <button type="reset" class="btn btn-outline-secondary account-image-reset mb-4">
+                                            <i class="bx bx-reset d-block d-sm-none"></i>
+                                            <span class="d-none d-sm-block">Reset</span>
+                                        </button>
+                                    </div>
+                                    <p class="text-muted mb-0">Allowed JPG, GIF, or PNG. Max size of 800K</p>
+                                </div>
+                        <%--              프로그레스바                  --%>
+                                <div class="col-12 col-sm-5" style="margin-left: 80px;">
+                                    <div class="demo-vertical-spacing demo-only-element">
+                                        <div class="progress-container">
+                                            <span class="progress-label">총 매출&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                            <div class="progress">
+                                                <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="10000000" id="gettpbm-progress"></div>
+                                                <span class="progress-label" id="gettpbm">원</span>
+                                            </div>
+                                            <span class="progress-label" style="font-size: 9px; color: gray;">MAX 1,000만원</span>
+                                        </div>
+                                        <div class="progress-container">
+                                            <span class="progress-label">매칭 건수</span>
+                                            <div class="progress">
+                                                <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" id="getmcbm-progress"></div>
+                                                <span class="progress-label" id="getmcbm">건</span>
+                                            </div>
+                                            <span class="progress-label" style="font-size: 9px; color: gray;">MAX 30건</span>
+                                        </div>
+                                        <div class="progress-container">
+                                            <span class="progress-label">평균 평점</span>
+                                            <div class="progress">
+                                                <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" id="getarbm-progress"></div>
+                                                <span class="progress-label" id="getarbm">점</span>
+                                            </div>
+                                            <span class="progress-label" style="font-size: 9px; color: gray;">MAX 5점</span>
+                                        </div>
+                                        <div class="progress-container">
+                                            <span class="progress-label">후기 건수</span>
+                                            <div class="progress">
+                                                <div class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" style="width: 90%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" id="getrcbm-progress"></div>
+                                                <span class="progress-label" id="getrcbm">점</span>
+                                            </div>
+                                            <span class="progress-label" style="font-size: 9px; color: gray;">MAX 100건</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
                         <hr class="my-0"/>
                         <div class="card-body">
                             <div class="row">
@@ -287,3 +443,29 @@
         <div class="content-backdrop fade"></div>
     </div>
 </div>
+
+
+
+
+
+<style>
+    .progress-container {
+        display: flex;
+        align-items: center;
+    }
+
+    .progress {
+        flex-grow: 1;
+    }
+
+    .progress-label {
+        font-size: 11px;
+        margin-left: 10px;
+        margin-right: 10px;
+
+        color: #555;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+</style>

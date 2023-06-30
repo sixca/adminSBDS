@@ -21,6 +21,9 @@ public interface MatchMapper extends SBDSMapper<Integer, Match> {
 
     int getPayDoneCnt();
 
+    int getMatchCntByMate(int id);
+    int getTotalPriceByMate(int id);
+
     // all pagination
     Page<Match> getfindpage(Match match) throws Exception;
 

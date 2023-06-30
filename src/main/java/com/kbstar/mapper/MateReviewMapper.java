@@ -21,4 +21,7 @@ public interface MateReviewMapper extends SBDSMapper<Integer, MateReview> {
 
     public List<MateReview> search(MateReview mr);
 
+    int getAvgRateByMate(int id);
+    int getReviewCntByMate(int id);
+
 }

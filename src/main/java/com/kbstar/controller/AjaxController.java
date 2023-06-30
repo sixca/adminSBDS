@@ -5,14 +5,12 @@ import com.kbstar.dto.MatchMonthGenderChart;
 import com.kbstar.service.AdmService;
 import com.kbstar.service.MatchMonthGenderChartService;
 import com.kbstar.service.MatchService;
+import com.kbstar.service.MateReviewService;
 import lombok.extern.slf4j.Slf4j;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Random;
@@ -29,6 +27,9 @@ public class AjaxController {
 
     @Autowired
     MatchMonthGenderChartService matchMonthGenderChartService;
+
+    @Autowired
+    MateReviewService mateReviewService;
 
     @GetMapping("/checkid")   //GET요청에 대해서만 처리
     public Object checkid(@RequestParam String adminId) throws Exception {
@@ -124,18 +125,6 @@ public class AjaxController {
         return null; // 수정: 예외 발생 시 null 반환
     }
 
-    //Dash 차트1
-//    @RequestMapping("/chart02")
-//    public Object chart02() {
-//        JSONArray ja = new JSONArray();
-//        Random r = new Random();
-//        for (int i = 0; i < 7; i++) {
-//            int cnt = r.nextInt(40) + 1;
-//            ja.add(cnt);
-//        }
-//        return ja;
-//    }
-
     @RequestMapping("/chart02")
     public Object chart02() {
         JSONArray male = new JSONArray();
@@ -155,6 +144,33 @@ public class AjaxController {
         return result;
     }
 
+    // 메이트별 매치 건수
+    @GetMapping("/getmatchcntbymate")
+    public int getMatchCntByMate(@RequestParam("id") Integer id) throws Exception {
+        if (id == null) {
+            throw new IllegalArgumentException("메이트 ID가 유효하지 않습니다.");
+        }
+        return matchService.getMatchCntByMate(id);
+    }
+
+    // 메이트별 총매출
+    @GetMapping("/gettotalpricebymate")
+    public int getTotalPriceByMate(@RequestParam("id") Integer id) throws Exception {
+        if (id == null) {
+            throw new IllegalArgumentException("메이트 ID가 유효하지 않습니다.");
+        }
+        return matchService.getTotalPriceByMate(id);
+    }
+
+    @GetMapping("getavgratebymate")
+    public int getAvgRateByMate(@RequestParam("id") Integer id) throws Exception {
+        return mateReviewService.getAvgRateByMate(id);
+    }
+
+    @GetMapping("/getreviewcntbymate")
+    public int getReviewCntByMate(@RequestParam("id") Integer id) throws Exception {
+        return mateReviewService.getReviewCntByMate(id);
+    }
 }
 
 

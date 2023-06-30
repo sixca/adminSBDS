@@ -20,6 +20,7 @@
                 END AS age,
             COUNT(ID) AS matchCnt
         FROM MATCH
+        WHERE STATUS IN ('매칭완료', '결제대기', '결제완료', '정산완료')
         GROUP BY
             CASE
                 WHEN OBJECT_GENDER = 'M' THEN '남성'

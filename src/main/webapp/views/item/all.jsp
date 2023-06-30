@@ -1,5 +1,14 @@
 ﻿<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<script>
+    // delete 버튼 확인창
+    function confirmDelete(id) {
+        if (confirm("삭제 시, 절대 복구할 수 없습니다. 그래도 진행하시겠습니까?")) {
+            window.location.href = "/item/deleteimpl?id=" + id;
+        }
+    }
+</script>
+
 
 <div class="content-wrapper">
     <!-- Content -->
@@ -76,4 +85,13 @@
             </div>
         </div>
     </div>
+</div>
+
+<div class="buy-now">
+    <a
+            href="/item/register"
+            target="_blank"
+            class="btn btn-outline-danger btn-buy-now"
+    >제품 신규 등록</a
+    >
 </div>

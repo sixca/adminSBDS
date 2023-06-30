@@ -39,10 +39,11 @@
     </select>
     <select id="getMatchedMemberImgAll" parameterType="String" resultType="mate">
         <![CDATA[
-        SELECT mt.NAME AS name, mb.NAME AS member_name, mb.img as member_img
+        SELECT mt.NAME AS name, mb.NAME AS member_name, mb.img AS member_img
         FROM MATCH mtc
-                 JOIN MEMBER mb ON mtc.MEMBER_ID = MB.ID
-                 JOIN MATE mt ON MTC.MATE_ID = MT.ID
+                 JOIN MEMBER mb ON mtc.MEMBER_ID = mb.ID
+                 JOIN MATE mt ON mtc.MATE_ID = mt.ID
+        WHERE mtc.STATUS NOT IN ('매칭취소', '환불완료')
         ]]>
     </select>
     <select id="getfindpage" resultType="mate" parameterType="mate">
@@ -65,7 +66,7 @@
                 AND job_period &lt;= #{endPeriod}
             </if>
         </where>
-            ORDER BY job_period DESC
+            ORDER BY id DESC
     </select>
 
     <select id="select" parameterType="Integer" resultType="mate">

@@ -5,7 +5,12 @@
                 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.kbstar.mapper.MateReviewMapper">
-
+    <select id="getAvgRateByMate" parameterType="Integer" resultType="java.lang.Integer">
+        select avg(rate) as AR from mate_review where mate_id = #{id}
+    </select>
+    <select id="getReviewCntByMate" parameterType="Integer" resultType="java.lang.Integer">
+        select count(*) as RC from mate_review where mate_id = #{id}
+    </select>
     <select id="mateRate" resultType="MateReviewRate">
         <![CDATA[
     SELECT m.id AS mateId, ROUND(AVG(r.rate), 1) AS rate
@@ -15,7 +20,6 @@
     GROUP BY m.id
     ]]>
     </select>
-
     <select id="mateRateAll" resultType="MateReviewRate">
     <![CDATA[
         SELECT m.id AS mateId, ROUND(AVG(r.rate), 1) AS rate
@@ -23,7 +27,7 @@
                  LEFT JOIN mate_review r ON m.id = r.mate_id
         GROUP BY m.id
         ]]>
-</select>
+    </select>
     <select id="search" parameterType="mateReview" resultType="mateReview">
         SELECT MR.ID AS ID, M.NAME AS MATE_NAME, MB.NAME AS MEMBER_NAME, MR.CONTENT AS CONTENT, MR.RATE AS RATE, MR.RDATE AS RDATE
         FROM MATE_REVIEW MR
@@ -35,7 +39,6 @@
             </if>
         </where>
     </select>
-
     <select id="getByMateId" resultType="MateReview">
         SELECT * FROM mate_review
         WHERE mate_id=#{mateId}

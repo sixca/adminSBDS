@@ -416,7 +416,7 @@
                                     <% int rank = 1; %>
                                 </strong>
                             </td>
-                            <td>${obj.name}</td>
+                            <td><a href="/mate/findimpl?keyword1=name&keyword2=license&keyword3=area&keyword4=startPeriod&keyword5=endPeriod&search1=${obj.name}&search2=&search3=&startPeriod=&endPeriod=">${obj.name}</td>
                             <td>
                                 <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
                                     <c:set var="count" value="0"/>

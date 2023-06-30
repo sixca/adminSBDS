@@ -3,6 +3,12 @@
         PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kbstar.mapper.MatchMapper">
+    <select id="getMatchCntByMate" parameterType="Integer" resultType="java.lang.Integer">
+        SELECT COUNT(*) AS CNT FROM match WHERE mate_id = #{id}
+    </select>
+    <select id="getTotalPriceByMate" parameterType="Integer" resultType="java.lang.Integer">
+        SELECT SUM(price) AS TP FROM match WHERE mate_id = #{id}
+    </select>
     <select id="getCntToMatched" resultType="java.lang.Integer">
         SELECT COUNT(*) AS CNT
         FROM MATCH

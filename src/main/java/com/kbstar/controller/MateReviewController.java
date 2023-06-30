@@ -63,11 +63,11 @@ public class MateReviewController {
         List<MateReviewComment> mateReviewComment = null;
         try {
             mateReview = service.get(id);
-            mateReviewComment = mateReviewCommentService.get();
+            mateReviewComment = mateReviewCommentService.get(); //댓글 전체 소환
         } catch (Exception e) {
             throw new Exception("오류 :: 리뷰 불러오기 실패");
         }
-        model.addAttribute("comment",mateReviewComment);
+        model.addAttribute("comment",mateReviewComment);  // 댓글 model에 박고
         model.addAttribute("mreviewinfo", mateReview);
         model.addAttribute("center", dir+"detail");
         model.addAttribute("reviewId", id); // id 값을 reviewId로 전달해서 아래 /matereviewcommentregister에서 매핑
