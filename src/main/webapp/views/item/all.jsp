@@ -37,7 +37,7 @@
                         <th>제품명</th>
                         <th>가격</th>
                         <th>등록일시</th>
-                        <th>수정 및 삭제</th>
+                        <th class="text-center">수정 및 삭제</th>
                     </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
@@ -61,7 +61,7 @@
                             <td><a href="#">${obj.name}</a></td>
                             <td><fmt:formatNumber type="number" pattern="###,###원" value="${obj.price}"/></td>
                             <td><fmt:formatDate value="${obj.rdate}" pattern="yyyy-MM-dd"/></td>
-                            <td>
+                            <td class="text-center">
                                 <div class="dropdown">
                                     <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
                                             data-bs-toggle="dropdown">

@@ -118,7 +118,7 @@
                 });
             },
             send: function () {
-                alert("Register 버튼이 클릭되었습니다.");
+                alert("제품 등록 완료");
                 $('#register_form').attr({
                     method: 'post',
                     action: '/item/registerImpl',

@@ -137,11 +137,11 @@
                                 </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <label class="form-label" for="startDateTo">개시기간 To</label>&nbsp;&nbsp;&nbsp;
                                 <input id="startDateTo" class="form-control" type="date" name="startDateTo"
-                                       style="width: 100px;"
+                                       style="width: 120px;"
                                        <c:if test="${value3 != ''}">value="${value3}"</c:if>>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <label class="form-label" for="startDateFrom">개시기간 From</label>&nbsp;&nbsp;&nbsp;
                                 <input id="startDateFrom" class="form-control" type="date" name="startDateFrom"
-                                       style="width: 100px;"
+                                       style="width: 120px;"
                                        <c:if test="${value4 != ''}">value="${value4}"</c:if>>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <button class="btn btn-outline-primary" id="search_btn" type="submit">Search</button>
                                 <button class="btn btn-outline-secondary account-image-reset" id="reset_btn"

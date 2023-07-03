@@ -93,7 +93,7 @@
                 AND m.START_DATE &gt;= TO_DATE(#{startDateTo}, 'YYYY-MM-DD')
             </if>
             <if test="startDateFrom != null and !startDateFrom.equals('')">
-                AND m.END_DATE &lt;= TO_DATE(#{startDateFrom}, 'YYYY-MM-DD')+0.9999
+                AND m.START_DATE &lt;= TO_DATE(#{startDateFrom}, 'YYYY-MM-DD')+0.9999
             </if>
         </where>
         ORDER BY m.ID DESC

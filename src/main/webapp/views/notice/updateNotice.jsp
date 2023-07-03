@@ -108,7 +108,7 @@
                 })
             },
             send: function () {
-                alert("Update 버튼이 클릭되었습니다.");
+                alert("Notice 수정 완료");
                 $('#update_form').attr({
                     method: 'post',
                     action: '/notice/updateImpl',

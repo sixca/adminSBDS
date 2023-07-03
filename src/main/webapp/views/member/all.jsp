@@ -55,10 +55,10 @@
 <div class="content-wrapper">
     <!-- Content -->
     <div class="container-xxl flex-grow-1 container-p-y">
-        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Member Management /</span> 회원 관리</h4>
+        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Member Management /</span> 시니어 회원 관리</h4>
         <!-- Basic Bootstrap Table -->
         <div class="card">
-            <h5 class="card-header">회원 현황</h5>
+            <h5 class="card-header">시니어 회원 현황</h5>
             <div class="card-body">
                 <form action="/member/findimpl" method="get">
                     <div class="row gx-3 gy-2 align-items-center justify-content-center">

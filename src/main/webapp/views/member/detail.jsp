@@ -80,7 +80,7 @@
 
             // 버튼에 마우스를 올렸을 때 문구 표시
             couponBtn.addEventListener('mouseover', function () {
-                couponBtn.setAttribute('title', '해당 회원에게 쿠폰을 제공하세요!');
+                couponBtn.setAttribute('title', '해당 시니어 회원에게 쿠폰을 제공하세요!');
             });
         }
     };
@@ -103,7 +103,7 @@
     <!-- Content -->
 
     <div class="container-xxl flex-grow-1 container-p-y">
-        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Member Relationship Management /</span> 회원 CRM
+        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Member Relationship Management /</span> 시니어 회원 CRM
         </h4>
 
         <div class="row">
@@ -205,11 +205,15 @@
                                     />
                                 </div>
                                 <div class="mb-3 col-md-6">
-                                    <label for="valid" class="form-label">Valid</label>
-                                    <select id="valid" name="valid" class="select2 form-select">
-                                        <option value="1" ${memberinfo.valid == '1' ? 'selected' : ''}>정상</option>
-                                        <option value="0" ${memberinfo.valid == '0' ? 'selected' : ''}>정지</option>
-                                    </select>
+                                    <label for="valid1" class="form-label">Valid</label><br/>
+                                    <div class="form-check form-check-inline mt-3">
+                                        <input class="form-check-input" type="radio" name="valid" id="valid1" value="1" ${memberinfo.valid == '1' ? 'checked' : ''}>
+                                        <label class="form-check-label" for="valid1">정상</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="valid" id="valid0" value="0" ${memberinfo.valid == '0' ? 'checked' : ''}>
+                                        <label class="form-check-label" for="valid0">정지</label>
+                                    </div>
                                 </div>
                             </div>
                             <div class="mt-2">
@@ -224,7 +228,7 @@
                     </form>
                     <div class="col-md-12">
                         <div class="card mb-4">
-                            <h5 class="card-header">회원 이력 관리</h5>
+                            <h5 class="card-header">시니어 회원 이력 관리</h5>
                             <div class="card-body demo-vertical-spacing demo-only-element">
                                 <div class="card mb-12">
                                     <div class="row g-0">
@@ -285,8 +289,8 @@
                         <div class="card-body">
                             <div class="mb-3 col-12 mb-0">
                                 <div class="alert alert-warning">
-                                    <h6 class="alert-heading fw-bold mb-1">해당 회원계정을 삭제하시겠습니까?</h6>
-                                    <p class="mb-0" style="font-size: 10px">회원계정을 삭제 시 복구가 불가능합니다. 주의해주십시오.</p>
+                                    <h6 class="alert-heading fw-bold mb-1">해당 시니어 회원계정을 삭제하시겠습니까?</h6>
+                                    <p class="mb-0" style="font-size: 10px">시니어 회원계정을 삭제 시 복구가 불가능합니다. 주의해주십시오.</p>
                                 </div>
                             </div>
                             <div class="form-check mb-3">

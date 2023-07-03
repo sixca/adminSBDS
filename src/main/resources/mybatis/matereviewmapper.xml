@@ -38,10 +38,12 @@
                 M.NAME LIKE '%'||#{mateName}||'%'
             </if>
         </where>
+        ORDER BY RDATE DESC
     </select>
     <select id="getByMateId" resultType="MateReview">
         SELECT * FROM mate_review
         WHERE mate_id=#{mateId}
+        ORDER BY RDATE DESC
     </select>
     <select id="select" parameterType="Integer" resultType="MateReview">
         SELECT MR.ID, M.NAME AS MATE_NAME, MB.NAME AS MEMBER_NAME, MR.CONTENT, MR.RATE, MR.RDATE
@@ -49,12 +51,14 @@
         JOIN MATE M ON MR.MATE_ID = M.ID
         JOIN MEMBER MB ON MR.MEMBER_ID = MB.ID
         WHERE MR.ID = #{id}
+        ORDER BY MR.RDATE DESC
     </select>
     <select id="selectall" resultType="MateReview">
         SELECT MR.ID AS ID, M.NAME AS MATE_NAME, MB.NAME AS MEMBER_NAME, MR.CONTENT AS CONTENT, MR.RATE AS RATE, MR.RDATE AS RDATE
              FROM MATE_REVIEW MR
              JOIN MATE M ON MR.MATE_ID = M.ID
              JOIN MEMBER MB ON MR.MEMBER_ID = MB.ID
+        ORDER BY MR.RDATE DESC
     </select>
     <delete id="delete" parameterType="Integer">
         DELETE FROM mate_review WHERE id=#{id}
@@ -65,6 +69,6 @@
         FROM MATE_REVIEW MR
                  JOIN MATE M ON MR.MATE_ID = M.ID
                  JOIN MEMBER MB ON MR.MEMBER_ID = MB.ID
-        ORDER BY id DESC
+        ORDER BY RDATE DESC
     </select>
 </mapper>

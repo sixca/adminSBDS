@@ -173,7 +173,7 @@ data-template="vertical-menu-template-free"
         <li class="menu-item">
             <a href="/member/findimpl?keyword1=email&keyword2=name&keyword3=birth&keyword4=birth&search1=&search2=&startDate=&endDate=" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-cool"></i>
-                <div data-i18n="Basic">회원 관리</div>
+                <div data-i18n="Basic">시니어 회원 관리</div>
             </a>
         </li>
         <li class="menu-item">

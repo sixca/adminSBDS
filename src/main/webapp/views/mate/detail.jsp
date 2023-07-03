@@ -108,7 +108,7 @@
                 success: function(result) {
                     let matchCnt = parseFloat(result) >= 1 ? result : 0; // result 값이 1 이상인 경우에만 result 사용, 그렇지 않으면 0으로 설정
                     console.log(matchCnt);
-                    let percentage = (matchCnt / 30) * 100; // 매칭 건수의 퍼센티지 계산
+                    let percentage = (matchCnt / 100) * 100; // 매칭 건수의 퍼센티지 계산
                     $('#getmcbm').text(matchCnt + '건'); // 매칭 건수 라벨 업데이트
                     $('#getmcbm-progress').css('width', percentage + '%'); // 매칭 건수 프로그레스바 스타일 업데이트
                     $('#getmcbm-progress').attr('aria-valuenow', percentage); // 매칭 건수 프로그레스바 속성 업데이트
@@ -139,7 +139,7 @@
                     let totalPrice = parseFloat(result) >= 1 ? result : 0; // result 값이 1 이상인 경우에만 result 사용, 그렇지 않으면 0으로 설정
                     console.log(totalPrice);
                     let formattedPrice = totalPrice.toLocaleString(); // 총 매출을 ###,###,###원 형식으로 변환
-                    let percentage = (totalPrice / 10000000) * 100; // 총 매출의 퍼센티지 계산 (기준금액: 1000만원)
+                    let percentage = (totalPrice / 50000000) * 100; // 총 매출의 퍼센티지 계산 (기준금액: 1000만원)
                     $('#gettpbm').text(formattedPrice + '원'); // 총 매출 라벨 업데이트
                     $('#gettpbm-progress').css('width', percentage + '%'); // 총 매출 프로그레스바 스타일 업데이트
                     $('#gettpbm-progress').attr('aria-valuenow', percentage); // 총 매출 프로그레스바 속성 업데이트
@@ -170,15 +170,15 @@
                 success: function(result) {
                     let avgRate = parseFloat(result) >= 1 ? result : 0; // result 값이 1 이상인 경우에만 result 사용, 그렇지 않으면 0으로 설정
                     console.log(avgRate);
-                    let percentage = (avgRate / 30) * 100; // 매칭 건수의 퍼센티지 계산
-                    $('#getarbm').text(avgRate + '건'); // 매칭 건수 라벨 업데이트
+                    let percentage = (avgRate / 5) * 100; // 매칭 건수의 퍼센티지 계산
+                    $('#getarbm').text(avgRate + '점'); // 매칭 건수 라벨 업데이트
                     $('#getarbm-progress').css('width', percentage + '%'); // 매칭 건수 프로그레스바 스타일 업데이트
                     $('#getarbm-progress').attr('aria-valuenow', percentage); // 매칭 건수 프로그레스바 속성 업데이트
                 },
                 error: function() {
                     let avgRate = 0; // result 값이 없을 때 0으로 설정
                     console.log(avgRate);
-                    let percentage = (avgRate / 5) * 100; // 매칭 건수의 퍼센티지 계산
+                    let percentage = (avgRate / 100) * 100; // 매칭 건수의 퍼센티지 계산
                     $('#getarbm').text(avgRate + '건'); // 매칭 건수 라벨 업데이트
                     $('#getarbm-progress').css('width', percentage + '%'); // 매칭 건수 프로그레스바 스타일 업데이트
                     $('#getarbm-progress').attr('aria-valuenow', percentage); // 매칭 건수 프로그레스바 속성 업데이트
@@ -200,7 +200,7 @@
                 success: function(result) {
                     let reviewCnt = parseFloat(result) >= 1 ? result : 0; // result 값이 1 이상인 경우에만 result 사용, 그렇지 않으면 0으로 설정
                     console.log(reviewCnt);
-                    let percentage = (reviewCnt / 5) * 100; // 매칭 건수의 퍼센티지 계산
+                    let percentage = (reviewCnt / 100) * 100; // 매칭 건수의 퍼센티지 계산
                     $('#getrcbm').text(reviewCnt + '건'); // 매칭 건수 라벨 업데이트
                     $('#getrcbm-progress').css('width', percentage + '%'); // 매칭 건수 프로그레스바 스타일 업데이트
                     $('#getrcbm-progress').attr('aria-valuenow', percentage); // 매칭 건수 프로그레스바 속성 업데이트
@@ -274,7 +274,7 @@
                                                 <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="10000000" id="gettpbm-progress"></div>
                                                 <span class="progress-label" id="gettpbm">원</span>
                                             </div>
-                                            <span class="progress-label" style="font-size: 9px; color: gray;">MAX 1,000만원</span>
+                                            <span class="progress-label" style="font-size: 9px; color: gray;">MAX 5,000만원</span>
                                         </div>
                                         <div class="progress-container">
                                             <span class="progress-label">매칭 건수</span>
@@ -415,8 +415,8 @@
                             <div class="card-body">
                                 <div class="mb-3 col-12 mb-0">
                                     <div class="alert alert-warning">
-                                        <h6 class="alert-heading fw-bold mb-1">해당 회원계정을 삭제하시겠습니까?</h6>
-                                        <p class="mb-0" style="font-size: 10px">회원계정을 삭제 시 복구가 불가능합니다. 주의해주십시오.</p>
+                                        <h6 class="alert-heading fw-bold mb-1">해당 메이트 계정을 삭제하시겠습니까?</h6>
+                                        <p class="mb-0" style="font-size: 10px">메이트 계정을 삭제 시 복구가 불가능합니다. 주의해주십시오.</p>
                                     </div>
                                 </div>
                                 <div class="form-check mb-3">
