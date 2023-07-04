@@ -45,6 +45,7 @@ public class AjaxController {
         return result;
     }
 
+    // DashBoard, Analysis 카드 데이터
     @RequestMapping("/getcnttomatched")
     public int getcnttomatched() throws Exception {
         return matchService.getCntToMatched();
@@ -57,7 +58,6 @@ public class AjaxController {
     public int gettotalprice() throws Exception {
         return matchService.getTotalPrice();
     }
-
     @RequestMapping("/getcancelledcnt")
     public int getcancelledcnt() throws Exception {
         return matchService.getCancelledCnt();
@@ -117,14 +117,15 @@ public class AjaxController {
 
             System.out.println(result.toJSONString());
 
-            return result; // 수정: 결과를 반환하도록 추가
+            return result; // 결과를 반환하도록 추가
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return null; // 수정: 예외 발생 시 null 반환
+        return null; // 예외 발생 시 null 반환
     }
 
+    // DashBoard 차트 
     @RequestMapping("/chart02")
     public Object chart02() {
         JSONArray male = new JSONArray();
@@ -162,11 +163,13 @@ public class AjaxController {
         return matchService.getTotalPriceByMate(id);
     }
 
+    // 메이트별 평균평점
     @GetMapping("getavgratebymate")
     public int getAvgRateByMate(@RequestParam("id") Integer id) throws Exception {
         return mateReviewService.getAvgRateByMate(id);
     }
 
+    // 메이트별 리뷰갯수
     @GetMapping("/getreviewcntbymate")
     public int getReviewCntByMate(@RequestParam("id") Integer id) throws Exception {
         return mateReviewService.getReviewCntByMate(id);

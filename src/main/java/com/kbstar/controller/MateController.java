@@ -4,7 +4,6 @@ import com.github.pagehelper.PageInfo;
 import com.kbstar.dto.Mate;
 import com.kbstar.dto.MateReview;
 import com.kbstar.dto.MateReviewRate;
-import com.kbstar.dto.Member;
 import com.kbstar.service.MatchService;
 import com.kbstar.service.MateReviewService;
 import com.kbstar.service.MateService;
@@ -136,6 +135,7 @@ public class MateController {
         return "redirect:/mate/all";
     }
 
+    // Mate all :: Pagination + Search
     @RequestMapping("/findimpl")
     public String findimpl(Model model, Mate mate, @RequestParam(required = false, defaultValue = "1") int pageNo) throws Exception {
         log.info("===============NAME!!!!!"+mate.getSearch1());

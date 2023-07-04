@@ -73,9 +73,9 @@
             couponBtn.addEventListener('click', function () {
                 // coupon/all 화면으로 이동할 URL 생성
                 var couponURL = "/coupon/all?id=" + detailId;
-                // 새 창 또는 현재 창에서 coupon/all 화면 열기
+                // 새 창에서 coupon/all 화면 열기
                 window.open(couponURL, "_blank", "width=500,height=800");
-                console.log(detailId);
+                // console.log(detailId);
             });
 
             // 버튼에 마우스를 올렸을 때 문구 표시

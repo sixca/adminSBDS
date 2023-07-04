@@ -34,30 +34,29 @@ public class MainController {
         model.addAttribute("adminserver", adminserver);
         return "index";
     }
+
+    // 마케팅 푸쉬 : FireBase
     @RequestMapping("/marketing")
     public String marketing(Model model){
         model.addAttribute("center","marketing");
         return "index";
     }
-
     @RequestMapping("/push")
     public String push(Model model){
         model.addAttribute("center","push/push");
         return "index";
     }
 
-
     @RequestMapping("/login")
     public String login(Model model, String redirectURL){
         model.addAttribute("redirectURL",redirectURL);
-//        model.addAttribute("center", "login");
         return "login";
     }
 
     @RequestMapping("/logout")
     public String logout(Model model, HttpSession session){
         if(session != null){             //로긴 상태면
-            session.invalidate();        //세션에서 정보를 없애라
+            session.invalidate();        //세션에서 정보를 없앤다
         }
         return "redirect:/";
 //        return "index";
@@ -83,7 +82,6 @@ public class MainController {
         } catch(Exception e){
             throw new Exception("ID, PW 확인하세요. 다시 로그인 하세요");
         }
-//        model.addAttribute("radm", adm);
         model.addAttribute("center", nextPage);
         return "index";
     }

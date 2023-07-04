@@ -16,6 +16,7 @@ public class ScheduleController {
     @Autowired
     private SimpMessageSendingOperations messagingTemplate;
 
+    // DashBoard 데이터 스케쥴 컨트롤러
     @Scheduled(cron = "*/5 * * * * *")
     public void cronJobDailyUpdate() {
         Random r = new Random();

@@ -41,6 +41,7 @@ public class MateReviewController {
         return "index";
     }
 
+    // Mate 후기 페이지네이션 독립 추가
     @RequestMapping("/allpage")
     public String allpage(@RequestParam(required = false, defaultValue = "1") int pageNo, Model model) throws Exception {
         PageInfo<MateReview> p;
@@ -74,6 +75,7 @@ public class MateReviewController {
         return "index";
     }
 
+    // Mate 리뷰에 댓글 등록
     @PostMapping("/matereviewcommentregister")
     public String matereviewcommentregister(Model model,
                                             HttpSession session,
@@ -110,6 +112,7 @@ public class MateReviewController {
         return "redirect:/matereview/allpage";
     }
 
+    // Mate 리뷰에 댓글 삭제
     @RequestMapping("/deletecommentimpl")
     public String deletecommentimpl(Model model, Integer id, HttpServletRequest request) throws Exception {
         mateReviewCommentService.remove(id);
@@ -125,6 +128,7 @@ public class MateReviewController {
         }
     }
 
+    // Mate all 에 독릭 서치 조건 추가
     @RequestMapping("/search")
     public String search(Model model, MateReview mr) throws Exception {
         List<MateReview> list = null;

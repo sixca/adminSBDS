@@ -55,24 +55,6 @@ public class ItemController {
         return "index";
     }
 
-//    @RequestMapping("/registerImpl")
-//    public String registerImpl(Model model, Item item) throws Exception {
-//        MultipartFile mf =  item.getImgName();
-//
-//        //파일에서 이미지를 끄집어 낸다.
-//        String imgname = mf.getOriginalFilename();
-//        item.setImg(imgname);
-//
-//        //db에 파일 저장
-//        service.register(item);
-//
-//        //이미지 저장 디렉토리에 이미지를 저장한다.
-//        //우리가 업로드한 파일이 원하는 폴더로 들어간다(static으로 호출해서 함수 사용)
-//        FileUploadUtil.saveFile(mf, uploadimgdir);
-//        log.info("item.getRegisterId={}", item.getRegisterId());
-//        return "redirect:/item/productall";
-//    }
-
     @RequestMapping("/register")
     public String register(Model model){
         model.addAttribute("center",dir + "registerItem");

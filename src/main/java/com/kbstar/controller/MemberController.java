@@ -35,7 +35,6 @@ public class MemberController {
     @Autowired
     MemberCRMCommentService memberCRMCommentService;
 
-
     String dir = "member/";
 
     @Value("${uploadimgdir}")
@@ -67,6 +66,7 @@ public class MemberController {
         return "index";
     }
 
+    // Member CRM 코멘트 등록
     @PostMapping("/membercrmcommentregister")
     public String membercrmcommentregister(Model model,
                                             HttpSession session,
@@ -104,6 +104,7 @@ public class MemberController {
         return "redirect:/member/detail?id=" + memberCRMComment.getMemberId();
     }
 
+    // Member CRM 코멘트 등록
     @RequestMapping("/updateimpl")
     public String updateimpl(Model model, @Validated Member member, Errors errors) throws Exception {
         if(errors.hasErrors()){
@@ -136,6 +137,7 @@ public class MemberController {
         return "redirect:/member/all";
     }
 
+    // Member all : Pagination & Search
     @RequestMapping("/findimpl")
     public String findimpl(Model model, Member member, @RequestParam(required = false, defaultValue = "1") int pageNo) throws Exception {
         log.info("===============EMAIL!!!!!"+member.getSearch1());
@@ -154,6 +156,7 @@ public class MemberController {
         return "index";
     }
 
+    //Member CRM Comment 삭제
     @RequestMapping("/deletecommentimpl")
     public String deletecommentimpl(Model model, Integer id, HttpServletRequest request) throws Exception {
         memberCRMCommentService.remove(id);
@@ -168,8 +171,6 @@ public class MemberController {
             return "redirect:" + referer;
         }
     }
-
-
 
     // member > valid 상태변경 기능 (활동 or 정지)
     @PostMapping("/updateStatus/{id}")

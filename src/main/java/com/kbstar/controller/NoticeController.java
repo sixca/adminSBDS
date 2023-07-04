@@ -2,8 +2,6 @@ package com.kbstar.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.kbstar.dto.Adm;
-import com.kbstar.dto.Item;
-import com.kbstar.dto.MateReview;
 import com.kbstar.dto.Notice;
 import com.kbstar.service.NoticeService;
 import com.kbstar.util.FileUploadUtil;
@@ -42,6 +40,7 @@ public class NoticeController {
         return "index";
     }
 
+    // 공지 리스트 Pagination
     @RequestMapping("/allpage")
     public String allpage(@RequestParam(required = false, defaultValue = "1") int pageNo, Model model) throws Exception {
         PageInfo<Notice> p;
@@ -57,7 +56,7 @@ public class NoticeController {
         return "index";
     }
 
-
+    // Notice Detail & update
     @RequestMapping("/{id}")
     public String detail(Model model, @PathVariable int id) throws Exception {
         Notice notice = service.get(id);
@@ -66,6 +65,7 @@ public class NoticeController {
         return "index";
     }
 
+    // Notice 신규등록
     @RequestMapping("/registerImpl")
     public String registerImpl(HttpSession session, Model model, Notice notice, @ModelAttribute("adm") Adm adm) throws Exception {
         MultipartFile mf = notice.getImgName();
@@ -111,16 +111,7 @@ public class NoticeController {
         return "redirect:/notice/allpage";
     }
 
-//    @RequestMapping("/search")
-//    public String search(Model model, Notice ns) throws Exception {
-//        List<Notice> list = null;
-//        list = service.search(ns);
-//        model.addAttribute("ns",ns);
-//        model.addAttribute("cpage",list);
-//        model.addAttribute("center",dir+"allpage");
-//        return "index";
-//    }
-
+    // 서치조건 독립 추가
     @RequestMapping("/search")
     public String search(Model model, Notice ns) {
         try {
@@ -132,10 +123,6 @@ public class NoticeController {
         } catch (Exception e) {
             // 예외 정보 출력
             e.printStackTrace();
-            // 또는 로깅을 통한 예외 정보 저장
-            // logger.error("검색 중 오류 발생: " + e.getMessage(), e);
-            // 예외 처리 후 필요한 작업 수행
-            // 예를 들어, 오류 페이지로 리다이렉트하거나 에러 메시지를 모델에 추가할 수 있습니다.
             return "error";
         }
     }

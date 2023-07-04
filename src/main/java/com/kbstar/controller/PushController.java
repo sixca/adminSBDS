@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class PushController {
     private final FCMNotificationService fcmNotificationService;
 
+    // 마케팅 Push
     @PostMapping("/notification")
     public String sendNotificationByToken(FCMNotificationRequestDto requestDto) {
         fcmNotificationService.sendNotificationByToken(requestDto);

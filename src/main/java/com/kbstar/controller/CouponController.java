@@ -25,19 +25,6 @@ public class CouponController {
 
     String dir = "coupon/";
 
-//    @RequestMapping("/all")
-//    public String all(Model model){
-//        List<Coupon> coupons = null;
-//        try {
-//            coupons = service.get();
-//        } catch (Exception e) {
-//            throw new RuntimeException(e);
-//        }
-//        model.addAttribute("coupons", coupons);
-//        model.addAttribute("center",dir + "all");
-//        return "index";
-//    }
-
     @RequestMapping("/all")
     public String all(Model model, @RequestParam(required = false) String id) {
         List<Coupon> coupons = null;
@@ -65,6 +52,7 @@ public class CouponController {
         return "redirect:/coupon/findimpl?keyword1=id&keyword2=num&keyword3=amount&search1=&search2=&search3=";
     }
 
+    // 쿠폰 조회 페이지네이션 & 중복 조건검색
     @RequestMapping("/findimpl")
     public String findimpl(Model model, Search search, @RequestParam(required = false, defaultValue = "1") int pageNo) throws Exception {
         log.info(search.getSearch1());

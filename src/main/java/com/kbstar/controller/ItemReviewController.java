@@ -30,7 +30,6 @@ public class ItemReviewController {
         return "index";
     }
 
-
     @RequestMapping("/deleteimpl")
     public String deleteimpl(Model model, Integer id) throws Exception {
         service.remove(id);

@@ -5,7 +5,6 @@ import com.kbstar.dto.Match;
 import com.kbstar.dto.Mate;
 import com.kbstar.service.MatchService;
 import com.kbstar.service.MateService;
-import com.kbstar.util.FileUploadUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -34,6 +32,7 @@ public class MatchController {
 
     String dir = "match/";
 
+    //매칭 상세분석
     @RequestMapping("/analysis")
     public String analysis(Model model) {
 
@@ -49,27 +48,7 @@ public class MatchController {
         return "index";
     }
 
-    @RequestMapping("/{id}")
-    public String detail(Model model, @PathVariable int id) throws Exception {
-        Match match = matchService.get(id);
-        model.addAttribute("match", match);
-        model.addAttribute("center", dir + "updateProduct");
-        return "index";
-    }
-
-    @RequestMapping("/updateImpl")
-    public String updateImpl(Model model, Match match) throws Exception {
-        matchService.modify(match);
-        return "redirect:/match/" + match.getId();
-    }
-
-    @RequestMapping("/deleteimpl")
-    public String deleteimpl(int id) throws Exception {
-        matchService.remove(id);
-        return "redirect:/match/productall";
-    }
-
-    //pagenation
+    //pagination+search
     @RequestMapping("/findimpl")
     public String findimpl(Model model, Match match, @RequestParam(required = false, defaultValue = "1") int pageNo) throws Exception {
         log.info("===============EMAIL!!!!!"+match.getSearch1());
@@ -88,6 +67,7 @@ public class MatchController {
         return "index";
     }
 
+    // status 변경 :: 버튼 클릭으로 id별 상태 변경 기능
     @PostMapping("/updateStatus/{id}")
     @ResponseBody
     public void updateStatus(@PathVariable("id") Integer id, @RequestParam("status") String status) {
